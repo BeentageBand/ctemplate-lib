@@ -25,7 +25,6 @@
 #undef CLASS_INHERITS
 #undef CLASS_MEMBERS
 #undef CLASS_METHODS
-/*FIXME rm this define */
 
 #define CLASS_NAME _template_1(Vector_Base)
 
