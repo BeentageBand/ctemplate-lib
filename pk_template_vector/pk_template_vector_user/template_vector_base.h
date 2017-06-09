@@ -26,7 +26,6 @@
 #undef CLASS_MEMBERS
 #undef CLASS_METHODS
 /*FIXME rm this define */
-#define _template_t1 Int
 
 #define CLASS_NAME _template_1(Vector_Base)
 
@@ -38,7 +37,7 @@ _member(struct _template_1(Vector_Impl)  _private, vector_impl)
 #define CLASS_METHODS(_method, _void_method) \
 void _method(ctor_size, size_t const) \
 _template_t(1) * _method(allocate, size_t const) \
-void _void_method(deallocate, _template_t(1) *, size_t const) \
+void _method(deallocate, _template_t(1) *, size_t const) \
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,8 +45,6 @@ extern "C" {
 /*=====================================================================================* 
  * Exported Type Declarations
  *=====================================================================================*/
-typedef int Int_T;
-
 struct _template_1(Vector_Impl)
 {
 	_template_t(1) * _private start;

@@ -34,10 +34,10 @@
 
 #define CLASS_METHODS(_method, _void_method) \
 void _method(ctor_size, size_t const, _template_t(1) const *) \
-void _method(ctor_vector, _template_1(Vector) * const) \
+void _method(ctor_vector, _template_obj * const) \
 size_t _void_method(size) \
 size_t _void_method(max_size) \
-void _void_method(resize, size_t const, _template_t(1) const *) \
+void _method(resize, size_t const, _template_t(1) const *) \
 size_t _void_method(capacity) \
 bool_t _void_method(empty) \
 void _method(reserve, size_t const) \
@@ -48,7 +48,7 @@ _template_t(1) const * _void_method(data) \
 void _method(push_back, _template_t(1) const *) \
 void _void_method(pop_back) \
 void _void_method(clear) \
-void _method(swap, _template_1(Vector) * const) \
+void _method(swap, _template_obj * const) \
 
 #ifdef __cplusplus
 extern "C" {
