@@ -70,7 +70,7 @@ CLASS_DEFINITION
 void _template_method(init)(void)
 {
    printf("%s \n", __FUNCTION__);
-   _concat(CLASS_NAME,_Obj).CLASS_INHERITS = _template_1(Vector_Base)();
+   _concat(CLASS_NAME,_Obj).CLASS_INHERITS = CLASS_INHERITS();
    _concat(CLASS_NAME,_Vtbl)._template_1(Vector_Base).Object.rtti = &_concat(CLASS_NAME,_Rtti);
    _concat(CLASS_NAME,_Vtbl)._template_1(Vector_Base).Object.destroy = _template_method(Dtor);
    _concat(CLASS_NAME,_Vtbl).ctor_size = _template_method(ctor_size);

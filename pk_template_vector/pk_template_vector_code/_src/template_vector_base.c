@@ -1,6 +1,6 @@
 /*=====================================================================================*/
 /**
- * template_vector.cpp
+ * template_vector_base.c
  * author : puch
  * date : Oct 22 2015
  *
@@ -41,6 +41,9 @@ static void _template_method(create_storage)(_template_obj * const this, size_t 
 static struct _template_1(Vector_Impl) _template_1(Vector_Impl)(void);
 static void _concat(_template_1(Vector_Impl),_Dtor)(struct _template_1(Vector_Impl) * const this);
 static void _concat(_template_1(Vector_Impl),_swap)(struct _template_1(Vector_Impl) * const this, struct _template_1(Vector_Impl) * const swap);
+
+/* Private */
+static void Swap(_template_t(1) ** a, _template_t(1) ** b);
 /*=====================================================================================* 
  * Local Object Definitions
  *=====================================================================================*/
@@ -73,7 +76,7 @@ void _template_method(Dtor)(Object_T * const obj)
 {
 	_template_obj * this = _dynamic_cast(CLASS_NAME, obj);
 	if(NULL==this) return;
-	this->vtbl->deallocate(this->vector_impl.start,
+	this->vtbl->deallocate(this, this->vector_impl.start,
 			this->vector_impl.end_of_storage - this->vector_impl.start);
 }
 
@@ -103,17 +106,16 @@ void _concat(_template_1(Vector_Impl),_Dtor)(struct _template_1(Vector_Impl) * c
 
 void _concat(_template_1(Vector_Impl),_swap)(struct _template_1(Vector_Impl) * const this, struct _template_1(Vector_Impl) * const swap)
 {
-	this->start += swap->start;
-	this->finish += swap->finish;
-	this->end_of_storage += swap->end_of_storage;
+   Swap(&this->start, &swap->start);
+	Swap(&this->finish, &swap->finish);
+	Swap(&this->end_of_storage, &swap->end_of_storage);
+}
 
-	swap->start = this->start - swap->start;
-	swap->finish = this->finish - swap->finish;
-	swap->end_of_storage = this->end_of_storage - swap->end_of_storage;
-
-	this->start -= swap->start;
-	this->finish -= swap->finish;
-	this->end_of_storage -= swap->end_of_storage;
+void Swap(_template_t(1) ** a, _template_t(1) ** b)
+{
+   _template_t(1) * aux = *a;
+   *a = *b;
+   *b = aux;
 }
 /*=====================================================================================*
  * Exported Function Definitions
@@ -140,7 +142,7 @@ void _template_method(deallocate)(_template_obj * const this, _template_t(1) * c
 	}
 }
 /*=====================================================================================* 
- * template_vector.cpp
+ * template_vector_base.c
  *=====================================================================================*
  * Log History
  *
