@@ -122,7 +122,7 @@ void Swap(_template_t(1) ** a, _template_t(1) ** b)
  *=====================================================================================*/
 void _template_method(ctor_size)(_template_obj * const this, size_t const size)
 {
-	_template_method(create_storage)(&this, size);
+	_template_method(create_storage)(this, size);
 }
 
 _template_t(1) * _template_method(allocate)(_template_obj * const this, size_t const size)
