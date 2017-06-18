@@ -40,10 +40,6 @@ static void _template_method(create_storage)(_template_obj * const this, size_t 
 /* Vector Impl */
 static struct _template_1(Vector_Impl) _template_1(Vector_Impl)(void);
 static void _concat(_template_1(Vector_Impl),_Dtor)(struct _template_1(Vector_Impl) * const this);
-static void _concat(_template_1(Vector_Impl),_swap)(struct _template_1(Vector_Impl) * const this, struct _template_1(Vector_Impl) * const swap);
-
-/* Private */
-static void Swap(_template_t(1) ** a, _template_t(1) ** b);
 /*=====================================================================================* 
  * Local Object Definitions
  *=====================================================================================*/
@@ -102,20 +98,6 @@ void _concat(_template_1(Vector_Impl),_Dtor)(struct _template_1(Vector_Impl) * c
 	this->start = NULL;
 	this->finish = NULL;
 	this->end_of_storage = NULL;
-}
-
-void _concat(_template_1(Vector_Impl),_swap)(struct _template_1(Vector_Impl) * const this, struct _template_1(Vector_Impl) * const swap)
-{
-   Swap(&this->start, &swap->start);
-	Swap(&this->finish, &swap->finish);
-	Swap(&this->end_of_storage, &swap->end_of_storage);
-}
-
-void Swap(_template_t(1) ** a, _template_t(1) ** b)
-{
-   _template_t(1) * aux = *a;
-   *a = *b;
-   *b = aux;
 }
 /*=====================================================================================*
  * Exported Function Definitions
