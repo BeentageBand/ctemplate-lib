@@ -9,10 +9,6 @@
 # LOCAL RULES EXPANSIONS
 #=======================================================================================#
 include $($(_flavor_)_$(_feat_)_dir)/template_algorithm/template_algorithm_make.mk
-include $($(_flavor_)_$(_feat_)_dir)/template_iterator/template_iterator_make.mk
-include $($(_flavor_)_$(_feat_)_dir)/template_map/template_map_make.mk
-include $($(_flavor_)_$(_feat_)_dir)/template_queue/template_queue_make.mk
-include $($(_flavor_)_$(_feat_)_dir)/template_set/template_set_make.mk
 include $($(_flavor_)_$(_feat_)_dir)/template_vector/template_vector_make.mk
 #=======================================================================================#
 # INCLUDE PK PROJECT UTILITY
