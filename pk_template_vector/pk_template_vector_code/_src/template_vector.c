@@ -34,7 +34,7 @@
  *=====================================================================================*/
 /*class methods*/
 static void _template_method(ctor_size)( _template_obj * const this, size_t const size, _template_t(1) const * val);
-static void _template_method(ctor_vector)( _template_obj * const this, _template_obj* const vector) ;
+static void _template_method(ctor_vector)( _template_obj * const this, _template_obj * const vector) ;
 static size_t _template_method(size)( _template_obj * const this) ;
 static size_t _template_method(max_size)( _template_obj * const this) ;
 static void _template_method(resize)( _template_obj * const this, size_t const size, _template_t(1) const * val) ;
@@ -48,7 +48,7 @@ static _template_t(1) const * _template_method(data)( _template_obj * const this
 static void _template_method(push_back)( _template_obj * const this, _template_t(1) const * val) ;
 static void _template_method(pop_back)( _template_obj * const this) ;
 static void _template_method(clear)( _template_obj * const this) ;
-static void _template_method(swap)( _template_obj * const this, _template_obj* const vector) ;
+static void _template_method(swap)( _template_obj * const this, _template_obj * const vector) ;
 
 /* class private method */
 static void _template_method(fill)(_template_obj * const this, _template_t(1) const * val);
@@ -70,7 +70,7 @@ CLASS_DEFINITION
 void _template_method(init)(void)
 {
    printf("%s \n", __FUNCTION__);
-   _concat(CLASS_NAME,_Obj).CLASS_INHERITS = _template_1(Vector_Base)();
+   _concat(CLASS_NAME,_Obj).CLASS_INHERITS = CLASS_INHERITS();
    _concat(CLASS_NAME,_Vtbl)._template_1(Vector_Base).Object.rtti = &_concat(CLASS_NAME,_Rtti);
    _concat(CLASS_NAME,_Vtbl)._template_1(Vector_Base).Object.destroy = _template_method(Dtor);
    _concat(CLASS_NAME,_Vtbl).ctor_size = _template_method(ctor_size);
@@ -119,41 +119,49 @@ void _template_method(ctor_size)( _template_obj * const this, size_t const size,
 	_template_method(fill)(this, val);
 }
 void _template_method(ctor_vector)( _template_obj * const this, _template_obj * const vector)
-{
-	this->vtbl->CLASS_INHERITS.ctor_size(&this->CLASS_INHERITS, vector->vtbl->size(vector) );
-	memcpy(this->CLASS_INHERITS.vector_impl.start, vector->CLASS_INHERITS.vector_impl.start, vector->vtbl->size(vector));
-
-}
+{ /*TODO*/}
 
 size_t _template_method(size)( _template_obj * const this)
-{
-	return (size_t) this->CLASS_INHERITS.vector_impl.start - (size_t) this->CLASS_INHERITS.vector_impl.finish;
-}
+{ /*TODO*/ return 0;}
 
 size_t _template_method(max_size)( _template_obj * const this)
-{
-	return (size_t) this->CLASS_INHERITS.vector_impl.start - (size_t) this->CLASS_INHERITS.vector_impl.end_of_storage;
-}
+{ /*TODO*/ return 0;}
 
 void _template_method(resize)( _template_obj * const this, size_t const size, _template_t(1) const * val)
-{
+{ /*TODO*/}
 
-}
 size_t _template_method(capacity)( _template_obj * const this)
-{
-	return (size_t) this->CLASS_INHERITS.vector_impl.start - (size_t) this->CLASS_INHERITS.vector_impl.end_of_storage;
-}
+{ /*TODO*/ return 0;}
 
-bool_t _template_method(empty)( _template_obj * const this) ;
-void _template_method(reserve)( _template_obj * const this, size_t const size) ;
-_template_t(1) _template_method(at)( _template_obj * const this, uint32_t i) ;
-_template_t(1) _template_method(back)( _template_obj * const this) ;
-_template_t(1) _template_method(front)( _template_obj * const this) ;
-_template_t(1) const * _template_method(data)( _template_obj * const this) ;
-void _template_method(push_back)( _template_obj * const this, _template_t(1) const * val) ;
-void _template_method(pop_back)( _template_obj * const this) ;
-void _template_method(clear)( _template_obj * const this) ;
-void _template_method(swap)( _template_obj * const this, _template_obj* const vector) ;
+bool_t _template_method(empty)( _template_obj * const this)
+{ /*TODO*/ return false;}
+
+void _template_method(reserve)( _template_obj * const this, size_t const size)
+{ /*TODO*/}
+
+_template_t(1) _template_method(at)( _template_obj * const this, uint32_t i)
+      { /*TODO*/ return this->CLASS_INHERITS.vector_impl.start[i];}
+
+_template_t(1) _template_method(back)( _template_obj * const this)
+      { /*TODO*/ return *this->CLASS_INHERITS.vector_impl.finish;}
+
+_template_t(1) _template_method(front)( _template_obj * const this)
+{ /*TODO*/ return *this->CLASS_INHERITS.vector_impl.start;}
+
+_template_t(1) const * _template_method(data)( _template_obj * const this)
+      { /*TODO*/ return 0;}
+
+void _template_method(push_back)( _template_obj * const this, _template_t(1) const * val)
+      { /*TODO*/}
+
+void _template_method(pop_back)( _template_obj * const this)
+      { /*TODO*/}
+
+void _template_method(clear)( _template_obj * const this)
+      { /*TODO*/}
+
+void _template_method(swap)( _template_obj * const this, _template_obj * const vector)
+      { /*TODO*/}
 /*=====================================================================================* 
  * template_vector.cpp
  *=====================================================================================*
