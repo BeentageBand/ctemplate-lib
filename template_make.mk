@@ -6,91 +6,18 @@
 #=======================================================================================#
 
 #=======================================================================================#
-# DEFINE PACKAGE RULE
-#=======================================================================================#
-define $(_flavor_)_$(_feat_)_MAKE
-#=======================================================================================#
-# OBJECTS DIRECTORY
-# e.g: 
-#     $(_flavor_)_$(_feat_)_src_dir=pk_module_N_code/_src
-#     or
-#     $(_flavor_)_$(_feat_)_src_dir=_src
-#=======================================================================================#
-$(_flavor_)_$(_feat_)_inc=
-
-#=======================================================================================#
-# LIB REQUISITES
-#=======================================================================================#
-
-##
- # Object Requisites
- # e.g: $(_flavor_)_$(_feat_)_lib_objs=$($(_flavor_)_OBJ_DIR)/my_lib_obj$(_obj_ext_) \
- ##
-$(_flavor_)_$(_feat_)_lib_objs=
-
-##
- # Library Requisites
- # e.g: $(_flavor_)_$(_feat_)_lib_libs=$($(_flavor_)_LIB_DIR)/$(_lprefix_)my_lib_lib$(_lib_ext_) \
- ##
-$(_flavor_)_$(_feat_)_lib_libs=\
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_iterator$(_lib_ext_) \
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_vector$(_lib_ext_) \
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_queue$(_lib_ext_) \
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_set$(_lib_ext_) \
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_map$(_lib_ext_) \
-$($(_flavor_)_LIB_DIR)/$(_lprefix_)template_algorithm$(_lib_ext_) \
-
-##
- # Target Library
- # e.g: $(_flavor_)_$(_feat_)_lib=my_lib
- ##
-$(_flavor_)_$(_feat_)_lib=template
-
-#=======================================================================================#
-# BIN REQUISITES
-#=======================================================================================#
-
-##
- # Object Requisites
- # e.g: $(_flavor_)_$(_feat_)_bin_objs=$($(_flavor_)_OBJ_DIR)/my_bin_obj$(_obj_ext_) \
- ##
-$(_flavor_)_$(_feat_)_bin_objs=
-
-##
- # Library Requisites
- # e.g: $(_flavor_)_$(_feat_)_bin_libs=$($(_flavor_)_LIB_DIR)/$(_lprefix_)my_bin_lib$(_lib_ext_) \
- ##
-$(_flavor_)_$(_feat_)_bin_libs=
-
-##
- # Target Binary
- # e.g: $(_flavor_)_$(_feat_)_bin=my_bin
- ##
-$(_flavor_)_$(_feat_)_bin=
-#=======================================================================================#
-# END PACKAGE RULE
-#=======================================================================================#
-endef
-#=======================================================================================#
-# LOCAL VARIABLES
-#=======================================================================================#
-
-#=======================================================================================#
-# LOCAL DEFINES 
-#=======================================================================================#
-
-#=======================================================================================#
-# LOCAL DEFINE EXPANSIONS
-#=======================================================================================#
-
-#=======================================================================================#
 # LOCAL RULES EXPANSIONS
 #=======================================================================================#
-
+include $($(_flavor_)_$(_feat_)_dir)/template_algorithm/template_algorithm_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_iterator/template_iterator_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_map/template_map_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_queue/template_queue_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_set/template_set_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_vector/template_vector_make.mk
 #=======================================================================================#
 # INCLUDE PK PROJECT UTILITY
 #=======================================================================================#
-include $($(_flavor_)_PROJECT_DIR)/$($(_flavor_)_MAK_DIR)/epilog.mk
+
 #=======================================================================================#
 # template_makefile.mk
 #=======================================================================================#
