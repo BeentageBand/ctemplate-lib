@@ -8,8 +8,7 @@
 #=======================================================================================#
 # LOCAL RULES EXPANSIONS
 #=======================================================================================#
-include $($(_flavor_)_$(_feat_)_dir)/template_algorithm/template_algorithm_make.mk
-include $($(_flavor_)_$(_feat_)_dir)/template_vector/template_vector_make.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_vector/template_vector.mk
 #=======================================================================================#
 # INCLUDE PK PROJECT UTILITY
 #=======================================================================================#
