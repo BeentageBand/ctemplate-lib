@@ -1,6 +1,6 @@
 /*=====================================================================================*/
 /**
- * cvector.c
+ * cqueue.c
  * author : puch
  * date : Oct 22 2015
  *
@@ -12,7 +12,7 @@
 /*=====================================================================================*
  * Project Includes
  *=====================================================================================*/
-#include "cvector.h"
+#include "cqueue.h"
 /*=====================================================================================* 
  * Standard Includes
  *=====================================================================================*/
@@ -39,7 +39,7 @@
 static void _template_method(ctor_size)(_template_obj * const this, uint32_t const size);
 static void _template_method(ctor_initial)(_template_obj * const this, uint32_t const size,
 		_template_t(1) const * initial);
-static void _template_method(ctor_vector)(_template_obj * const this, _template_obj const * v);
+static void _template_method(ctor_queue)(_template_obj * const this, _template_obj const * v);
 static void _template_method(Dtor)(Object_T * const obj);
 
 static uint32_t _template_method(capacity)(_template_obj * const this);
@@ -51,6 +51,8 @@ static _template_t(1) _template_method(front)(_template_obj * const this);
 static _template_t(1) _template_method(back)(_template_obj * const this);
 static void _template_method(push_back)(_template_obj * const this, _template_t(1) const * value);
 static void _template_method(pop_back)(_template_obj * const this);
+static void _template_method(push_front)(_template_obj * const this, _template_t(1) const * value);
+static void _template_method(pop_front)(_template_obj * const this);
 static void _template_method(reserve)(_template_obj * const this, uint32_t capacity);
 static void _template_method(resize)(_template_obj * const this, uint32_t size);
 static _template_t(1) _template_method(at)(_template_obj * const this, uint32_t index);
@@ -79,7 +81,7 @@ void _template_method(init)(void)
 	_concat(CLASS_NAME,_Vtbl).object.destroy = _template_method(Dtor);
 	_concat(CLASS_NAME,_Vtbl).ctor_size = _template_method(ctor_size);
 	_concat(CLASS_NAME,_Vtbl).ctor_initial = _template_method(ctor_initial);
-	_concat(CLASS_NAME,_Vtbl).ctor_vector = _template_method(ctor_vector);
+	_concat(CLASS_NAME,_Vtbl).ctor_queue = _template_method(ctor_queue);
 	_concat(CLASS_NAME,_Vtbl).capacity = _template_method(capacity);
 	_concat(CLASS_NAME,_Vtbl).size = _template_method(size);
 	_concat(CLASS_NAME,_Vtbl).empty = _template_method(empty);
@@ -89,6 +91,8 @@ void _template_method(init)(void)
 	_concat(CLASS_NAME,_Vtbl).back = _template_method(back);
 	_concat(CLASS_NAME,_Vtbl).push_back = _template_method(push_back);
 	_concat(CLASS_NAME,_Vtbl).pop_back = _template_method(pop_back);
+	_concat(CLASS_NAME,_Vtbl).push_front = _template_method(push_front);
+	_concat(CLASS_NAME,_Vtbl).pop_front = _template_method(pop_front);
 	_concat(CLASS_NAME,_Vtbl).reserve = _template_method(reserve);
 	_concat(CLASS_NAME,_Vtbl).resize = _template_method(resize);
 	_concat(CLASS_NAME,_Vtbl).at = _template_method(at);
@@ -107,7 +111,7 @@ void _template_method(shut)(void)
 
 
 
-void _template_method(ctor_vector)(_template_obj * const this, _template_obj const * v)
+void _template_method(ctor_queue)(_template_obj * const this, _template_obj const * v)
 {
     this->size = v->size;
     this->capacity = v->capacity;
@@ -139,7 +143,7 @@ void _template_method(ctor_initial)(_template_obj * const this, uint32_t const s
 _template_obj _template_method(cpy)(_template_obj * const this, _template_obj const * v)
 {
     free(this->buffer);
-    this->vtbl->ctor_vector(this, v);
+    this->vtbl->ctor_queue(this, v);
     return *this;
 }
 
@@ -179,6 +183,27 @@ void _template_method(pop_back)(_template_obj * const this)
 #ifdef IS_TEMPLATE_T_DESTROYABLE
 	this->buffer[this->size].object_vtbl->destroy(&this->buffer[this->size].object);
 #endif
+}
+
+void _template_method(push_front)(_template_obj * const this, _template_t(1) const * value)
+{
+    if (this->size >= this->capacity)
+    {
+        this->vtbl->reserve(this, this->capacity +5);
+    }
+
+    ++this->size;
+    memcpy(this->buffer, &this->buffer[1], sizeof(_template_t(1))* this->size);
+    memcpy(this->buffer, value, sizeof(_template_t(1)));
+}
+
+void _template_method(pop_front)(_template_obj * const this)
+{
+#ifdef IS_TEMPLATE_T_DESTROYABLE
+	this->buffer[0].object_vtbl->destroy(&this->buffer[0].object);
+#endif
+    this->size--;
+	memcpy(&this->buffer[1], this->buffer, sizeof(_template_t(1))* this->size);
 }
 
 void _template_method(reserve)(_template_obj * const this, uint32_t capacity)
@@ -239,7 +264,7 @@ void _template_method(clear)(_template_obj * const this)
     this->buffer = 0;
 }
 /*=====================================================================================* 
- * cvector.c
+ * cqueue.c
  *=====================================================================================*
  * Log History
  *
