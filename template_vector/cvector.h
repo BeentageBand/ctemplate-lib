@@ -13,8 +13,7 @@
 /*=====================================================================================*
  * Project Includes
  *=====================================================================================*/
-#include "template_vector_base.h"
-#include "template_vector.h"
+#include "object_template.h"
 /*=====================================================================================* 
  * Standard Includes
  *=====================================================================================*/
@@ -22,11 +21,46 @@
 /*=====================================================================================* 
  * Exported Define Macros
  *=====================================================================================*/
+#undef CLASS_NAME
+#undef CLASS_INHERITS
+#undef CLASS_MEMBERS
+#undef CLASS_METHODS
 
+#define CLASS_NAME _template_1(Vector)
+
+#define CLASS_INHERITS Object
+
+#define CLASS_MEMBERS(_member) \
+   _member(uint32_t _private, size) \
+   _member(uint32_t _private, capacity) \
+   _member(_template_t(1) _private *, buffer) \
+
+#define CLASS_METHODS(_method, _void_method) \
+   void _method(ctor_size, uint32_t const) \
+   void _method(ctor_initial, uint32_t const, _template_t(1) const *) \
+   void _method(ctor_vector, _template_obj const *) \
+   uint32_t _void_method(capacity) \
+   uint32_t _void_method(size) \
+   bool_t _void_method(empty) \
+   _template_t(1) * const _void_method(begin) \
+   _template_t(1) * const _void_method(end) \
+   _template_t(1) _void_method(front)\
+   _template_t(1) _void_method(back)\
+   void _method(push_back, _template_t(1) const *) \
+   void _void_method(pop_back) \
+   void _method(reserve, uint32_t const) \
+   void _method(resize, uint32_t const) \
+   _template_t(1) _method(at, uint32_t const) \
+   _template_obj _method(cpy, _template_obj const *) \
+   void _void_method(clear) \
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 /*=====================================================================================* 
  * Exported Type Declarations
  *=====================================================================================*/
-
+CLASS_DECLARATION
 /*=====================================================================================* 
  * Exported Object Declarations
  *=====================================================================================*/
@@ -39,6 +73,9 @@
  * Exported Function Like Macros
  *=====================================================================================*/
 
+#ifdef __cplusplus
+}
+#endif
 /*=====================================================================================* 
  * cvector.h
  *=====================================================================================*
