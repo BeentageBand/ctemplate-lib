@@ -50,6 +50,7 @@
    void _void_method(pop_back) \
    void _method(push_front, _template_t(1) const *) \
    void _void_method(pop_front) \
+   void _method(erase, _template_t(1) * const begin, _template_t(1) * const end) \
    void _method(reserve, uint32_t const) \
    void _method(resize, uint32_t const) \
    _template_t(1) _method(at, uint32_t const) \

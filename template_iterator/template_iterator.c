@@ -55,7 +55,6 @@ CLASS_DEFINITION
  *=====================================================================================*/
 void _template_method(init)(void)
 {
-   printf("%s \n", __FUNCTION__);
    _concat(CLASS_NAME,_Obj).current = NULL;
    _concat(CLASS_NAME,_Vtbl).Object.rtti = &_concat(CLASS_NAME,_Rtti);
    _concat(CLASS_NAME,_Vtbl).Object.destroy = _template_method(Dtor);

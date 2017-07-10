@@ -53,6 +53,8 @@ static void _template_method(push_back)(_template_obj * const this, _template_t(
 static void _template_method(pop_back)(_template_obj * const this);
 static void _template_method(push_front)(_template_obj * const this, _template_t(1) const * value);
 static void _template_method(pop_front)(_template_obj * const this);
+static void _template_method(erase)(_template_obj * const this,
+       _template_t(1) * const begin, _template_t(1) * const end);
 static void _template_method(reserve)(_template_obj * const this, uint32_t capacity);
 static void _template_method(resize)(_template_obj * const this, uint32_t size);
 static _template_t(1) _template_method(at)(_template_obj * const this, uint32_t index);
@@ -93,6 +95,7 @@ void _template_method(init)(void)
 	_concat(CLASS_NAME,_Vtbl).pop_back = _template_method(pop_back);
 	_concat(CLASS_NAME,_Vtbl).push_front = _template_method(push_front);
 	_concat(CLASS_NAME,_Vtbl).pop_front = _template_method(pop_front);
+   _concat(CLASS_NAME,_Vtbl).erase = _template_method(erase);
 	_concat(CLASS_NAME,_Vtbl).reserve = _template_method(reserve);
 	_concat(CLASS_NAME,_Vtbl).resize = _template_method(resize);
 	_concat(CLASS_NAME,_Vtbl).at = _template_method(at);
@@ -181,7 +184,7 @@ void _template_method(pop_back)(_template_obj * const this)
 {
     this->size--;
 #ifdef IS_TEMPLATE_T_DESTROYABLE
-	this->buffer[this->size].object_vtbl->destroy(&this->buffer[this->size].object);
+	_delete(&this->buffer[this->size])
 #endif
 }
 
@@ -200,12 +203,27 @@ void _template_method(push_front)(_template_obj * const this, _template_t(1) con
 void _template_method(pop_front)(_template_obj * const this)
 {
 #ifdef IS_TEMPLATE_T_DESTROYABLE
-	this->buffer[0].object_vtbl->destroy(&this->buffer[0].object);
+	_delete(this->buffer)
 #endif
     this->size--;
 	memcpy(&this->buffer[1], this->buffer, sizeof(_template_t(1))* this->size);
 }
 
+
+void _template_method(erase)(_template_obj * const this,
+      _template_t(1) * const begin, _template_t(1) * const end)
+{
+#ifdef IS_TEMPLATE_T_DESTROYABLE
+   for( _template_t(1) * it = begin; it != end; ++it)
+   {
+      _delete(it);
+   }
+#endif
+
+   this->size = end - this->vtbl->begin(this);
+   memcpy(begin, end, this->size);
+
+}
 void _template_method(reserve)(_template_obj * const this, uint32_t capacity)
 {
     if(NULL == this->buffer)
@@ -221,7 +239,12 @@ void _template_method(reserve)(_template_obj * const this, uint32_t capacity)
     	memcpy(&new_buff[i], &this->buffer[i], sizeof(this->buffer[0]));
 
     this->capacity = capacity;
-    free(this->buffer);
+
+    if(NULL != this->buffer)
+    {
+       free(this->buffer);
+    }
+
     this->buffer = new_buff;
 }
 

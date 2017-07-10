@@ -177,7 +177,7 @@ void _template_method(pop_back)(_template_obj * const this)
 {
     this->size--;
 #ifdef IS_TEMPLATE_T_DESTROYABLE
-	this->buffer[this->size].object_vtbl->destroy(&this->buffer[this->size].object);
+	_delete(&this->buffer[this->size]);
 #endif
 }
 
