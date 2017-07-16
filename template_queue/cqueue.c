@@ -110,10 +110,6 @@ void _template_method(shut)(void)
 /*=====================================================================================*
  * Exported Function Definitions
  *=====================================================================================*/
-
-
-
-
 void _template_method(ctor_queue)(_template_obj * const this, _template_obj const * v)
 {
     this->size = v->size;
