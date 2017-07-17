@@ -11,6 +11,7 @@
 include $($(_flavor_)_$(_feat_)_dir)/template_vector/template_vector.mk
 include $($(_flavor_)_$(_feat_)_dir)/template_queue/template_queue.mk
 include $($(_flavor_)_$(_feat_)_dir)/template_set/template_set.mk
+include $($(_flavor_)_$(_feat_)_dir)/template_map/template_map.mk
 #=======================================================================================#
 # INCLUDE PK PROJECT UTILITY
 #=======================================================================================#
