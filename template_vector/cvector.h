@@ -25,6 +25,7 @@
 #undef CLASS_INHERITS
 #undef CLASS_MEMBERS
 #undef CLASS_METHODS
+#undef CLASS_CONSTRUCTORS
 
 #define CLASS_NAME _template_1(Vector)
 
@@ -54,6 +55,7 @@
    _template_obj _method(cpy, _template_obj const *) \
    void _void_method(clear) \
 
+#define CLASS_CONSTRUCTORS(_ctor)
 #ifdef __cplusplus
 extern "C" {
 #endif

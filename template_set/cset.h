@@ -25,6 +25,7 @@
 #undef CLASS_INHERITS
 #undef CLASS_MEMBERS
 #undef CLASS_METHODS
+#undef CLASS_CONSTRUCTORS
 
 #define CLASS_NAME _template_1(Set)
 
@@ -58,6 +59,8 @@
    uint32_t _method(count, _template_t(1) const *) \
    _template_t(1) _method(at, uint32_t const) \
    _template_obj _method(cpy, _template_obj const *) \
+
+#define CLASS_CONSTRUCTORS(_ctor)
 
 #ifdef __cplusplus
 extern "C" {

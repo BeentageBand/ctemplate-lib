@@ -25,6 +25,7 @@
 #undef CLASS_INHERITS
 #undef CLASS_MEMBERS
 #undef CLASS_METHODS
+#undef CLASS_CONSTRUCTORS
 
 typedef int Int_T;
 typedef int * Array_T;
@@ -40,11 +41,13 @@ typedef int * Array_T;
 _member(_template_t(1) * _private, current) \
 
 #define CLASS_METHODS(_method, _void_method) \
-void _method(ctor_iterator, _template_obj * const) \
-_template_t(1) * _void_method(access) \
-_template_obj * _void_method(iterate) \
-_template_obj *  _method(at, uint32_t) \
-_template_t(1) * _void_method(base) \
+_method(void, ctor_iterator, _template_obj * const) \
+_void_method(_template_t(1) *, access) \
+_void_method(_template_obj *, iterate) \
+_method(_template_obj *, at, uint32_t) \
+_void_method(_template_t(1) *, base) \
+
+#define CLASS_CONSTRUCTORS(_ctor)
 
 #ifdef __cplusplus
 extern "C" {
