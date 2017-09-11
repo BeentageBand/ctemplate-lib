@@ -8,12 +8,12 @@
  *
  */
 /*=====================================================================================*/
-#if !defined(CQUEUE_H_) || defined(OBJECT_TEMPLATE)
+#ifndef CQUEUE_H_
 #define CQUEUE_H_
 /*=====================================================================================*
  * Project Includes
  *=====================================================================================*/
-#include "object_template.h"
+#include "template.h"
 /*=====================================================================================* 
  * Standard Includes
  *=====================================================================================*/
@@ -21,44 +21,36 @@
 /*=====================================================================================* 
  * Exported Define Macros
  *=====================================================================================*/
-#undef CLASS_NAME
-#undef CLASS_INHERITS
-#undef CLASS_MEMBERS
-#undef CLASS_METHODS
-#undef CLASS_CONSTRUCTORS
+#define Queue_INHERITS BASE_CLASS
 
-#define CLASS_NAME _template_1(Queue)
-
-#define CLASS_INHERITS Object
-
-#define CLASS_MEMBERS(_member) \
+#define Queue_MEMBERS(_member, _class, t1) \
    _member(uint32_t _private, size) \
    _member(uint32_t _private, capacity) \
-   _member(_template_t(1) _private *, buffer) \
+   _member(CAT(t1, _T) _private *, buffer) \
 
-#define CLASS_METHODS(_method, _void_method) \
-   void _method(ctor_size, uint32_t const) \
-   void _method(ctor_initial, uint32_t const, _template_t(1) const *) \
-   void _method(ctor_queue, _template_obj const *) \
-   uint32_t _void_method(capacity) \
-   uint32_t _void_method(size) \
-   bool_t _void_method(empty) \
-   _void_method(_template_t(1) * const, begin) \
-   _void_method(_template_t(1) * const, end) \
-   _template_t(1) _void_method(front)\
-   _template_t(1) _void_method(back)\
-   void _method(push_back, _template_t(1) const *) \
-   void _void_method(pop_back) \
-   void _method(push_front, _template_t(1) const *) \
-   void _void_method(pop_front) \
-   _method(void, erase, _template_t(1) * const begin, _template_t(1) * const end) \
-   _method(void, reserve, uint32_t const) \
-   _method(void, resize, uint32_t const) \
-   _template_t(1) _method(at, uint32_t const) \
-   _template_obj _method(cpy, _template_obj const *) \
-   void _void_method(clear) \
+#define Queue_METHODS(_method, _class, t1) \
+_method(void, t_Queue(t1), Size, uint32_t const) \
+_method(void , t_Queue(t1), Initial, uint32_t const, CAT(t1, _T) const *) \
+_method(void , t_Queue(t1), Queue, union t_Queue(t1) const *) \
+_method(uint32_t, t_Queue(t1), capacity, void) \
+_method(uint32_t , t_Queue(t1), size, void) \
+_method(bool_t _, t_Queue(t1), empty, void) \
+_method(CAT(t1, _T) * const, t_Queue(t1), begin, void) \
+_method(CAT(t1, _T) * const, t_Queue(t1), end, void) \
+_method(CAT(t1, _T), t_Queue(t1), front, void)\
+_method(CAT(t1, _T), t_Queue(t1), back, void)\
+_method(void, t_Queue(t1), push_back, CAT(t1, _T) const *) \
+_method(void, t_Queue(t1), pop_back, void) \
+_method(void, t_Queue(t1),  push_front, CAT(t1, _T)(1) const *) \
+_method(void, t_Queue(t1),  pop_front, void) \
+_method(void, t_Queue(t1), erase, CAT(t1, _T) * const begin, CAT(_t1, _T) * const end) \
+_method(void, t_Queue(t1), reserve, uint32_t const) \
+_method(void, t_Queue(t1), resize, uint32_t const) \
+_method(CAT(t1, _T), t_Queue(t1),  at, uint32_t const) \
+_method(union t_Queue(t1),  cpy, union t_Queue(t1) const *) \
+_method(void, t_Queue(t1), clear, void) \
 
-#define CLASS_CONSTRUCTORS(_ctor)
+#define Queue_CONSTRUCTORS(_ctor)
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,7 +58,7 @@ extern "C" {
 /*=====================================================================================* 
  * Exported Type Declarations
  *=====================================================================================*/
-CLASS_DECLARATION
+
 /*=====================================================================================* 
  * Exported Object Declarations
  *=====================================================================================*/

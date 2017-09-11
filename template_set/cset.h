@@ -8,12 +8,12 @@
  *
  */
 /*=====================================================================================*/
-#if !defined(CSET_H_) || defined(OBJECT_TEMPLATE)
+#ifndef CSET_H_
 #define CSET_H_
 /*=====================================================================================*
  * Project Includes
  *=====================================================================================*/
-#include "object_template.h"
+#include "template.h"
 /*=====================================================================================* 
  * Standard Includes
  *=====================================================================================*/
@@ -21,46 +21,38 @@
 /*=====================================================================================* 
  * Exported Define Macros
  *=====================================================================================*/
-#undef CLASS_NAME
-#undef CLASS_INHERITS
-#undef CLASS_MEMBERS
-#undef CLASS_METHODS
-#undef CLASS_CONSTRUCTORS
+#define Set_INHERITS Object
 
-#define CLASS_NAME _template_1(Set)
-
-#define CLASS_INHERITS Object
-
-#define CLASS_MEMBERS(_member) \
+#define Set_MEMBERS(_member, _class, t1) \
    _member(uint32_t _private, size) \
    _member(uint32_t _private, capacity) \
-   _member(_template_t(1) _private *, buffer) \
+   _member(t1 _private *, buffer) \
    _member(_concat(CLASS_NAME,_Cmp_T) _private, cmp) \
 
-#define CLASS_METHODS(_method, _void_method) \
+#define Set_METHODS(_method, _class, t1) \
    /* Contructors */\
-   void _method(ctor_cmp, _concat(CLASS_NAME,_Cmp_T) const) \
-   void _method(ctor_set, _template_obj const *) \
    /* Iterators */\
-   _template_t(1) * const _void_method(begin) \
-   _template_t(1) * const _void_method(end) \
+   _method(t1 * const, _class, begin, void) \
+   _method(t1 * const, _class, end, void) \
    /* Capacity */\
-   uint32_t _void_method(capacity) \
-   uint32_t _void_method(size) \
-   bool_t _void_method(empty) \
-   void _method(reserve, uint32_t const) \
-   void _method(resize, uint32_t const) \
+   _method(uint32_t, _class, capacity, void) \
+   _method(uint32_t, _class, size, void) \
+   _method(bool_t, _class, empty, void) \
+   _method(void, _class, reserve, uint32_t const) \
+   _method(void, _class, resize, uint32_t const) \
    /* Modifiers */\
-   void _void_method(clear) \
-   void _method(insert, _template_t(1) const *) \
-   void _method(erase, _template_t(1) * const begin, _template_t(1) * const end) \
+   _method(void, _class, clear, void) \
+   _method(void, _class, insert, t1 const *) \
+   _method(void, _class, erase, t1 * const begin, t1 * const end) \
    /* Lookup */\
-   _template_t(1) * const _method(find, _template_t(1) const *) \
-   uint32_t _method(count, _template_t(1) const *) \
-   _template_t(1) _method(at, uint32_t const) \
-   _template_obj _method(cpy, _template_obj const *) \
+   _method(t1 * const, _class, find, t1 const *) \
+   _method(uint32_t, _class, count, t1 const *) \
+   _method(t1, _class, at, uint32_t const) \
 
-#define CLASS_CONSTRUCTORS(_ctor)
+#define Set_CONSTRUCTORS(_ctor, _class, t1) \
+   _ctor(t_Set(t1), Cmp, Member_Name(t_Set(tq), Cmp_T) const) \
+   _ctor(t_Set(t1), Set, union t_Set(t1) const *) \
+typedef  int (*Member_Name(t_Set(t1), Cmp_T))(void const *, void const *);
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,8 +60,7 @@ extern "C" {
 /*=====================================================================================* 
  * Exported Type Declarations
  *=====================================================================================*/
-typedef  int (*_concat(CLASS_NAME,_Cmp_T))(void const *, void const *);
-CLASS_DECLARATION
+
 /*=====================================================================================* 
  * Exported Object Declarations
  *=====================================================================================*/
