@@ -21,6 +21,7 @@
 /*=====================================================================================* 
  * Exported Define Macros
  *=====================================================================================*/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -35,11 +36,7 @@ extern "C" {
 /*=====================================================================================* 
  * Exported Function Prototypes
  *=====================================================================================*/
-extern Iterator_T Alg_Find_If(Iterator_T * const begin, Iterator_T * const end,
-		bool_t(*pred)(Iterator_T const * const, Iterator_T const * const));
-extern Iterator_T Alg_Remove_If(Iterator_T * const begin, Iterator_T * const end, );
 
-extern Iterator_T Alg_Remove(Iterator_T * const begin, Iterator_T * const end, Iterator_T * const i);
 /*=====================================================================================* 
  * Exported Function Like Macros
  *=====================================================================================*/
