@@ -8,12 +8,12 @@
  *
  */
 /*=====================================================================================*/
-#ifndef CVECTOR_H_
+#if !defined(CVECTOR_H_) || defined(CVector_Params)
 #define CVECTOR_H_
 /*=====================================================================================*
  * Project Includes
  *=====================================================================================*/
-#include "template.h"
+#include "ctemplate.h"
 /*=====================================================================================* 
  * Standard Includes
  *=====================================================================================*/
@@ -21,7 +21,34 @@
 /*=====================================================================================* 
  * Exported Define Macros
  *=====================================================================================*/
-#define Vector_INHERITS BASE_CLASS
+#ifndef CVector_Params
+#error "CVector_Params is not defined"
+#endif
+
+#define CVector_T TEMPLATE(CVector_Params)
+#define CVector_Class_T TEMPLATE(CVector_Params, Class)
+#define T1 T_Param(1, CVector_Params)
+
+typedef union CVector_T
+{
+	union CVector_Class_T _private * _private vtbl;
+	struct
+	{
+		struct Object Object;
+		uint32_t _private size;
+		uint32_t _private capacity;
+		_T1 _private * _private buffer;
+	};
+}TEMPLATE(CVector, CVector_Params, T);
+
+typedef union CVector_Class_T
+{
+	struct
+	{
+		struct Class Class;
+	};
+}TEMPLATE(CVector, CVector_Params, Class_T);
+
 
 #define Vector_MEMBERS(_member, _class, t1) \
    _member(uint32_t _private, size) \
