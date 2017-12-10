@@ -1,216 +1,141 @@
-/*=====================================================================================*/
-/**
- * cset.c
- * author : puch
- * date : Oct 22 2015
- *
- * description : Any comments
- *
- */
-/*=====================================================================================*/
-#define CLASS_IMPLEMENTATION Set
-/*=====================================================================================*
- * Project Includes
- *=====================================================================================*/
-#include "cset.h"
-/*=====================================================================================* 
- * Standard Includes
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * Local X-Macros
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * Local Define Macros
- *=====================================================================================*/
-#ifndef Set_Params
-#error "Set Params is not defined"
+#define COBJECT_IMPLEMENTATION
+ 
+#ifndef CSet_Params
+#error "CSet Params is not defined"
 #endif
 
-#define _t1 CAT(T_Param(1, Set_Params), _T)
-/*=====================================================================================* 
- * Local Type Definitions
- *=====================================================================================*/
+#define CSet_T TEMPLATE(CSet, CSet_Params)
+#define CSet_Class_T TEMPLATE(CSet, CSet_Params, Class)
+#define T1 CAT(T_Params(1, CSet_Params), _T)
+#define CSet_Method(method) TEMPLATE(CSet, CSet_Params, method)
+
+static int CSet_Method(compare)(void *, void *);
+static void CSet_Method(delete)(union CSet_T * const);
+static uint32_t CSet_Method(size)(struct Object * const obj);
+static void CSet_Method(clear)(union CSet_T * const);
+static t1 * CSet_Method(begin)(union CSet_T * const);
+static t1 * CSet_Method(end)(union CSet_T * const);
+static t1 * CSet_Method(at)(union CSet_T * const, uint32_t const);
+static t1 CSet_Method(access)(union CSet_T * const, uint32_t const);
+static void CSet_Method(insert)(union CSet_T * const, t1 const);
+static t1 * CSet_Method(find)(union CSet_T * const, t1 const * const);
+static t1 * CSet_Method(erase)(union CSet_T * const, t1 const * const);
+
+void CSet_Method(Init)(void)
+{
+	Member_Name(CSet_T,_Obj).capacity = 0;
+	Member_Name(CSet_T,_Obj).size = 0;
+	Member_Name(CSet_T,_Obj).buffer = NULL;
+	Member_Name(CSet_T,_Obj).cmp = CSet_Method(default_cmp);
+}
+
+void CSet_Method(delete)(struct Object * const obj)
+{
+	union CSet_T * const this = Object_Cast(&CSet_Class_T.Class, obj);
+	Isnt_Nullptr(this, );
+	this->vtbl->clear(this);
+}
+
+int CSet_Method(compare)(void const * a, void const * b)
+{
+	return memcmp(a,b, sizeof(T1));
+}
  
-/*=====================================================================================* 
- * Local Function Prototypes
- *=====================================================================================*/
-static int Method_Name(Set, Set_Params, default_cmp)(void const * a, void const * b);
-/*=====================================================================================* 
- * Local Object Definitions
- *=====================================================================================*/
-CLASS_DEF(Set, Set_Params)
-/*=====================================================================================* 
- * Exported Object Definitions
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * Local Inline-Function Like Macros
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * Local Function Definitions
- *=====================================================================================*/
-// Your code goes here ...
-void Method_Name(Set, Set_Params, Init)(void)
+void Method_Name(Populate, CSet, CSet_Params)(union CSet_T const * s)
 {
-	Member_Name(t_Set(Set_Params),_Obj).capacity = 0;
-	Member_Name(t_Set(Set_Params),_Obj).size = 0;
-	Member_Name(t_Set(Set_Params),_Obj).buffer = NULL;
-	Member_Name(t_Set(Set_Params),_Obj).cmp = Method_Name(Set, Set_Params, default_cmp);
-}
-
-void Method_Name(Set, Set_Params, Delete)(struct Object * const obj)
-{
-	union t_Set(Set_Params) * const this = _dynamic_cast(t_Set(Set_Params), obj);
-
-    free(this->buffer);
-}
-
-int Method_Name(Set, Set_Params, default_cmp)(void const * a, void const * b)
-{
-	return memcmp(a,b, sizeof(_t1));
-}
-/*=====================================================================================* 
- * Exported Function Definitions
- *=====================================================================================*/
-union t_Set(Set_Params) Method_Name(Set, Set_Params, Set)(union t_Set(Set_Params) const * s)
-{
-   union t_Set(Set_Params) this = Method_Name(Set, Set_Params, Populate)();
+	if(NULL == CSet_T.vtbl)
+	{
+		CSet_T.vtbl = &CSet_Class_T;
+		CSet_T.i = 0;
+		CSet_T.buff = NULL;
     this->size = s->size;
     this->capacity = s->capacity;
-    this->buffer = (_t1*)malloc(sizeof(_template_t(1))*s->size);
+    this->buffer = (T1*)malloc(sizeof(T1)*s->size);
 
     memcpy(this->buffer, s->buffer, this->size);
    return this;
 }
 
-union t_Set(Set_Params) * Method_Name(Set, Set_Params, Set_New)(union t_Set(Set_Params) const * s)
+union CSet_T * CSet_Method(Set_New)(union CSet_T const * s)
 {
-    Constructor_New_Impl(t_Set(Set_Params), Set, s)
+    Constructor_New_Impl(CSet_T, Set, s)
 }
 
-union t_Set(Set_Params) Method_Name(Set, Set_Params, Cmp)( * const this, Member_Name(t_Set(Set_Params),Cmp_T) const cmp)
+union CSet_T CSet_Method(Cmp)( * const this, Member_Name(CSet_T,Cmp_T) const cmp)
 {
 
-   union t_Set(Set_Params) this = Method_Name(Set, Set_Params, Populate)();
+   union CSet_T this = CSet_Method(Populate)();
     this->cmp = cmp;
    return this;
 }
 
-union t_Set(Set_Params) * Method_Name(Set, Set_Params, Cmp_New)( * const this, Member_Name(t_Set(Set_Params),_Cmp_T) const cmp)
+union CSet_T * CSet_Method(Cmp_New)( * const this, Member_Name(CSet_T,_Cmp_T) const cmp)
 {
-    Constructor_New_Impl(t_Set(Set_Params), Cmp_New, cmp)
+    Constructor_New_Impl(CSet_T, Cmp_New, cmp)
 }
 
-_t1 * const Method_Name(Set, Set_Params, begin)(union t_Set(Set_Params) * const this)
+T1 * const CSet_Method(begin)(union CSet_T * const this)
 {
     return this->buffer;
 }
 
-_t1 * const Method_Name(Set, Set_Params, end)(union t_Set(Set_Params) * const this)
+T1 * const CSet_Method(end)(union CSet_T * const this)
 {
     return this->buffer + this->vtbl->size(this);
 }
 
-uint32_t Method_Name(Set, Set_Params, capacity)(union t_Set(Set_Params) * const this)
+uint32_t CSet_Method(capacity)(union CSet_T * const this)
 {
     return this->capacity;
 }
 
-uint32_t Method_Name(Set, Set_Params, size)(union t_Set(Set_Params) * const this)
+uint32_t CSet_Method(size)(union CSet_T * const this)
 {
     return this->size;
 }
 
-bool_t Method_Name(Set, Set_Params, empty)(union t_Set(Set_Params) * const this)
-{
-	return 0 == this->size;
-}
-
-void Method_Name(Set, Set_Params, reserve)(union t_Set(Set_Params) * const this, uint32_t capacity)
-{
-    if(NULL == this->buffer)
-    {
-        this->size = 0;
-        this->capacity = 0;
-    }
-    _t1 * new_buff = (_template_t(1)*) malloc(sizeof(_template_t(1))*capacity);
-
-    uint32_t l_size = capacity < this->size ? capacity : this->size;
-
-    for (uint32_t i = 0; i < l_size; i++)
-    	memcpy(&new_buff[i], &this->buffer[i], sizeof(this->buffer[0]));
-
-    this->capacity = capacity;
-
-    if(NULL != this->buffer)
-    {
-       free(this->buffer);
-    }
-
-    this->buffer = new_buff;
-}
-
-
-void Method_Name(Set, Set_Params, resize)(union t_Set(Set_Params) * const this, uint32_t size)
-{
-    this->vtbl->reserve(this, size);
-    this->size = size;
-}
-
-void Method_Name(Set, Set_Params, clear)(union t_Set(Set_Params) * const this)
+void CSet_Method(clear)(union CSet_T * const this)
 {
     this->capacity = 0;
     this->size = 0;
     this->buffer = NULL;
 }
 
-void Method_Name(Set, Set_Params, insert)(union t_Set(Set_Params) * const this, _t1 const * value)
+void CSet_Method(insert)(union CSet_T * const this, T1 const * value)
 {
     if (this->size >= this->capacity)
     {
         this->vtbl->reserve(this, this->capacity +5);
     }
 
-    memcpy(&this->buffer[this->size++], value, sizeof(_t1));
-    qsort(this->buffer, this->size, sizeof(_t1), this->cmp);
+    memcpy(&this->buffer[this->size++], value, sizeof(T1));
+    qsort(this->buffer, this->size, sizeof(T1), this->cmp);
 }
 
-void Method_Name(Set, Set_Params, erase)(union t_Set(Set_Params) * const this,
-      _t1 * const begin, _template_t(1) * const end)
+void CSet_Method(erase)(union CSet_T * const this,
+      T1 * const begin, T1 * const end)
 {
-#ifdef IS_TEMPLATE_T_DESTROYABLE
-   for( _t1 * it = begin; it != end; ++it)
+   for( T1 * it = begin; it != end; ++it)
    {
       _delete(it);
    }
-#endif
 
    this->size = end - this->vtbl->begin(this);
    memcpy(begin, end, this->size);
 
 }
 
-_t1 * const Method_Name(Set, Set_Params, find)(union t_Set(Set_Params) * const this, _template_t(1) const * key)
+T1 * const CSet_Method(find)(union CSet_T * const this, T1 const * key)
 {
-   return (_t1 * const) bsearch(key, this->buffer, this->size, sizeof(_template_t(1)), this->cmp);
+   return (T1 * const) bsearch(key, this->buffer, this->size, sizeof(T1), this->cmp);
 }
 
-uint32_t Method_Name(Set, Set_Params, count)(union t_Set(Set_Params) * const this, _t1 const * key)
+uint32_t CSet_Method(count)(union CSet_T * const this, T1 const * key)
 {
 	return 0;
 }
 
-_t1 Method_Name(Set, Set_Params, at)(union t_Set(Set_Params) * const this, uint32_t index)
+T1 CSet_Method(at)(union CSet_T * const this, uint32_t index)
 {
     return this->buffer[index];
 }
-
-/*=====================================================================================* 
- * cset.c
- *=====================================================================================*
- * Log History
- *
- *=====================================================================================*/

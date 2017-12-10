@@ -1,83 +1,63 @@
-/*=====================================================================================*/
-/**
- * cqueue.h
- * author : puch
- * date : Oct 22 2015
- *
- * description : Any comments
- *
- */
-/*=====================================================================================*/
-#ifndef CQUEUE_H_
+#if !defined(CQUEUE_H_) || defined(CQueue_Params)
 #define CQUEUE_H_
-/*=====================================================================================*
- * Project Includes
- *=====================================================================================*/
-#include "template.h"
-/*=====================================================================================* 
- * Standard Includes
- *=====================================================================================*/
+ 
+#include "ctemplate.h"
+ 
+#ifndef CQueue_Params
+#error "CQueue_Params is not defined"
+#endif
 
-/*=====================================================================================* 
- * Exported Define Macros
- *=====================================================================================*/
-#define Queue_INHERITS BASE_CLASS
-
-#define Queue_MEMBERS(_member, _class, t1) \
-   _member(uint32_t _private, size) \
-   _member(uint32_t _private, capacity) \
-   _member(CAT(t1, _T) _private *, buffer) \
-
-#define Queue_METHODS(_method, _class, t1) \
-_method(void, t_Queue(t1), Size, uint32_t const) \
-_method(void , t_Queue(t1), Initial, uint32_t const, CAT(t1, _T) const *) \
-_method(void , t_Queue(t1), Queue, union t_Queue(t1) const *) \
-_method(uint32_t, t_Queue(t1), capacity, void) \
-_method(uint32_t , t_Queue(t1), size, void) \
-_method(bool_t _, t_Queue(t1), empty, void) \
-_method(CAT(t1, _T) * const, t_Queue(t1), begin, void) \
-_method(CAT(t1, _T) * const, t_Queue(t1), end, void) \
-_method(CAT(t1, _T), t_Queue(t1), front, void)\
-_method(CAT(t1, _T), t_Queue(t1), back, void)\
-_method(void, t_Queue(t1), push_back, CAT(t1, _T) const *) \
-_method(void, t_Queue(t1), pop_back, void) \
-_method(void, t_Queue(t1),  push_front, CAT(t1, _T)(1) const *) \
-_method(void, t_Queue(t1),  pop_front, void) \
-_method(void, t_Queue(t1), erase, CAT(t1, _T) * const begin, CAT(_t1, _T) * const end) \
-_method(void, t_Queue(t1), reserve, uint32_t const) \
-_method(void, t_Queue(t1), resize, uint32_t const) \
-_method(CAT(t1, _T), t_Queue(t1),  at, uint32_t const) \
-_method(union t_Queue(t1),  cpy, union t_Queue(t1) const *) \
-_method(void, t_Queue(t1), clear, void) \
-
-#define Queue_CONSTRUCTORS(_ctor)
+#define CQueue_T TEMPLATE(CQueue, CQueue_Params)
+#define CQueue_Class_T TEMPLATE(CQueue, CQueue_Params, Class)
+#define T1 T_Param(1, CQueue_Params)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*=====================================================================================* 
- * Exported Type Declarations
- *=====================================================================================*/
 
-/*=====================================================================================* 
- * Exported Object Declarations
- *=====================================================================================*/
+typedef union CQueue_T
+{
+	union CQueue_Class_T _private * _private vtbl; 
+	struct 
+	{
+		struct Object Object;
+		uint32_t _private i;
+		size_t _private capacity;
+		T1 _private * _private buffer;
+	};
+}TEMPLATE(CQueue, CQueue_Params, T);
 
-/*=====================================================================================* 
- * Exported Function Prototypes
- *=====================================================================================*/
+typedef union CQueue_Class_T
+{
+	struct
+	{
+		struct Class Class;
+		uint32_t (* _private size)(union CQueue_T * const);
+		void (* _private clear)(union CQueue_T * const);
+		T1 * (* _private begin)(union CQueue_T * const);
+		T1 * (* _private end)(union CQueue_T * const);
+		T1 * (* _private at)(union CQueue_T * const, uint32_t const);
+		T1 (* _private access)(union CQueue_T * const, uint32_t const);
+		void (* _private push_back)(union CQueue_T * const, T1 const);
+		void (* _private push_front)(union CQueue_T * const, T1 const);
+		T1 (* _private back)(union CQueue_T * const);
+		T1 (* _private front)(union CQueue_T * const);
+		void (* _private pop_back)(union CQueue_T * const);
+		void (* _private pop_front)(union CQueue_T * const);
+	};
+}TEMPLATE(CQueue, CQueue_Params, Class_T);
 
-/*=====================================================================================* 
- * Exported Function Like Macros
- *=====================================================================================*/
+extern union CQueue_Class_T _private CQueue_Class_T;
+
+void TEMPLATE(Populate, CQueue, CQueue_Params)(union CQueue_T * const queue, T1 * const buff,
+		size_t const buff_size);
+
 
 #ifdef __cplusplus
 }
 #endif
-/*=====================================================================================* 
- * cqueue.h
- *=====================================================================================*
- * Log History
- *
- *=====================================================================================*/
+
+#undef CQueue_T 
+#undef CQueue_Class_T 
+#undef T1 
 #endif /*CQUEUE_H_*/
