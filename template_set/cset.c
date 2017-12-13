@@ -91,13 +91,13 @@ uint32_t CSet_Method(capacity)(union CSet_T * const this)
 
 uint32_t CSet_Method(size)(union CSet_T * const this)
 {
-    return this->size;
+    return this->i;
 }
 
 void CSet_Method(clear)(union CSet_T * const this)
 {
     this->capacity = 0;
-    this->size = 0;
+    this->i = 0;
     this->buffer = NULL;
 }
 
