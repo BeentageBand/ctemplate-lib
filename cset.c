@@ -19,7 +19,6 @@ static T1 CSet_Method(access)(union CSet_T * const, uint32_t const);
 static void CSet_Method(insert)(union CSet_T * const, T1 const);
 static T1 * CSet_Method(find)(union CSet_T * const, T1 const);
 static void CSet_Method(erase)(union CSet_T * const, T1 const);
-static int CSet_Method(compare)(void const *, void const *);
 
 union CSet_Class_T CSet_Class_T =
 {
@@ -32,8 +31,7 @@ union CSet_Class_T CSet_Class_T =
     CSet_Method(access),
     CSet_Method(insert),
     CSet_Method(find),
-    CSet_Method(erase),
-    CSet_Method(compare)
+    CSet_Method(erase)
 	}
 };
 
@@ -50,7 +48,7 @@ int CSet_Method(compare)(void const * a, void const * b)
 {
 	return memcmp(a,b, sizeof(T1));
 }
- 
+
 void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, T1 * const buff, size_t const buff_size)
 {
 	if(NULL == CSet_T.vtbl)
@@ -58,12 +56,21 @@ void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, T1 * co
 		CSet_T.vtbl = &CSet_Class_T;
 		CSet_T.i = 0;
 		CSet_T.buffer = NULL;
+		CSet_T.compare = CSet_Method(compare);
 	}
 	
 	memcpy(this, &CSet_T, sizeof(CSet_T));
 	
     this->capacity = buff_size;
     this->buffer = buff;
+}
+
+void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const this, T1 * const buff, size_t const buff_size, CSet_Cmp_T compare)
+{
+    Method_Name(Populate, CSet, CSet_Params)(this, buff, buff_size);
+    Isnt_Nullptr(compare, )
+
+    this->compare = compare;
 }
 
 T1 * CSet_Method(begin)(union CSet_T * const this)
@@ -100,7 +107,7 @@ void CSet_Method(insert)(union CSet_T * const this, T1 const value)
 	if(end != found) return;
 
     this->buffer[this->i++] = value;
-    qsort(this->buffer, this->i, sizeof(T1), this->vtbl->compare);
+    qsort(this->buffer, this->i, sizeof(T1), this->compare);
 }
 
 void CSet_Method(erase)(union CSet_T * const this,
@@ -123,7 +130,7 @@ void CSet_Method(erase)(union CSet_T * const this,
 
 T1 * CSet_Method(find)(union CSet_T * const this, T1 const key)
 {
-   T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->vtbl->compare);
+   T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
    return (found)? found : this->vtbl->end(this);
 }
 

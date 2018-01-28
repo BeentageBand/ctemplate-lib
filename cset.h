@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+typedef int (* CSet_Cmp_T)(void const *, void const *);
+
 typedef union CSet_T
 {
 	union CSet_Class_T _private * _private vtbl;
@@ -23,7 +25,8 @@ typedef union CSet_T
 		struct Object Object;
 		uint32_t _private i;
 		uint32_t _private capacity;
-		T1 _private * buffer;
+		T1 _private _private * _private buffer;
+		CSet_Cmp_T _private compare;
 	};
 }TEMPLATE(CSet, CSet_Params, T);
 
@@ -41,7 +44,6 @@ typedef union CSet_Class_T
 		void (* _private insert)(union CSet_T * const, T1 const);
 		T1 * (* _private find)(union CSet_T * const, T1 const);
 		void (* _private erase)(union CSet_T * const, T1 const);
-		int (* _private compare)(void const *, void const *);
 	};
 }TEMPLATE(CSet, CSet_Params, Class_T);
 
