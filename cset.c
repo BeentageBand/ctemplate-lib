@@ -108,6 +108,12 @@ void CSet_Method(insert)(union CSet_T * const this, T1 const value)
 
     this->buffer[this->i++] = value;
     qsort(this->buffer, this->i, sizeof(T1), this->compare);
+
+    for(found = this->vtbl->begin(this); found != this->vtbl->end(this); ++found)
+    {
+        printf("%s %d", __func__, (int)*found);
+    }
+    printf("\n");
 }
 
 void CSet_Method(erase)(union CSet_T * const this,
@@ -131,6 +137,7 @@ void CSet_Method(erase)(union CSet_T * const this,
 T1 * CSet_Method(find)(union CSet_T * const this, T1 const key)
 {
    T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
+   printf("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
 
