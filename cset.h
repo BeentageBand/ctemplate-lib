@@ -52,6 +52,9 @@ extern union CSet_Class_T _private CSet_Class_T;
 extern void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const set, T1 * const buff,
 		size_t const buff_size);
  
+extern void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const set, T1 * const buff,
+		size_t const buff_size, CSet_Cmp_T compare);
+
 #ifdef __cplusplus
 }
 #endif

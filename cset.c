@@ -1,5 +1,7 @@
 #define COBJECT_IMPLEMENTATION
  
+#include "dbg_log.h"
+
 #ifndef CSet_Params
 #error "CSet Params is not defined"
 #endif
@@ -111,15 +113,14 @@ void CSet_Method(insert)(union CSet_T * const this, T1 const value)
 
     for(found = this->vtbl->begin(this); found != this->vtbl->end(this); ++found)
     {
-        printf("%s %d", __func__, (int)*found);
+        Dbg_Info("%s %d", __func__, (int)*found);
     }
-    printf("\n");
 }
 
 void CSet_Method(erase)(union CSet_T * const this,
       T1 const value)
 {
-    if (this->i >= this->capacity) return;
+    if (0 == this->i) return;
 
 	T1 * end = this->vtbl->end(this);
 	T1 * found = this->vtbl->find(this, value);
@@ -131,13 +132,13 @@ void CSet_Method(erase)(union CSet_T * const this,
 #endif
 
 	memset(found, 0, sizeof(found[0]));
-    memcpy(found - 1, found, (size_t) end - (size_t)found);
+    memcpy(found, ++found, (size_t) end - (size_t)found);
 }
 
 T1 * CSet_Method(find)(union CSet_T * const this, T1 const key)
 {
    T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
-   printf("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
+   Dbg_Info("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
 
