@@ -19,7 +19,7 @@ typedef int (* CSet_Cmp_T)(void const *, void const *);
 
 typedef union CSet_T
 {
-	union CSet_Class_T _private * _private vtbl;
+	struct CSet_Class_T _private * _private vtbl;
 	struct
 	{
 		struct Object Object;
@@ -30,24 +30,21 @@ typedef union CSet_T
 	};
 }TEMPLATE(CSet, CSet_Params, T);
 
-typedef union CSet_Class_T
+typedef struct CSet_Class_T
 {
-	struct
-	{
-		struct Class Class;
-		uint32_t (* _private size)(union CSet_T * const);
-		void (* _private clear)(union CSet_T * const);
-		T1 * (* _private begin)(union CSet_T * const);
-		T1 * (* _private end)(union CSet_T * const);
-		T1 * (* _private at)(union CSet_T * const, uint32_t const);
-		T1 (* _private access)(union CSet_T * const, uint32_t const);
-		void (* _private insert)(union CSet_T * const, T1 const);
-		T1 * (* _private find)(union CSet_T * const, T1 const);
-		void (* _private erase)(union CSet_T * const, T1 const);
-	};
+        struct Class Class;
+        uint32_t (* _private size)(union CSet_T * const);
+        void (* _private clear)(union CSet_T * const);
+        T1 * (* _private begin)(union CSet_T * const);
+        T1 * (* _private end)(union CSet_T * const);
+        T1 * (* _private at)(union CSet_T * const, uint32_t const);
+        T1 (* _private access)(union CSet_T * const, uint32_t const);
+        void (* _private insert)(union CSet_T * const, T1 const);
+        T1 * (* _private find)(union CSet_T * const, T1 const);
+        void (* _private erase)(union CSet_T * const, T1 const);
 }TEMPLATE(CSet, CSet_Params, Class_T);
 
-extern union CSet_Class_T _private CSet_Class_T;
+extern struct CSet_Class_T _private CSet_Class_T;
 
 extern void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const set, T1 * const buff,
 		size_t const buff_size);
