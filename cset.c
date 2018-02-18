@@ -112,7 +112,7 @@ void CSet_Method(insert)(union CSet_T * const this, T1 const value)
 
     for(found = this->vtbl->begin(this); found != this->vtbl->end(this); ++found)
     {
-        Dbg_Info("%s %l", __func__, (size_t)*found);
+        Dbg_Verb("%s %l", __func__, (size_t)*found);
     }
 }
 
@@ -130,14 +130,18 @@ void CSet_Method(erase)(union CSet_T * const this,
 	_delete(found);
 #endif
 
-	memset(found, 0, sizeof(found[0]));
+	memset(found, 0, sizeof(T1));
     memcpy(found, found +1 , (size_t) end - (size_t)found + 1UL);
+    memset(end - 1, 0, sizeof(T1));
+
+    --this->i;
+    qsort(this->buffer, this->i, sizeof(T1), this->compare);
 }
 
 T1 * CSet_Method(find)(union CSet_T * const this, T1 const key)
 {
    T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
-   Dbg_Info("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
+   Dbg_Verb("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
 

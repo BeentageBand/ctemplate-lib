@@ -95,12 +95,15 @@ void CQueue_Method(push_back)(union CQueue_T * const this, T1 const value)
 
 void CQueue_Method(pop_back)(union CQueue_T * const this)
 {
-    this->i--;
+    if(this->i)
+    {
+        this->i--;
 #ifdef CQUEUE_DELETABLE
-	Object_Delete((struct Object *)(this->buffer + this->i));
+        Object_Delete((struct Object *)(this->buffer + this->i));
 #else
-	memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
+        memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
 #endif
+    }
 }
 
 void CQueue_Method(push_front)(union CQueue_T * const this, T1 const value)
@@ -115,13 +118,15 @@ void CQueue_Method(push_front)(union CQueue_T * const this, T1 const value)
 
 void CQueue_Method(pop_front)(union CQueue_T * const this)
 {
-	--this->i;
+    if(this->i)
+    {
+        --this->i;
 #ifdef CQUEUE_DELETABLE
-	Object_Delete((struct Object *)(this->buffer));
+        Object_Delete((struct Object *)(this->buffer));
 #endif
-
-	memcpy(this->buffer, this->buffer + 1, sizeof(this->buffer[0]) * this->i);
-	memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
+        memcpy(this->buffer, this->buffer + 1, sizeof(this->buffer[0]) * this->i);
+        memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
+    }
 }
 
 uint32_t CQueue_Method(size)(union CQueue_T * const this)
