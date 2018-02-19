@@ -68,3 +68,12 @@ T1 * CAlgo_Method(minimum)(T1 * const begin, T1 * const end, T1 const v, CAlgo_C
     }
 
 }
+
+void CAlgo_Method(erase)(T1 * const begin, T1 * const end, T1 * const pos)
+{
+    if(begin <= pos && pos < end)
+    {
+        memmove(pos, pos + 1, end - pos + 1);
+        memset(end - 1, 0, sizeof(T1));
+    }
+}

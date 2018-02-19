@@ -131,7 +131,7 @@ void CSet_Method(erase)(union CSet_T * const this,
 #endif
 
 	memset(found, 0, sizeof(T1));
-    memcpy(found, found +1 , (size_t) end - (size_t)found + 1UL);
+    memmove(found, found +1 , (size_t) end - (size_t)found + 1UL);
     memset(end - 1, 0, sizeof(T1));
 
     --this->i;
