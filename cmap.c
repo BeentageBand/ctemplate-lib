@@ -1,79 +1,67 @@
-/*=====================================================================================*/
-/**
- * template_map.cpp
- * author : puch
- * date : Oct 22 2015
- *
- * description : Any comments
- *
- */
-/*=====================================================================================*/
+#define COBJECT_IMPLEMENTATION
+ 
+#include "dbg_log.h"
 
-/*=====================================================================================*
- * Project Includes
- *=====================================================================================*/
-#include "cmap.h"
-/*=====================================================================================* 
- * Standard Includes
- *=====================================================================================*/
 
-/*=====================================================================================* 
- * Local X-Macros
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * Local Define Macros
- *=====================================================================================*/
-#ifndef Map_Params
-#error "Map Params not defined"
+#ifndef CMap_Params
+#error "CMap Params not defined"
 #endif
 
-#define t1 CAT(T_Param(1, Map_Params), _T)
-/*=====================================================================================* 
- * Local Type Definitions
- *=====================================================================================*/
-#define Set_Params t_Pair(t1, t2)
-#include "cset.c" 
-#undef Set_Params
+#define CMap_T TEMPLATE(CMap, CMap_Params)
+#define CMap_Class_T TEMPLATE(CMap, CMap_Params, Class)
+#define CMap_Pair_T TEMPLATE(Pair, CMap_Params, T)
+#define KEY_T T_Param(1, CMap_Params)
+#define OBJ_T T_Param(2, CMap_Params)
+#define CMap_Method(method) TEMPLATE(CMap, CMap_Params, method)
 
-/*=====================================================================================* 
- * Local Function Prototypes
- *=====================================================================================*/
+#define CSet_Params CMap_Pair
+#include "cset.c"
+typedef CSet_T CMap_T;
 
-/*=====================================================================================* 
- * Local Object Definitions
- *=====================================================================================*/
+static void CMap_Method(delete)(struct Object * const obj);
+static int CMap_Method(cmp)(CMap_Pair_T * a, CMap_Pair_T * b);
 
-/*=====================================================================================* 
- * Exported Object Definitions
- *=====================================================================================*/
-extern t_Map(t1, t2) Method_Name(Map, t1, t2)(void)
+CMap_Class_T CMap_Class = 
 {
-   return Method_Name(Set, t_Pair(t1, t2)();
+    {CMap_Method(delete), NULL},
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+static CMap_T CMap = {NULL};
+
+void CMap_Method(delete)(struct Object * const obj)
+{
 }
 
-extern t_Map(t1, t2) * Method_Name(Map, t1, t2, New)(void)
+int CMap_Method(cmp)(CMap_Pair_T * a, CMap_Pair_T * b)
 {
-   t_Map(t1, t2) this = Method_Name(Map, t1, t2)();
-   t_Map(t1, t2) * const _new = (t_Map(t1, t2) *) malloc(sizeof(this));
-   mempcy(_new, &this, sizeof(this));
-   return _new;
+    return a->key - b->key;
 }
-/*=====================================================================================* 
- * Local Inline-Function Like Macros
- *=====================================================================================*/
 
-/*=====================================================================================* 
- * Local Function Definitions
- *=====================================================================================*/
+void Method_Name(Populate, CMap, CMap_Params)(CMap_T * const this, CMap_Pair_T * const buff, size_t buff_size,
+                 CMap_Cmp_T cmp)
+{
+    if(NULL == Method_Name(CMap, CMap_Params).vtbl)
+    {
+        Method_Name(Populate, CSet, CSet_Params)(&this->Method_Name(CSet, CSet_Params), buff, buff_size, CMap_Method(cmp));
+        Object_Init(&Member_Name(CMap, CMap_Params).Object, &Member_Name(CMap, CMap_Params, Class).Class,
+                    sizeof(Member_Name(CMap, CMap_Params,Class).CSet));
+    }
+    Method_Name(Populate, CSet, CSet_Params)(&this->Method_Name(CSet, CSet_Params), buff,
+                buff_size, (cmp)? cmp : CMap_Method(cmp));
+    this->vtbl = &Member_Name(CMap, CMap_Params, Class);
+}
 
-/*=====================================================================================* 
- * Exported Function Definitions
- *=====================================================================================*/
-
-/*=====================================================================================* 
- * template_map.cpp
- *=====================================================================================*
- * Log History
- *
- *=====================================================================================*/
+CMap_Pair_T CMap_Method(make_pair)(KEY_T const key, OBJ_T const obj)
+{
+    CMap_Pair_T pair = {key, obj};
+    return pair;
+}

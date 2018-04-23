@@ -9,7 +9,7 @@
 
 #define CSet_T TEMPLATE(CSet, CSet_Params)
 #define CSet_Class_T TEMPLATE(CSet, CSet_Params, Class)
-#define T1 T_Param(1, CSet_Params)
+#define CSet_Item_T T_Param(1, CSet_Params)
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,7 +25,7 @@ typedef union CSet_T
 		struct Object Object;
 		uint32_t _private i;
 		uint32_t _private capacity;
-		T1 _private _private * _private buffer;
+		CSet_Item_T _private _private * _private buffer;
 		CSet_Cmp_T _private compare;
 	};
 }TEMPLATE(CSet, CSet_Params, T);
@@ -35,21 +35,21 @@ typedef struct CSet_Class_T
         struct Class Class;
         uint32_t (* _private size)(union CSet_T * const);
         void (* _private clear)(union CSet_T * const);
-        T1 * (* _private begin)(union CSet_T * const);
-        T1 * (* _private end)(union CSet_T * const);
-        T1 * (* _private at)(union CSet_T * const, uint32_t const);
-        T1 (* _private access)(union CSet_T * const, uint32_t const);
-        void (* _private insert)(union CSet_T * const, T1 const);
-        T1 * (* _private find)(union CSet_T * const, T1 const);
-        void (* _private erase)(union CSet_T * const, T1 const);
+        CSet_Item_T * (* _private begin)(union CSet_T * const);
+        CSet_Item_T * (* _private end)(union CSet_T * const);
+        CSet_Item_T * (* _private at)(union CSet_T * const, uint32_t const);
+        CSet_Item_T (* _private access)(union CSet_T * const, uint32_t const);
+        void (* _private insert)(union CSet_T * const, CSet_Item_T const);
+        CSet_Item_T * (* _private find)(union CSet_T * const, T1 const);
+        void (* _private erase)(union CSet_T * const, CSet_Item_T const);
 }TEMPLATE(CSet, CSet_Params, Class_T);
 
 extern struct CSet_Class_T _private CSet_Class_T;
 
-extern void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const set, T1 * const buff,
+extern void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const set, CSet_Item_T * const buff,
 		size_t const buff_size);
  
-extern void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const set, T1 * const buff,
+extern void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const set, CSet_Item_T * const buff,
 		size_t const buff_size, CSet_Cmp_T compare);
 
 #ifdef __cplusplus
@@ -58,5 +58,5 @@ extern void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const se
 
 #undef CSet_T 
 #undef CSet_Class_T 
-#undef T1 
+#undef CSet_Item_T 
 #endif /*CSET_H_*/

@@ -8,19 +8,19 @@
 
 #define CSet_T TEMPLATE(CSet, CSet_Params)
 #define CSet_Class_T TEMPLATE(CSet, CSet_Params, Class)
-#define T1 T_Param(1, CSet_Params)
+#define CSet_Item_T T_Param(1, CSet_Params)
 #define CSet_Method(method) TEMPLATE(CSet, CSet_Params, method)
 
 static void CSet_Method(delete)(struct Object * const obj);
 static uint32_t CSet_Method(size)(union CSet_T * const);
 static void CSet_Method(clear)(union CSet_T * const);
-static T1 * CSet_Method(begin)(union CSet_T * const);
-static T1 * CSet_Method(end)(union CSet_T * const);
-static T1 * CSet_Method(at)(union CSet_T * const, uint32_t const);
-static T1 CSet_Method(access)(union CSet_T * const, uint32_t const);
-static void CSet_Method(insert)(union CSet_T * const, T1 const);
-static T1 * CSet_Method(find)(union CSet_T * const, T1 const);
-static void CSet_Method(erase)(union CSet_T * const, T1 const);
+static CSet_Item_T * CSet_Method(begin)(union CSet_T * const);
+static CSet_Item_T * CSet_Method(end)(union CSet_T * const);
+static CSet_Item_T * CSet_Method(at)(union CSet_T * const, uint32_t const);
+static CSet_Item_T CSet_Method(access)(union CSet_T * const, uint32_t const);
+static void CSet_Method(insert)(union CSet_T * const, CSet_Item_T const);
+static CSet_Item_T * CSet_Method(find)(union CSet_T * const, T1 const);
+static void CSet_Method(erase)(union CSet_T * const, CSet_Item_T const);
 
 struct CSet_Class_T CSet_Class_T =
 {
@@ -47,10 +47,10 @@ void CSet_Method(delete)(struct Object * const obj)
 
 int CSet_Method(compare)(void const * a, void const * b)
 {
-	return memcmp(a,b, sizeof(T1));
+	return memcmp(a,b, sizeof(CSet_Item_T));
 }
 
-void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, T1 * const buff, size_t const buff_size)
+void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, CSet_Item_T * const buff, size_t const buff_size)
 {
 	if(NULL == CSet_T.vtbl)
 	{
@@ -66,7 +66,7 @@ void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, T1 * co
     this->buffer = buff;
 }
 
-void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const this, T1 * const buff, size_t const buff_size, CSet_Cmp_T compare)
+void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const this, CSet_Item_T * const buff, size_t const buff_size, CSet_Cmp_T compare)
 {
     Method_Name(Populate, CSet, CSet_Params)(this, buff, buff_size);
     Isnt_Nullptr(compare, );
@@ -74,12 +74,12 @@ void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const this, T1 
     this->compare = compare;
 }
 
-T1 * CSet_Method(begin)(union CSet_T * const this)
+CSet_Item_T * CSet_Method(begin)(union CSet_T * const this)
 {
     return this->buffer;
 }
 
-T1 * CSet_Method(end)(union CSet_T * const this)
+CSet_Item_T * CSet_Method(end)(union CSet_T * const this)
 {
     return this->buffer + this->vtbl->size(this);
 }
@@ -93,22 +93,22 @@ void CSet_Method(clear)(union CSet_T * const this)
 {
 	while(this->i)
 	{
-		T1 * const it = this->vtbl->begin(this);
+		CSet_Item_T * const it = this->vtbl->begin(this);
 		this->vtbl->erase(this, *it);
 	}
 }
 
-void CSet_Method(insert)(union CSet_T * const this, T1 const value)
+void CSet_Method(insert)(union CSet_T * const this, CSet_Item_T const value)
 {
     if (this->i >= this->capacity) return;
 
-	T1 * end = this->vtbl->end(this);
-	T1 * found = this->vtbl->find(this, value);
+	CSet_Item_T * end = this->vtbl->end(this);
+	CSet_Item_T * found = this->vtbl->find(this, value);
 
 	if(end != found) return;
 
     this->buffer[this->i++] = value;
-    qsort(this->buffer, this->i, sizeof(T1), this->compare);
+    qsort(this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
 
     for(found = this->vtbl->begin(this); found != this->vtbl->end(this); ++found)
     {
@@ -117,12 +117,12 @@ void CSet_Method(insert)(union CSet_T * const this, T1 const value)
 }
 
 void CSet_Method(erase)(union CSet_T * const this,
-      T1 const value)
+      CSet_Item_T const value)
 {
     if (0 == this->i) return;
 
-	T1 * end = this->vtbl->end(this);
-	T1 * found = this->vtbl->find(this, value);
+	CSet_Item_T * end = this->vtbl->end(this);
+	CSet_Item_T * found = this->vtbl->find(this, value);
 
 	if(end == found) return;
 
@@ -130,27 +130,32 @@ void CSet_Method(erase)(union CSet_T * const this,
 	_delete(found);
 #endif
 
-	memset(found, 0, sizeof(T1));
+	memset(found, 0, sizeof(CSet_Item_T));
     memmove(found, found +1 , (size_t) end - (size_t)found + 1UL);
-    memset(end - 1, 0, sizeof(T1));
+    memset(end - 1, 0, sizeof(CSet_Item_T));
 
     --this->i;
-    qsort(this->buffer, this->i, sizeof(T1), this->compare);
+    qsort(this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
 }
 
-T1 * CSet_Method(find)(union CSet_T * const this, T1 const key)
+CSet_Item_T * CSet_Method(find)(union CSet_T * const this, T1 const key)
 {
-   T1 * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
+   CSet_Item_T * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
    Dbg_Verb("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
 
-T1 * CSet_Method(at)(union CSet_T * const this, uint32_t const index)
+CSet_Item_T * CSet_Method(at)(union CSet_T * const this, uint32_t const index)
 {
     return this->buffer + index;
 }
 
-T1 CSet_Method(access)(union CSet_T * const this, uint32_t const index)
+CSet_Item_T CSet_Method(access)(union CSet_T * const this, uint32_t const index)
 {
     return this->buffer[index];
 }
+
+#undef CSet_T 
+#undef CSet_Class_T 
+#undef CSet_Item_T 
+#undef CSet_Method
