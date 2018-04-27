@@ -40,7 +40,7 @@ typedef struct CSet_Class_T
         CSet_Item_T * (* _private at)(union CSet_T * const, uint32_t const);
         CSet_Item_T (* _private access)(union CSet_T * const, uint32_t const);
         void (* _private insert)(union CSet_T * const, CSet_Item_T const);
-        CSet_Item_T * (* _private find)(union CSet_T * const, T1 const);
+        CSet_Item_T * (* _private find)(union CSet_T * const, CSet_Item_T const);
         void (* _private erase)(union CSet_T * const, CSet_Item_T const);
 }TEMPLATE(CSet, CSet_Params, Class_T);
 

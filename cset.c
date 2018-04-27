@@ -19,7 +19,7 @@ static CSet_Item_T * CSet_Method(end)(union CSet_T * const);
 static CSet_Item_T * CSet_Method(at)(union CSet_T * const, uint32_t const);
 static CSet_Item_T CSet_Method(access)(union CSet_T * const, uint32_t const);
 static void CSet_Method(insert)(union CSet_T * const, CSet_Item_T const);
-static CSet_Item_T * CSet_Method(find)(union CSet_T * const, T1 const);
+static CSet_Item_T * CSet_Method(find)(union CSet_T * const, CSet_Item_T const);
 static void CSet_Method(erase)(union CSet_T * const, CSet_Item_T const);
 
 struct CSet_Class_T CSet_Class_T =
@@ -138,9 +138,9 @@ void CSet_Method(erase)(union CSet_T * const this,
     qsort(this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
 }
 
-CSet_Item_T * CSet_Method(find)(union CSet_T * const this, T1 const key)
+CSet_Item_T * CSet_Method(find)(union CSet_T * const this, CSet_Item_T const key)
 {
-   CSet_Item_T * const found = bsearch(&key, this->buffer, this->i, sizeof(T1), this->compare);
+   CSet_Item_T * const found = bsearch(&key, this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
    Dbg_Verb("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
