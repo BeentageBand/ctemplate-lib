@@ -17,31 +17,31 @@ extern "C" {
 
 typedef union CVector_T
 {
-	union CVector_Class_T _private * _private vtbl;
-	struct
-	{
-		struct Object Object;
-		uint32_t _private i;
-		size_t _private capacity;
-		T1 _private * _private buffer;
-	};
+   union CVector_Class_T _private * _private vtbl;
+   struct
+   {
+      struct Object Object;
+      uint32_t _private i;
+      size_t _private capacity;
+      T1 _private * _private buffer;
+   };
 }TEMPLATE(CVector, CVector_Params, T);
 
 typedef union CVector_Class_T
 {
-	struct
-	{
-		struct Class Class;
-		uint32_t (* _private size)(union CVector_T * const);
-		void (* _private clear)(union CVector_T * const);
-		T1 * (* _private begin)(union CVector_T * const);
-		T1 * (* _private end)(union CVector_T * const);
-		T1 * (* _private at)(union CVector_T * const, uint32_t const);
-		T1 (* _private access)(union CVector_T * const, uint32_t const);
-		void (* _private push_back)(union CVector_T * const, T1 const);
-		T1 (* _private back)(union CVector_T * const);
-		void (* _private pop_back)(union CVector_T * const);
-	};
+   struct
+   {
+      struct Class Class;
+      uint32_t (* _private size)(union CVector_T * const);
+      void (* _private clear)(union CVector_T * const);
+      T1 * (* _private begin)(union CVector_T * const);
+      T1 * (* _private end)(union CVector_T * const);
+      T1 * (* _private at)(union CVector_T * const, uint32_t const);
+      T1 (* _private access)(union CVector_T * const, uint32_t const);
+      void (* _private push_back)(union CVector_T * const, T1 const);
+      T1 (* _private back)(union CVector_T * const);
+      void (* _private pop_back)(union CVector_T * const);
+   };
 }TEMPLATE(CVector, CVector_Params, Class_T);
 
 

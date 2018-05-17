@@ -40,28 +40,28 @@ static union CSet_T CSet_T = {NULL};
 
 void CSet_Method(delete)(struct Object * const obj)
 {
-	union CSet_T * const this = (union CSet_T *) Object_Cast(&CSet_Class_T.Class, obj);
-	Isnt_Nullptr(this, );
-	this->vtbl->clear(this);
+   union CSet_T * const this = (union CSet_T *) Object_Cast(&CSet_Class_T.Class, obj);
+   Isnt_Nullptr(this, );
+   this->vtbl->clear(this);
 }
 
 int CSet_Method(compare)(void const * a, void const * b)
 {
-	return memcmp(a,b, sizeof(CSet_Item_T));
+   return memcmp(a,b, sizeof(CSet_Item_T));
 }
 
 void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const this, CSet_Item_T * const buff, size_t const buff_size)
 {
-	if(NULL == CSet_T.vtbl)
-	{
-		CSet_T.vtbl = &CSet_Class_T;
-		CSet_T.i = 0;
-		CSet_T.buffer = NULL;
-		CSet_T.compare = CSet_Method(compare);
-	}
-	
-	memcpy(this, &CSet_T, sizeof(CSet_T));
-	
+   if(NULL == CSet_T.vtbl)
+   {
+      CSet_T.vtbl = &CSet_Class_T;
+      CSet_T.i = 0;
+      CSet_T.buffer = NULL;
+      CSet_T.compare = CSet_Method(compare);
+   }
+   
+   memcpy(this, &CSet_T, sizeof(CSet_T));
+   
     this->capacity = buff_size;
     this->buffer = buff;
 }
@@ -91,21 +91,21 @@ uint32_t CSet_Method(size)(union CSet_T * const this)
 
 void CSet_Method(clear)(union CSet_T * const this)
 {
-	while(this->i)
-	{
-		CSet_Item_T * const it = this->vtbl->begin(this);
-		this->vtbl->erase(this, *it);
-	}
+   while(this->i)
+   {
+      CSet_Item_T * const it = this->vtbl->begin(this);
+      this->vtbl->erase(this, *it);
+   }
 }
 
 void CSet_Method(insert)(union CSet_T * const this, CSet_Item_T const value)
 {
     if (this->i >= this->capacity) return;
 
-	CSet_Item_T * end = this->vtbl->end(this);
-	CSet_Item_T * found = this->vtbl->find(this, value);
+   CSet_Item_T * end = this->vtbl->end(this);
+   CSet_Item_T * found = this->vtbl->find(this, value);
 
-	if(end != found) return;
+   if(end != found) return;
 
     this->buffer[this->i++] = value;
     qsort(this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
@@ -121,16 +121,16 @@ void CSet_Method(erase)(union CSet_T * const this,
 {
     if (0 == this->i) return;
 
-	CSet_Item_T * end = this->vtbl->end(this);
-	CSet_Item_T * found = this->vtbl->find(this, value);
+   CSet_Item_T * end = this->vtbl->end(this);
+   CSet_Item_T * found = this->vtbl->find(this, value);
 
-	if(end == found) return;
+   if(end == found) return;
 
 #ifdef CSET_DELETABLE
-	_delete(found);
+   _delete(found);
 #endif
 
-	memset(found, 0, sizeof(CSet_Item_T));
+   memset(found, 0, sizeof(CSet_Item_T));
     memmove(found, found +1 , (size_t) end - (size_t)found + 1UL);
     memset(end - 1, 0, sizeof(CSet_Item_T));
 

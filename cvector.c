@@ -20,16 +20,16 @@ void CVector_Method(pop_back)(union CVector_T * const);
 
 union CVector_Class_T CVector_Class_T = 
 {
-	{{CVector_Method(delete), NULL},
-	CVector_Method(size),
-	CVector_Method(clear),
-	CVector_Method(begin),
-	CVector_Method(end),
-	CVector_Method(at),
-	CVector_Method(access),
-	CVector_Method(push_back),
-	CVector_Method(back),
-	CVector_Method(pop_back)}
+   {{CVector_Method(delete), NULL},
+   CVector_Method(size),
+   CVector_Method(clear),
+   CVector_Method(begin),
+   CVector_Method(end),
+   CVector_Method(at),
+   CVector_Method(access),
+   CVector_Method(push_back),
+   CVector_Method(back),
+   CVector_Method(pop_back)}
 };
 
 static union CVector_T CVector_T = {NULL};
@@ -37,24 +37,24 @@ static union CVector_T CVector_T = {NULL};
 
 void CVector_Method(delete)(struct Object * const obj)
 {
-	union CVector_T * const this = (union CVector_T *) Object_Cast(&CVector_Class_T.Class, obj);
-	Isnt_Nullptr(this, );
+   union CVector_T * const this = (union CVector_T *) Object_Cast(&CVector_Class_T.Class, obj);
+   Isnt_Nullptr(this, );
 
-	this->vtbl->clear(this);
+   this->vtbl->clear(this);
 }
  
 void  Method_Name(Populate, CVector, CVector_Params)(union CVector_T * const this,
-		T1 * const buff, size_t const buff_size)
+      T1 * const buff, size_t const buff_size)
 {
-	if(NULL == CVector_T.vtbl)
-	{
-		CVector_T.vtbl = &CVector_Class_T;
-		CVector_T.capacity = 0;
-		CVector_T.i = 0;
-		CVector_T.buffer = NULL;
-	}
+   if(NULL == CVector_T.vtbl)
+   {
+      CVector_T.vtbl = &CVector_Class_T;
+      CVector_T.capacity = 0;
+      CVector_T.i = 0;
+      CVector_T.buffer = NULL;
+   }
 
-	memcpy(this, &CVector_T, sizeof(CVector_T));
+   memcpy(this, &CVector_T, sizeof(CVector_T));
 
     this->capacity = buff_size;
     this->buffer = buff;
@@ -78,21 +78,21 @@ T1 CVector_Method(back)(union CVector_T * const this)
 void CVector_Method(push_back)(union CVector_T * const this, T1 const value)
 {
     if (this->i >= this->capacity) return;
-	this->buffer[this->i] = value;
-	++this->i;
+   this->buffer[this->i] = value;
+   ++this->i;
 }
 
 void CVector_Method(pop_back)(union CVector_T * const this)
 {
-	if(this->i)
-	{
-		--this->i;
+   if(this->i)
+   {
+      --this->i;
 #ifdef CVECTOR_DELETABLE
-		Object_Delete((struct Object *)(this->buffer+this->i));
+      Object_Delete((struct Object *)(this->buffer+this->i));
 #else
-		memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
+      memset(this->buffer + this->i, 0, sizeof(this->buffer[this->i]));
 #endif
-	}
+   }
 }
 
 uint32_t CVector_Method(size)(union CVector_T * const this)
@@ -118,9 +118,9 @@ uint32_t CVector_Method(capacity)(union CVector_T * const this)
 void CVector_Method(clear)(union CVector_T * const this)
 {
     while(this->i)
-	{
-		this->vtbl->pop_back(this);
-	}
+   {
+      this->vtbl->pop_back(this);
+   }
 }
 
 #undef CVector_T

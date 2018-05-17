@@ -24,43 +24,43 @@ static void CQueue_Method(pop_front)(union CQueue_T * const);
 
 union CQueue_Class_T CQueue_Class_T =
 {
-	{{CQueue_Method(delete)},
-	CQueue_Method(size),
-	CQueue_Method(clear),
-	CQueue_Method(begin),
-	CQueue_Method(end),
-	CQueue_Method(at),
-	CQueue_Method(access),
-	CQueue_Method(push_back),
-	CQueue_Method(push_front),
-	CQueue_Method(back),
-	CQueue_Method(front),
-	CQueue_Method(pop_back),
-	CQueue_Method(pop_front)}
+   {{CQueue_Method(delete)},
+   CQueue_Method(size),
+   CQueue_Method(clear),
+   CQueue_Method(begin),
+   CQueue_Method(end),
+   CQueue_Method(at),
+   CQueue_Method(access),
+   CQueue_Method(push_back),
+   CQueue_Method(push_front),
+   CQueue_Method(back),
+   CQueue_Method(front),
+   CQueue_Method(pop_back),
+   CQueue_Method(pop_front)}
 };
 
 static union CQueue_T CQueue_T = {NULL};
 
 void CQueue_Method(delete)(struct Object * const obj)
 {
-	union CQueue_T * const this = (union CQueue_T *) Object_Cast(&CQueue_Class_T.Class, obj);
-	Isnt_Nullptr(this, );
+   union CQueue_T * const this = (union CQueue_T *) Object_Cast(&CQueue_Class_T.Class, obj);
+   Isnt_Nullptr(this, );
 
-	this->i = 0;
+   this->i = 0;
 }
  
 void Method_Name(Populate, CQueue, CQueue_Params)(union CQueue_T * const this, 
-		T1 * const buff, size_t const buff_size)
+      T1 * const buff, size_t const buff_size)
 {
-	if(NULL == CQueue_T.vtbl)
-	{
-		CQueue_T.vtbl = &CQueue_Class_T;
-		CQueue_T.capacity = 0;
-		CQueue_T.i = 0;
-		CQueue_T.buffer = NULL;
-	}
+   if(NULL == CQueue_T.vtbl)
+   {
+      CQueue_T.vtbl = &CQueue_Class_T;
+      CQueue_T.capacity = 0;
+      CQueue_T.i = 0;
+      CQueue_T.buffer = NULL;
+   }
 
-	memcpy(this, &CQueue_T, sizeof(CQueue_T));
+   memcpy(this, &CQueue_T, sizeof(CQueue_T));
 
     this->capacity = buff_size;
     this->buffer = buff;
@@ -89,8 +89,8 @@ T1 CQueue_Method(back)(union CQueue_T * const this)
 void CQueue_Method(push_back)(union CQueue_T * const this, T1 const value)
 {
     if (this->i >= this->capacity) return;
-	this->buffer[this->i] = value;
-	++this->i;
+   this->buffer[this->i] = value;
+   ++this->i;
 }
 
 void CQueue_Method(pop_back)(union CQueue_T * const this)
@@ -110,10 +110,10 @@ void CQueue_Method(push_front)(union CQueue_T * const this, T1 const value)
 {
     if (this->i >= this->capacity) return;
 
-	memcpy(this->buffer + 1, this->buffer, this->i * sizeof(this->buffer[0]));
+   memcpy(this->buffer + 1, this->buffer, this->i * sizeof(this->buffer[0]));
 
-	this->buffer[0] = value;
-	++this->i;
+   this->buffer[0] = value;
+   ++this->i;
 }
 
 void CQueue_Method(pop_front)(union CQueue_T * const this)
@@ -142,7 +142,7 @@ T1 * CQueue_Method(at)(union CQueue_T * const this, uint32_t const index)
 
 T1 CQueue_Method(access)(union CQueue_T * const this, uint32_t const index)
 {
-	return this->buffer[index];
+   return this->buffer[index];
 }
 
 uint32_t CQueue_Method(capacity)(union CQueue_T * const this)
@@ -152,10 +152,10 @@ uint32_t CQueue_Method(capacity)(union CQueue_T * const this)
 
 void CQueue_Method(clear)(union CQueue_T * const this)
 {
-	while(this->i)
-	{
-		this->vtbl->pop_back(this);
-	}
+   while(this->i)
+   {
+      this->vtbl->pop_back(this);
+   }
 }
 
 #undef CQueue

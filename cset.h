@@ -19,15 +19,15 @@ typedef int (* CSet_Cmp_T)(void const *, void const *);
 
 typedef union CSet_T
 {
-	struct CSet_Class_T _private * _private vtbl;
-	struct
-	{
-		struct Object Object;
-		uint32_t _private i;
-		uint32_t _private capacity;
-		CSet_Item_T _private _private * _private buffer;
-		CSet_Cmp_T _private compare;
-	};
+   struct CSet_Class_T _private * _private vtbl;
+   struct
+   {
+      struct Object Object;
+      uint32_t _private i;
+      uint32_t _private capacity;
+      CSet_Item_T _private _private * _private buffer;
+      CSet_Cmp_T _private compare;
+   };
 }TEMPLATE(CSet, CSet_Params, T);
 
 typedef struct CSet_Class_T
@@ -47,10 +47,10 @@ typedef struct CSet_Class_T
 extern struct CSet_Class_T _private CSet_Class_T;
 
 extern void Method_Name(Populate, CSet, CSet_Params)(union CSet_T * const set, CSet_Item_T * const buff,
-		size_t const buff_size);
+      size_t const buff_size);
  
 extern void Method_Name(Populate, CSet_Cmp, CSet_Params)(union CSet_T * const set, CSet_Item_T * const buff,
-		size_t const buff_size, CSet_Cmp_T compare);
+      size_t const buff_size, CSet_Cmp_T compare);
 
 #ifdef __cplusplus
 }
