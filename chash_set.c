@@ -103,6 +103,7 @@ void CHash_Set_Method(erase)(CHash_Set_T * const this, CHash_Set_Item_T const it
       }
    }
 }
+
 void CHash_Set_Method(clear)(CHash_Set_T * const)
 {
    for(it = this->buff; it <  this->buff + this->size; ++it)

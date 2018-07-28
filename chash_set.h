@@ -16,6 +16,10 @@
 #define CHash_Set_Bucket_T TEMPLATE(CHash_Set, CHash_Set_Params, Bucket_T)
 #define CHash_Set_Cmp_T TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef uint32_t CHash_Set_HID_T;
 typedef CHash_Set_HID_T (* CHash_Set_Rehash_T)(CHash_Set_T * const, CHash_Set_HID_T const);
 typedef int (* CHash_Set_Cmp_T)(CHash_Set_Item_T *, CHash_Set_Item_T *);
@@ -58,4 +62,9 @@ extern void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const 
       size_t hash_buff_size,
       CHash_Set_Rehash_T const rehash,
       CHash_Set_Cmp_T const compare);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /*CHASH_SET_H*/
