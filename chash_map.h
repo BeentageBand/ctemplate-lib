@@ -10,6 +10,7 @@
 #define CHash_Map_Pair_T TEMPLATE(Pair, CHash_Map_Params, T)
 #define KEY_T T_Param(1, CHash_Map_Params)
 #define OBJ_T T_Param(2, CHash_Map_Params)
+#define CHash_Map_Method(method) TEMPLATE(CHash_Map, CHash_Map_Params, method)
 
 #ifdef __cplusplus
 extern "C" {
