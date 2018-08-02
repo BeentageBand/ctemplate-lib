@@ -1,5 +1,4 @@
 #define COBJECT_IMPLEMENTATION
- 
 #include "dbg_log.h"
 
 
@@ -14,7 +13,7 @@
 #define OBJ_T T_Param(2, CHash_Map_Params)
 #define CHash_Map_Method(method) TEMPLATE(CHash_Map, CHash_Map_Params, method)
 
-#define CHash_Set_Params CHash_Map_Pair
+#define CHash_Set_Params Member_Name(Pair,CHash_Map_Params)
 #include "chash_set.c"
 typedef CHash_Set_T CHash_Map_T;
 
