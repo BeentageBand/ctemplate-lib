@@ -21,13 +21,12 @@ typedef struct Member_Name(Pair, CHash_Map_Params)
     OBJ_T obj;
 }CHash_Map_Pair_T;
 
-#define CHash_Set_Params TEMPLATE(Pair, CHash_Map_Params)
+#define CHash_Set_Params Member_Name(Pair,CHash_Map_Params)
 #include "chash_set.h"
 
 typedef TEMPLATE(CHash_Set, CHash_Set_Params, T) CHash_Map_T;
 typedef TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T) CHash_Map_Cmp_T;
-
-typedef union TEMPLATE(CHash_Set, CHash_Set_Params, Class_T) CHash_Map_Class_T;
+typedef TEMPLATE(CHash_Set, CHash_Set_Params, Class_T) CHash_Map_Class_T;
 
 #undef CHash_Set_Params
 

@@ -1,5 +1,5 @@
-#ifndef CHASH_SET_H
-#define CHASH_SET_H
+#if !defined(CHASH_SET_H_) || defined(CHash_Set_Params)
+#define CHASH_SET_H_
 
 #include "cobject.h"
 
