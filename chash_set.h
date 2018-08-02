@@ -11,7 +11,7 @@
 #define CHash_Set_Member(member) TEMPLATE(CHash_Set, CHash_Set_Params, member)
 #define CHash_Set_T TEMPLATE(CHash_Set, CHash_Set_Params, T)
 #define CHash_Set_Class_T TEMPLATE(CHash_Set, CHash_Set_Params, Class_T)
-#define CHash_Set_Item_T CAT(T_Param(CHash_Set_Params, 1), _T)
+#define CHash_Set_Item_T T_Param(1, CHash_Set_Params)
 #define CHash_Set_Rehash_T TEMPLATE(CHash_Set, CHash_Set_Params, Rehash_T)
 #define CHash_Set_Bucket_T TEMPLATE(CHash_Set, CHash_Set_Params, Bucket_T)
 #define CHash_Set_Cmp_T TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T)
@@ -67,4 +67,12 @@ extern void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const 
 }
 #endif
 
+#undef CHash_Set_Method
+#undef CHash_Set_Member
+#undef CHash_Set_T 
+#undef CHash_Set_Class_T 
+#undef CHash_Set_Item_T 
+#undef CHash_Set_Rehash_T 
+#undef CHash_Set_Bucket_T 
+#undef CHash_Set_Cmp_T 
 #endif /*CHASH_SET_H*/

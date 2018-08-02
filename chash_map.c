@@ -7,8 +7,8 @@
 #error "CHash_Map Params not defined"
 #endif
 
-#define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params)
-#define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class)
+#define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params, T)
+#define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class_T)
 #define CHash_Map_Pair_T TEMPLATE(Pair, CHash_Map_Params, T)
 #define KEY_T T_Param(1, CHash_Map_Params)
 #define OBJ_T T_Param(2, CHash_Map_Params)
@@ -65,3 +65,10 @@ CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj)
     CHash_Map_Pair_T pair = {key, obj};
     return pair;
 }
+
+#undef CHash_Map_T 
+#undef CHash_Map_Class_T 
+#undef CHash_Map_Pair_T 
+#undef KEY_T
+#undef OBJ_T
+#undef CHash_Map_Method

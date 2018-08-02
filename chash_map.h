@@ -5,8 +5,8 @@
 #error "CHash_Map_Params not defined"
 #endif
 
-#define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params)
-#define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class)
+#define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params, T)
+#define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class_T)
 #define CHash_Map_Pair_T TEMPLATE(Pair, CHash_Map_Params, T)
 #define KEY_T T_Param(1, CHash_Map_Params)
 #define OBJ_T T_Param(2, CHash_Map_Params)
@@ -20,13 +20,13 @@ typedef struct Member_Name(Pair, CHash_Map_Params)
     OBJ_T obj;
 }CHash_Map_Pair_T;
 
-#define CHash_Set_Params CHash_Map_Pair
+#define CHash_Set_Params TEMPLATE(Pair, CHash_Map_Params)
 #include "chash_set.h"
 
-typedef CHash_Set_T CHash_Map_T;
-typedef CHash_Set_Cmp_T CHash_Map_Cmp_T;
+typedef TEMPLATE(CHash_Set, CHash_Set_Params, T) CHash_Map_T;
+typedef TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T) CHash_Map_Cmp_T;
 
-typedef union CHash_Set_Class_T CHash_Map_Class_T;
+typedef union TEMPLATE(CHash_Set, CHash_Set_Params, Class_T) CHash_Map_Class_T;
 
 #undef CHash_Set_Params
 
