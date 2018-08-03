@@ -32,7 +32,7 @@ struct CHash_Set_Member(Bucket)
 
 union TEMPLATE(CHash_Set, CHash_Set_Params)
 {
-   struct TEMPLATE(CHash_Set, CHash_Set_Params, Class) _private * _private vtbl;
+   struct CHash_Set_Member(Class) _private * _private vtbl;
    struct
    {
       struct Object Object;
@@ -55,9 +55,9 @@ struct CHash_Set_Member(Class)
    void (*_private clear)(CHash_Set_T * const);
 }CHash_Set_Class_T;
 
-extern CHash_Set_Class_T _private TEMPLATE(CHash_Set, CHash_Set_Params, Class);
+extern CHash_Set_Class_T _private CHash_Set_Member(Class);
 
-extern void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const this,
+extern void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const chash,
       CHash_Set_Bucket_T * const hash_buff,
       size_t hash_buff_size,
       CHash_Set_Rehash_T const rehash,

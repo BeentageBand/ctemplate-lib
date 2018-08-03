@@ -12,6 +12,7 @@
 #define CHash_Set_Bucket_T TEMPLATE(CHash_Set, CHash_Set_Params, Bucket_T)
 #define CHash_Set_Cmp_T TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T)
 
+static void CHash_Set_Method(delete)(struct Object * const obj);
 static size_t CHash_Set_Method(count)(CHash_Set_T * const);
 static CHash_Set_Item_T * CHash_Set_Method(begin)(CHash_Set_T * const);
 static CHash_Set_Item_T * CHash_Set_Method(end)(CHash_Set_T * const);
@@ -22,6 +23,16 @@ static void CHash_Set_Method(clear)(CHash_Set_T * const);
 static bool CHash_Set_Method(is_empty)(CHash_Set_Item_T * const item);
 static int CHash_Set_Method(compare)(CHash_Set_Item_T * a, CHash_Set_Item_T * b);
 static CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_HID_T const hid);
+
+static CHash_Set_T TEMPLATE(CHash_Set, CHash_Set_Params) = {NULL};
+static CHash_Set_Class_T CHash_Set_Member(Class) = 
+{
+	{CHash_Set_Method(delete), NULL}
+};
+
+void CHash_Set_Method(delete)(struct Object * const obj)
+{
+}
 
 size_t CHash_Set_Method(count)(CHash_Set_T * const this)
 {
@@ -149,6 +160,7 @@ void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const this,
       this->compare = compare;
 }
 
+#undef CHash_Set_Method
 #undef CHash_Set_Member
 #undef CHash_Set_T 
 #undef CHash_Set_Class_T 

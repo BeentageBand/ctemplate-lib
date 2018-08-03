@@ -8,9 +8,11 @@
 #define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params, T)
 #define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class_T)
 #define CHash_Map_Pair_T TEMPLATE(Pair, CHash_Map_Params, T)
+#define CHash_Map_Cmp_T TEMPLATE(CHash_Map, CHash_Map_Params, Cmp_T)
 #define KEY_T T_Param(1, CHash_Map_Params)
 #define OBJ_T T_Param(2, CHash_Map_Params)
 #define CHash_Map_Method(method) TEMPLATE(CHash_Map, CHash_Map_Params, method)
+#define CHash_Map_Member(member) TEMPLATE(CHash_Map, CHash_Map_Params, member)
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,9 +32,9 @@ typedef TEMPLATE(CHash_Set, CHash_Set_Params, Class_T) CHash_Map_Class_T;
 
 #undef CHash_Set_Params
 
-extern CHash_Map_Class_T _private CHash_Map_Class;
+extern CHash_Map_Class_T _private CHash_Map_Member(Class);
 
-extern void Method_Name(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const cmap, CHash_Map_Pair_T * const buff, size_t const buff_size, CHash_Map_Cmp_T const compare);
+extern void TEMPLATE(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const chash, CHash_Map_Pair_T * const buff, size_t const buff_size, CHash_Map_Cmp_T const compare);
 
 extern CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj);
 
@@ -40,10 +42,13 @@ extern CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const
 }
 #endif
 
+#undef CHash_Map_Cmp_T
 #undef CHash_Map_T 
 #undef CHash_Map_Class_T 
 #undef CHash_Map_Pair_T 
 #undef KEY_T
 #undef OBJ_T
+#undef CHash_Map_Method
+#undef CHash_Map_Member
 
 #endif /*CHASH_MAP_H_*/
