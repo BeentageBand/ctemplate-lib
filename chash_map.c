@@ -15,7 +15,7 @@
 
 #define CHash_Set_Params Member_Name(Pair,CHash_Map_Params)
 #include "chash_set.c"
-typedef CHash_Set_T CHash_Map_T;
+#undef CHash_Set_Params
 
 static void CHash_Map_Method(delete)(struct Object * const obj);
 static int CHash_Map_Method(cmp)(CHash_Map_Pair_T * a, CHash_Map_Pair_T * b);

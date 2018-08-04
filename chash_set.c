@@ -27,18 +27,21 @@ static CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_HID_T const hid);
 static CHash_Set_T TEMPLATE(CHash_Set, CHash_Set_Params) = {NULL};
 static CHash_Set_Class_T CHash_Set_Member(Class) = 
 {
-	{CHash_Set_Method(delete), NULL}
+   {CHash_Set_Method(delete), NULL}
 };
 
 void CHash_Set_Method(delete)(struct Object * const obj)
 {
+   CHash_Set_T * const this = (CHash_Set_T *)Object_Cast(&CHash_Set_Member(Class), obj);
+   this->vtbl->clear(this);
+   this->size = 0UL;
+   this->buff = NULL;
 }
 
 size_t CHash_Set_Method(count)(CHash_Set_T * const this)
 {
-   CHash_Set_Bucket_T * it;
+   CHash_Set_Item_T * it;
    size_t count = 0;
-
    for(it = this->buff; it < (this->buff + this->size); ++it)
    {
       if(!CHash_Set_Method(is_empty)(it))
@@ -51,55 +54,71 @@ size_t CHash_Set_Method(count)(CHash_Set_T * const this)
 
 CHash_Set_Item_T * CHash_Set_Method(begin)(CHash_Set_T * const this)
 {
+   CHash_Set_Item_T * it;
    for(it = this->buff; it < (this->buff + this->size); ++it)
    {
-      if(CHash_Set_Method(is_empty)(&it->item))
+      if(!CHash_Set_Method(is_empty)(it))
       {
          break;
       }
    }
-   return (CHash_Set_Item_T *)((bool* )it) + 1;
+   return it;
 }
 
 CHash_Set_Item_T * CHash_Set_Method(end)(CHash_Set_T * const)
 {
-   return  (CHash_Set_Item_T *)((bool *)(this->buff + this->size)) + 1;
+   CHash_Set_Item_T * it;
+   for(it = this->buff + this->size; it != this->buff; --it)
+   {
+      if(!CHash_Set_Method(is_empty)(it))
+      {
+        break;
+      }
+   }
+   return end;
 }
 
 CHash_Set_Item_T * CHash_Set_Method(find)(CHash_Set_T * const this, CHash_Set_Item_T const item)
 {
    CHash_Set_HID_T hid = (CHash_Set_HID_T) item;
    size_t retries = 0;
+   bool is_found = false;
    do
    {
       hid = this->rehash(hid + retries);
-      is_found  = !(this->buff[hid].collision) &&
-         0 == CHash_Set_Method(compare)(&item, &this->buff[hid].item);
+      CHash_Set_Bucket_T bucket = {0}; 
+      bucket.item = this->buff[hid];
+      is_found  = !(bucket.collision) &&
+         0 == CHash_Set_Method(compare)(&item, &this->buff[hid]);
       ++retries;
    }while(!is_found && retries < this->size);
-   return &this->buff[hid].item;
+   return this->buff + hid;
 }
 
 void CHash_Set_Method(insert)(CHash_Set_T * const this, CHash_Set_Item_T const item)
 {
    CHash_Set_HID_T hid = (CHash_Set_HID_T) item;
+   bool is_empty = true;
    size_t retries = 0;
    do
    {
       hid = this->rehash(hid + retries);
-      is_empty = CHash_Set_Method(is_empty)(&this->buff[hid].item);
+      is_empty = CHash_Set_Method(is_empty)(this->buff + hid);
+     
       if(!is_empty)
       {
-         this->buff[hid].collision = true;
+         CHash_Set_Bucket_T * const bucket = this->buff + hid;
+         bucket->collision = true;
       }
       else
       {
-         memcpy(&this->buff[hid].item, &item, sizeof(item));
+         memcpy(this->buff + hid, &item, sizeof(item));
       }
       ++retries;
    }while(!is_empty && retries < this->size);
 
 }
+
 void CHash_Set_Method(erase)(CHash_Set_T * const this, CHash_Set_Item_T const item)
 {
    CHash_Set_Item_T * found = this->vtbl->find(this, item);
@@ -108,18 +127,22 @@ void CHash_Set_Method(erase)(CHash_Set_T * const this, CHash_Set_Item_T const it
       memset(found, 0, sizeof(item));
       CHash_Set_HID_T hid = this->rehash((CHash_Set_HID_T)item);// check if next item is down;
 
-      if(CHash_Set_Method(is_empty)(&this->buff[hid].item))
+      if(CHash_Set_Method(is_empty)(&this->buff + hid))
       {
          *((bool *)(found) - 1) = false;
       }
    }
 }
 
-void CHash_Set_Method(clear)(CHash_Set_T * const)
+void CHash_Set_Method(clear)(CHash_Set_T * const this)
 {
+   CHash_Set_Item_T * it;
    for(it = this->buff; it <  this->buff + this->size; ++it)
    {
-      if(CHash_Set_Method(is_empty(&this->buff[hid].
+      if(!CHash_Set_Method(is_empty)(&this->buff))
+      {
+        memcpy(it, 0 sizeof(it[0]));
+      }
    }
 }
 
@@ -127,7 +150,9 @@ bool CHash_Set_Method(is_empty)(CHash_Set_Item_T * const item)
 {
    CHash_Set_Item_T empty_it;
    memset(&empty_it, 0, sizeof(empty_it));
-   return 0 == memcmp(item, &empty_it, sizeof(empty_it));
+   CHash_Set_Bucket_T bucket = { false };
+   bucket.item = *item;
+   return 0 == memcmp(item, &empty_it, sizeof(empty_it)) || bucket.collision;
 }
 
 CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_T * const this, CHash_Set_HID_T const hid)
@@ -136,7 +161,7 @@ CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_T * const this, CHash_Set_HID
 }
 
 void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const this,
-      CHash_Set_Bucket_T * const hash_buff,
+      CHash_Set_Item_T * const hash_buff,
       size_t hash_buff_size,
       CHash_Set_Rehash_T const rehash,
       CHash_Set_Cmp_T const compare)
@@ -152,7 +177,7 @@ void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const this,
    memcpy(this, &TEMPLATE(CHash_Set, CHash_Set_Params), sizeof(TEMPLATE(CHash_Set, CHash_Set_Params)));
    this->buff = hash_buff;
    this->size = hash_buff_size;
-   memset(hash_buff, 0, hash_buff_size * sizeof(CHash_Set_Bucket_T));
+   memset(hash_buff, 0, hash_buff_size * sizeof(CHash_Set_Item_T));
 
    if(NULL != rehash)
       this->rehash = rehash;

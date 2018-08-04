@@ -15,22 +15,22 @@
 #define CHash_Set_Rehash_T TEMPLATE(CHash_Set, CHash_Set_Params, Rehash_T)
 #define CHash_Set_Bucket_T TEMPLATE(CHash_Set, CHash_Set_Params, Bucket_T)
 #define CHash_Set_Cmp_T TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T)
+#define CHash_Set_HID_T TEMPLATE(CHash_Set, CHash_Set_Params, HID_T)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef uint32_t CHash_Set_HID_T;
-typedef CHash_Set_HID_T (* CHash_Set_Rehash_T)(CHash_Set_T * const, CHash_Set_HID_T const);
+typedef size_t CHash_Set_HID_T;
+typedef CHash_Set_HID_T (* CHash_Set_Rehash_T)(union TEMPLATE(CHash_Set, CHash_Set_Params) * const, CHash_Set_HID_T const);
 typedef int (* CHash_Set_Cmp_T)(CHash_Set_Item_T *, CHash_Set_Item_T *);
 
-struct CHash_Set_Member(Bucket)
+typedef union CHash_Set_Member(Bucket)
 {
-   bool collisions;
+   bool collision;
    CHash_Set_Item_T item;
-}CHash_Set_Bucket_T;
-
-union TEMPLATE(CHash_Set, CHash_Set_Params)
+}CHash_Set_Member(Bucket_T);
+typedef union TEMPLATE(CHash_Set, CHash_Set_Params)
 {
    struct CHash_Set_Member(Class) _private * _private vtbl;
    struct
@@ -43,7 +43,7 @@ union TEMPLATE(CHash_Set, CHash_Set_Params)
    };
 }CHash_Set_T;
 
-struct CHash_Set_Member(Class)
+typedef struct CHash_Set_Member(Class)
 {
    struct Class Class;
    size_t (* _private count)(CHash_Set_T * const);
