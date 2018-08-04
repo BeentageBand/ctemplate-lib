@@ -139,9 +139,9 @@ void CHash_Set_Method(clear)(CHash_Set_T * const this)
    CHash_Set_Item_T * it;
    for(it = this->buff; it <  this->buff + this->size; ++it)
    {
-      if(!CHash_Set_Method(is_empty)(&this->buff))
+      if(!CHash_Set_Method(is_empty)(it))
       {
-        memcpy(it, 0 sizeof(it[0]));
+        memcpy(it, 0, sizeof(it[0]));
       }
    }
 }

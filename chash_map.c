@@ -9,9 +9,11 @@
 #define CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params, T)
 #define CHash_Map_Class_T TEMPLATE(CHash_Map, CHash_Map_Params, Class_T)
 #define CHash_Map_Pair_T TEMPLATE(Pair, CHash_Map_Params, T)
+#define CHash_Map_Cmp_T TEMPLATE(CHash_Map, CHash_Map_Params, Cmp_T)
 #define KEY_T T_Param(1, CHash_Map_Params)
 #define OBJ_T T_Param(2, CHash_Map_Params)
 #define CHash_Map_Method(method) TEMPLATE(CHash_Map, CHash_Map_Params, method)
+#define CHash_Map_Member(member) TEMPLATE(CHash_Map, CHash_Map_Params, member)
 
 #define CHash_Set_Params Member_Name(Pair,CHash_Map_Params)
 #include "chash_set.c"
@@ -50,13 +52,11 @@ void Method_Name(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const this
 {
     if(NULL == Method_Name(CHash_Map, CHash_Map_Params).vtbl)
     {
-        Method_Name(Populate, CHash_Set, CHash_Set_Params)(&this->Method_Name(CHash_Set, CHash_Set_Params), buff, buff_size, CHash_Map_Method(cmp));
-        Object_Init(&Member_Name(CHash_Map, CHash_Map_Params).Object, &Member_Name(CHash_Map, CHash_Map_Params, Class).Class,
-                    sizeof(Member_Name(CHash_Map, CHash_Map_Params,Class).CHash_Set));
+        TEMPLATE(Populate, CHash_Set, Pair, CHash_Map_Params)(this, buff, buff_size, CHash_Map_Method(cmp));
     }
-    Method_Name(Populate, CHash_Set, CHash_Set_Params)(&this->Method_Name(CHash_Set, CHash_Set_Params), buff,
+    TEMPLATE(Populate, CHash_Set, Pair, CHash_Map_Params)(this, buff, buff_size, 
                 buff_size, (cmp)? cmp : CHash_Map_Method(cmp));
-    this->vtbl = &Member_Name(CHash_Map, CHash_Map_Params, Class);
+    this->vtbl = &CHash_Map_Member(Class);
 }
 
 CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj)
@@ -71,3 +71,4 @@ CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj)
 #undef KEY_T
 #undef OBJ_T
 #undef CHash_Map_Method
+#undef CHash_Map_Member

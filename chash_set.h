@@ -29,7 +29,8 @@ typedef union CHash_Set_Member(Bucket)
 {
    bool collision;
    CHash_Set_Item_T item;
-}CHash_Set_Member(Bucket_T);
+}CHash_Set_Bucket_T;
+
 typedef union TEMPLATE(CHash_Set, CHash_Set_Params)
 {
    struct CHash_Set_Member(Class) _private * _private vtbl;
@@ -58,7 +59,7 @@ typedef struct CHash_Set_Member(Class)
 extern CHash_Set_Class_T _private CHash_Set_Member(Class);
 
 extern void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const chash,
-      CHash_Set_Bucket_T * const hash_buff,
+      CHash_Set_Item_T * const hash_buff,
       size_t hash_buff_size,
       CHash_Set_Rehash_T const rehash,
       CHash_Set_Cmp_T const compare);
