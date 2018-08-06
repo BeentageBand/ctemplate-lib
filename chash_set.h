@@ -1,7 +1,7 @@
 #if !defined(CHASH_SET_H_) || defined(CHash_Set_Params)
 #define CHASH_SET_H_
 
-#include "cobject.h"
+#include "ctemplate.h"
 
 #ifndef CHash_Set_Params
 #error "CHash_Set_Params not set"

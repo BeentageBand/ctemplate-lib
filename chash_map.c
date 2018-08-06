@@ -1,7 +1,3 @@
-#define COBJECT_IMPLEMENTATION
-#include "dbg_log.h"
-
-
 #ifndef CHash_Map_Params
 #error "CHash_Map Params not defined"
 #endif
@@ -22,7 +18,7 @@
 static void CHash_Map_Method(delete)(struct Object * const obj);
 static int CHash_Map_Method(cmp)(CHash_Map_Pair_T * a, CHash_Map_Pair_T * b);
 
-CHash_Map_Class_T CHash_Map_Class = 
+CHash_Map_Class_T CHash_Map_Member(Class) = 
 {
     {CHash_Map_Method(delete), NULL},
     NULL,
@@ -36,7 +32,7 @@ CHash_Map_Class_T CHash_Map_Class =
     NULL
 };
 
-static CHash_Map_T CHash_Map = {NULL};
+static CHash_Map_T TEMPLATE(CHash_Map, CHash_Map_Params) = {NULL};
 
 void CHash_Map_Method(delete)(struct Object * const obj)
 {
@@ -47,16 +43,18 @@ int CHash_Map_Method(cmp)(CHash_Map_Pair_T * a, CHash_Map_Pair_T * b)
     return a->key - b->key;
 }
 
-void Method_Name(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const this, CHash_Map_Pair_T * const buff, size_t buff_size,
+void TEMPLATE(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const this, CHash_Map_Pair_T * const buff, size_t buff_size,
                  CHash_Map_Cmp_T cmp)
 {
-    if(NULL == Method_Name(CHash_Map, CHash_Map_Params).vtbl)
+    if(NULL == TEMPLATE(CHash_Map, CHash_Map_Params).vtbl)
     {
-        TEMPLATE(Populate, CHash_Set, Pair, CHash_Map_Params)(this, buff, buff_size, CHash_Map_Method(cmp));
+        this->vtbl = &CHash_Map_Member(Class);
     }
-    TEMPLATE(Populate, CHash_Set, Pair, CHash_Map_Params)(this, buff, buff_size, 
-                buff_size, (cmp)? cmp : CHash_Map_Method(cmp));
-    this->vtbl = &CHash_Map_Member(Class);
+    TEMPLATE(Populate, CHash_Set, Member_Name(Pair,CHash_Map_Params))(this,
+                buff,
+                buff_size, 
+                NULL,
+                (cmp)? cmp : CHash_Map_Method(cmp));
 }
 
 CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj)

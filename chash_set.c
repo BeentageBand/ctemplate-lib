@@ -1,4 +1,3 @@
-#define COBJECT_IMPLEMENTATION
 #ifndef CHash_Set_Params
 #error "CHash_Set_Params not set"
 #endif
@@ -22,10 +21,10 @@ static void CHash_Set_Method(erase)(CHash_Set_T * const, CHash_Set_Item_T const)
 static void CHash_Set_Method(clear)(CHash_Set_T * const);
 static bool CHash_Set_Method(is_empty)(CHash_Set_Item_T * const item);
 static int CHash_Set_Method(compare)(CHash_Set_Item_T * a, CHash_Set_Item_T * b);
-static CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_HID_T const hid);
+static CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_T * const hash, CHash_Set_HID_T const hid);
 
 static CHash_Set_T TEMPLATE(CHash_Set, CHash_Set_Params) = {NULL};
-static CHash_Set_Class_T CHash_Set_Member(Class) = 
+CHash_Set_Class_T CHash_Set_Member(Class) = 
 {
    {CHash_Set_Method(delete), NULL}
 };
@@ -65,7 +64,7 @@ CHash_Set_Item_T * CHash_Set_Method(begin)(CHash_Set_T * const this)
    return it;
 }
 
-CHash_Set_Item_T * CHash_Set_Method(end)(CHash_Set_T * const)
+CHash_Set_Item_T * CHash_Set_Method(end)(CHash_Set_T * const this)
 {
    CHash_Set_Item_T * it;
    for(it = this->buff + this->size; it != this->buff; --it)
@@ -75,17 +74,18 @@ CHash_Set_Item_T * CHash_Set_Method(end)(CHash_Set_T * const)
         break;
       }
    }
-   return end;
+   return it;
 }
 
 CHash_Set_Item_T * CHash_Set_Method(find)(CHash_Set_T * const this, CHash_Set_Item_T const item)
 {
-   CHash_Set_HID_T hid = (CHash_Set_HID_T) item;
+   CHash_Set_HID_T hid; 
+   memcpy(&hid, &item, sizeof(hid));
    size_t retries = 0;
    bool is_found = false;
    do
    {
-      hid = this->rehash(hid + retries);
+      hid = this->rehash(this, hid + retries);
       CHash_Set_Bucket_T bucket = {0}; 
       bucket.item = this->buff[hid];
       is_found  = !(bucket.collision) &&
@@ -97,12 +97,13 @@ CHash_Set_Item_T * CHash_Set_Method(find)(CHash_Set_T * const this, CHash_Set_It
 
 void CHash_Set_Method(insert)(CHash_Set_T * const this, CHash_Set_Item_T const item)
 {
-   CHash_Set_HID_T hid = (CHash_Set_HID_T) item;
+   CHash_Set_HID_T hid; 
+   memcpy(&hid, &item, sizeof(hid));
    bool is_empty = true;
    size_t retries = 0;
    do
    {
-      hid = this->rehash(hid + retries);
+      hid = this->rehash(this, hid + retries);
       is_empty = CHash_Set_Method(is_empty)(this->buff + hid);
      
       if(!is_empty)
@@ -125,7 +126,9 @@ void CHash_Set_Method(erase)(CHash_Set_T * const this, CHash_Set_Item_T const it
    if(found != this->vtbl->end(this))
    {
       memset(found, 0, sizeof(item));
-      CHash_Set_HID_T hid = this->rehash((CHash_Set_HID_T)item);// check if next item is down;
+      CHash_Set_HID_T hid;
+      memcpy(&hid, &item, sizeof(hid));
+      hid = this->rehash(this, hid);// check if next item is down;
 
       if(CHash_Set_Method(is_empty)(&this->buff + hid))
       {

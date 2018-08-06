@@ -1,6 +1,8 @@
 #if !defined(CHASH_MAP_H_) || defined(CHash_Map_Params)
 #define CHASH_MAP_H_
 
+#include "ctemplate.h"
+
 #ifndef CHash_Map_Params
 #error "CHash_Map_Params not defined"
 #endif

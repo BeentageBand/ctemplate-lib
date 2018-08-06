@@ -1,6 +1,7 @@
 #if !defined(CMAP_H_) || defined(CMap_Params)
 #define CMAP_H_
 
+#include "ctemplate.h"
 #ifndef CMap_Params
 #error "CMap_Params not defined"
 #endif
