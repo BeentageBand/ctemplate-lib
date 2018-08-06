@@ -66,6 +66,7 @@ CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj)
 #undef CHash_Map_T 
 #undef CHash_Map_Class_T 
 #undef CHash_Map_Pair_T 
+#undef CHash_Map_Cmp_T
 #undef KEY_T
 #undef OBJ_T
 #undef CHash_Map_Method
