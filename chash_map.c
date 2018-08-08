@@ -16,7 +16,9 @@
 #undef CHash_Set_Params
 
 static void CHash_Map_Method(delete)(struct Object * const obj);
-static int CHash_Map_Method(cmp)(CHash_Map_Pair_T * a, CHash_Map_Pair_T * b);
+static int CHash_Map_Method(cmp)(CHash_Map_Pair_T * hash, CHash_Map_Pair_T * b);
+static CHash_Map_Pair_T * (* _private find)(CHash_Map_T * const hash, KEY_T const k);
+static void CHash_Map_Method(insert)(CHash_Map_T * const hash, KEY_T const k, OBJ_T const obj);
 
 CHash_Map_Class_T CHash_Map_Member(Class) = 
 {
@@ -41,6 +43,19 @@ void CHash_Map_Method(delete)(struct Object * const obj)
 int CHash_Map_Method(cmp)(CHash_Map_Pair_T * a, CHash_Map_Pair_T * b)
 {
     return a->key - b->key;
+}
+
+CHash_Map_Pair_T * CHash_Map_Method(find)(CHash_Map_T * const hash, KEY_T const k)
+{
+    CHash_Map_Pair_T pair = {0};
+    pair.key = k;
+    return hash->TEMPLATE(CHash_Set, Member_Name(Pair,CHash_Map_Params)).vtbl->find(hash, pair);
+}
+
+void CHash_Map_Method(insert)(CHash_Map_T * const hash, KEY_T const k, OBJ_T const obj)
+{
+    CHash_Map_Pair_T pair = CHash_Map_Method(make_pair)(k, obj);
+    return hash->TEMPLATE(CHash_Set, Member_Name(Pair,CHash_Map_Params)).vtbl->insert(hash, pair);
 }
 
 void TEMPLATE(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const this, CHash_Map_Pair_T * const buff, size_t buff_size,
