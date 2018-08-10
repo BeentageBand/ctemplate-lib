@@ -43,6 +43,7 @@ typedef union CHash_Map_Member(Class)
         void (* _private insert)(CHash_Map_T * const, KEY_T const, OBJ_T const);
         size_t (* _private count)(CHash_Map_T * const, KEY_T const);
     };
+    struct Class Class;
 }CHash_Map_Class_T;
 
 typedef TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T) CHash_Map_Cmp_T;
