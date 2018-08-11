@@ -163,6 +163,11 @@ CHash_Set_HID_T CHash_Set_Method(rehash)(CHash_Set_T * const this, CHash_Set_HID
    return hid % this->size;
 }
 
+int CHash_Set_Method(compare)(CHash_Set_Item_T * a, CHash_Set_Item_T * b)
+{
+  return memcmp(a,b, sizeof(CHash_Set_Item_T));
+}
+
 void TEMPLATE(Populate, CHash_Set, CHash_Set_Params)(CHash_Set_T * const this,
       CHash_Set_Item_T * const hash_buff,
       size_t hash_buff_size,
