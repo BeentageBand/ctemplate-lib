@@ -53,7 +53,7 @@ void Method_Name(Populate, CMap, CMap_Params)(CMap_T * const this, CMap_Pair_T *
     {
         Method_Name(Populate, CSet, CSet_Params)(&this->Method_Name(CSet, CSet_Params), buff, buff_size, CMap_Method(cmp));
         Object_Init(&Member_Name(CMap, CMap_Params).Object, &Member_Name(CMap, CMap_Params, Class).Class,
-                    sizeof(Member_Name(CMap, CMap_Params,Class).CSet));
+                    sizeof(Member_Name(CMap, CMap_Params,Class)));
     }
     Method_Name(Populate, CSet, CSet_Params)(&this->Method_Name(CSet, CSet_Params), buff,
                 buff_size, (cmp)? cmp : CMap_Method(cmp));

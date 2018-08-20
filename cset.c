@@ -112,7 +112,7 @@ void CSet_Method(insert)(union CSet_T * const this, CSet_Item_T const value)
 
     for(found = this->vtbl->begin(this); found != this->vtbl->end(this); ++found)
     {
-        Dbg_Verb("%s %l", __func__, (size_t)*found);
+        //Dbg_Verb("%s %l", __func__, (size_t)*found);
     }
 }
 
@@ -141,7 +141,7 @@ void CSet_Method(erase)(union CSet_T * const this,
 CSet_Item_T * CSet_Method(find)(union CSet_T * const this, CSet_Item_T const key)
 {
    CSet_Item_T * const found = bsearch(&key, this->buffer, this->i, sizeof(CSet_Item_T), this->compare);
-   Dbg_Verb("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
+   //Dbg_Verb("%s bsearch key %d %s found \n", __func__, (int) key, (found)? "is ": "is not ");
    return (found)? found : this->vtbl->end(this);
 }
 

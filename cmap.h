@@ -27,7 +27,7 @@ typedef struct Member_Name(Pair, CMap_Params)
 typedef CSet_T CMap_T;
 typedef CSet_Cmp_T CMap_Cmp_T;
 
-typedef union CSet_Class_T CMap_Class_T;
+typedef CSet_Class_T CMap_Class_T;
 
 #undef CSet_Params
 
