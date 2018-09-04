@@ -51,7 +51,10 @@ typedef TEMPLATE(CHash_Set, CHash_Set_Params, Cmp_T) CHash_Map_Cmp_T;
 
 extern CHash_Map_Class_T _private CHash_Map_Member(Class);
 
-extern void TEMPLATE(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const chash, CHash_Map_Pair_T * const buff, size_t const buff_size, CHash_Map_Cmp_T const compare);
+extern void TEMPLATE(Populate, CHash_Map, CHash_Map_Params)(CHash_Map_T * const chash,
+        CHash_Map_Pair_T * const buff,
+        size_t const buff_size,
+        CHash_Map_Cmp_T const compare);
 
 extern CHash_Map_Pair_T CHash_Map_Method(make_pair)(KEY_T const key, OBJ_T const obj);
 

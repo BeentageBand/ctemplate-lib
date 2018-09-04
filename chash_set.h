@@ -24,7 +24,7 @@ extern "C" {
 union TEMPLATE(CHash_Set, CHash_Set_Params);
 typedef size_t CHash_Set_HID_T;
 typedef CHash_Set_HID_T (* CHash_Set_Rehash_T)(union TEMPLATE(CHash_Set, CHash_Set_Params) * const, CHash_Set_HID_T const);
-typedef int (* CHash_Set_Cmp_T)(CHash_Set_Item_T *, CHash_Set_Item_T *);
+typedef int (* CHash_Set_Cmp_T)(CHash_Set_Item_T const *, CHash_Set_Item_T const *);
 
 typedef union CHash_Set_Member(Bucket)
 {
@@ -48,10 +48,10 @@ typedef union TEMPLATE(CHash_Set, CHash_Set_Params)
 typedef struct CHash_Set_Member(Class)
 {
    struct Class Class;
-   size_t (* _private count)(CHash_Set_T * const);
-   CHash_Set_Item_T * (* _private begin)(CHash_Set_T * const);
-   CHash_Set_Item_T * (* _private end)(CHash_Set_T * const);
-   CHash_Set_Item_T * (* _private find)(CHash_Set_T * const, CHash_Set_Item_T const);
+   size_t (*_private count)(CHash_Set_T * const);
+   CHash_Set_Item_T * (*_private begin)(CHash_Set_T * const);
+   CHash_Set_Item_T * (*_private end)(CHash_Set_T * const);
+   CHash_Set_Item_T * (*_private find)(CHash_Set_T * const, CHash_Set_Item_T const);
    void (*_private insert)(CHash_Set_T * const, CHash_Set_Item_T const);
    void (*_private erase)(CHash_Set_T * const, CHash_Set_Item_T const);
    void (*_private clear)(CHash_Set_T * const);
