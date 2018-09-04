@@ -21,6 +21,7 @@
 extern "C" {
 #endif
 
+union TEMPLATE(CHash_Set, CHash_Set_Params);
 typedef size_t CHash_Set_HID_T;
 typedef CHash_Set_HID_T (* CHash_Set_Rehash_T)(union TEMPLATE(CHash_Set, CHash_Set_Params) * const, CHash_Set_HID_T const);
 typedef int (* CHash_Set_Cmp_T)(CHash_Set_Item_T *, CHash_Set_Item_T *);

@@ -110,8 +110,7 @@ void CQueue_Method(push_front)(union CQueue_T * const this, T1 const value)
 {
     if (this->i >= this->capacity) return;
 
-   memcpy(this->buffer + 1, this->buffer, this->i * sizeof(this->buffer[0]));
-
+   memmove(this->buffer + 1, this->buffer, sizeof(this->buffer[0]) * this->i);
    this->buffer[0] = value;
    ++this->i;
 }
