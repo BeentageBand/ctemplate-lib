@@ -4,7 +4,7 @@
 
 #define CVector_Params Uint8 
 #define CQueue_Params Uint8 
-#include "ctemplate-lib/cvector-int-template.h"
-#include "ctemplate-lib/cqueue-int-template.h"
+#include "ctemplate-lib/vector/cvector-int-template.h"
+#include "ctemplate-lib/queue/cqueue-int-template.h"
 #undef CVector_Params 
 #undef CQueue_Params

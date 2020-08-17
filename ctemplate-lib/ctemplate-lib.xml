@@ -1,50 +1,6 @@
-<domain>
-    <class name="CVector" template="true">
-        <typename name="T"/>
-        <member name="i" type_t="size_t"/>
-        <member name="capacity" type_t="size_t"/>
-        <member name="buffer" type_t="T *"/>
-        <method name="size" return_t="size_t"/>
-        <method name="clear"/>
-        <method name="begin" return_t="T *"/>
-        <method name="end" return_t="T *"/>
-        <method name="at" return_t="T *">
-            <param name="index" type_t="size_t"/>
-        </method>
-        <method name="access" return_t="T">
-            <param name="index" type_t="size_t"/>
-        </method>
-        <method name="back" return_t="T"/>
-        <method name="push_back">
-            <param name="value" type_t="T"/>
-        </method>
-        <method name="pop_back"/>
-    </class>
-    <class name="CQueue" template="true">
-        <typename name="T"/>
-        <member name="hd" type_t="size_t"/>
-        <member name="tl" type_t="size_t"/>
-        <member name="capacity" type_t="size_t"/>
-        <member name="buffer" type_t="T *"/>
-        <method name="size" return_t="size_t"/>
-        <method name="clear"/>
-        <method name="begin" return_t="T *"/>
-        <method name="end" return_t="T *"/>
-        <method name="at" return_t="T *">
-            <param name="index" type_t="size_t"/>
-        </method>
-        <method name="access" return_t="T">
-            <param name="index" type_t="size_t"/>
-        </method>
-        <method name="back" return_t="T"/>
-        <method name="front" return_t="T"/>
-        <method name="push_back">
-            <param name="value" type_t="T"/>
-        </method>
-        <method name="pop_back"/>
-        <method name="push_front">
-            <param name="value" type_t="T"/>
-        </method>
-        <method name="pop_front"/>
-    </class>
+<?xml version="1.0"?>
+<domain xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="vector/cvector.xml"/> 
+    <xi:include href="queue/cqueue.xml"/>
+    <xi:include href="set/cset.xml"/>
 </domain>

@@ -15,30 +15,33 @@ extern "C" {
 union CVector_T;
 union CVector_T_Class
 {
+    
     struct
     {
-        struct Class Class;
-        size_t (* _private size)(union CVector_T * const cvector_t);
-        void (* _private clear)(union CVector_T * const cvector_t);
-        T * (* _private begin)(union CVector_T * const cvector_t);
-        T * (* _private end)(union CVector_T * const cvector_t);
-        T * (* _private at)(union CVector_T * const cvector_t, size_t const index);
-        T (* _private access)(union CVector_T * const cvector_t, size_t const index);
-        T (* _private back)(union CVector_T * const cvector_t);
-        void (* _private push_back)(union CVector_T * const cvector_t, T const value);
-        void (* _private pop_back)(union CVector_T * const cvector_t);
+    struct Class Class;
+    size_t (* _private size)(union CVector_T * const cvector_t);
+void (* _private clear)(union CVector_T * const cvector_t);
+T * (* _private begin)(union CVector_T * const cvector_t);
+T * (* _private end)(union CVector_T * const cvector_t);
+T * (* _private at)(union CVector_T * const cvector_t, size_t const index);
+T (* _private access)(union CVector_T * const cvector_t, size_t const index);
+T (* _private back)(union CVector_T * const cvector_t);
+void (* _private push_back)(union CVector_T * const cvector_t, T const value);
+void (* _private pop_back)(union CVector_T * const cvector_t);
+
     };
 };
 
 union CVector_T
 {
     union CVector_T_Class * vtbl;
-    struct
+        struct
     {
-        union Object Object;
-        size_t _private i;
-        size_t _private capacity;
-        T * _private buffer;
+      union Object Object;
+      size_t _private i;
+size_t _private capacity;
+T * _private buffer;
+
     };
 };
 

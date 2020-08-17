@@ -12,8 +12,8 @@ typedef uint8_t Uint8_T;
 #define CVector_Params Uint8 
 #define CQueue_Params Uint8 
 
-#include "ctemplate-lib/cvector-template.h"
-#include "ctemplate-lib/cqueue-template.h"
+#include "ctemplate-lib/vector/cvector-template.h"
+#include "ctemplate-lib/queue/cqueue-template.h"
 
 #undef CVector_Params
 #undef CQueue_Params

@@ -1,0 +1,21 @@
+<class name="CVector" template="true">
+    <typename name="T"/>
+    <member name="i" type_t="size_t"/>
+    <member name="capacity" type_t="size_t"/>
+    <member name="buffer" type_t="T *"/>
+    <method name="size" return_t="size_t"/>
+    <method name="clear"/>
+    <method name="begin" return_t="T *"/>
+    <method name="end" return_t="T *"/>
+    <method name="at" return_t="T *">
+        <param name="index" type_t="size_t"/>
+    </method>
+    <method name="access" return_t="T">
+        <param name="index" type_t="size_t"/>
+    </method>
+    <method name="back" return_t="T"/>
+    <method name="push_back">
+        <param name="value" type_t="T"/>
+    </method>
+    <method name="pop_back"/>
+</class>

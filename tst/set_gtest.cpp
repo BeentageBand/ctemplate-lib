@@ -1,9 +1,5 @@
-#define COBJECT_IMPLEMENTATION
-#define Dbg_FID DBG_FID_DEF(GTEST_FID, 3)
-
 #include "gtest/gtest.h"
-#include "gtest_template.h"
-#include "dbg_log.h"
+#include "gtest-template.h"
  
 #include <set>
  
@@ -32,8 +28,7 @@ static Tuple_T Set_Data[] =
 static int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b);
 
 static std::set<Uint8_T> SetCpp;
-static CSet_Uint8_T CSetC = {NULL};
-static Uint8_T CSet_Buff[10];
+static union CSet_Uint8 CSetC = {NULL};
  
 static std::set<Tuple_Ptr_T> SetTupleCpp;
 static CSet_Tuple_Ptr_T CSet_Tuple = {NULL};

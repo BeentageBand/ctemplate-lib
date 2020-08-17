@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_CONFIG_FILES([Makefile])
 
 # Safety check
-AC_CONFIG_SRCDIR([ctemplate-lib/cvector.c])
+AC_CONFIG_SRCDIR([ctemplate-lib/vector/cvector.c])
 
 # Compiler flags
 AC_PROG_CC
