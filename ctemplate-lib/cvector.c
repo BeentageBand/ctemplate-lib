@@ -25,15 +25,15 @@ void cvector_t_override(union CVector_T_Class * const clazz)
 }
 void cvector_t_delete(union CVector_T * const cvector_t)
 {
-   cvector_t->vtbl->clear(cvector_t);
+   CVector_T_clear(cvector_t);
 }
  
 void CVector_T_populate(union CVector_T * const cvector_t, size_t const i, 
-                        size_t const buff_size, T * const buff)
+    size_t const capacity, T * const buffer)
 {
     Object_populate(&cvector_t->Object, &Get_CVector_T_Class()->Class);
-    cvector_t->capacity = buff_size;
-    cvector_t->buffer = buff;
+    cvector_t->capacity = capacity;
+    cvector_t->buffer = buffer;
 }
 
 T * cvector_t_begin(union CVector_T * const cvector_t)

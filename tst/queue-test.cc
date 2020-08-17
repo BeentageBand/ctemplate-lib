@@ -1,8 +1,9 @@
-#define COBJECT_IMPLEMENTATION
-#include "gtest_template.h"
 #include "gtest/gtest.h"
+#include "gtest-template.h"
  
 #include <deque>
+
+#define Num_Elems(arr) (size_t)(sizeof(arr)/sizeof(*arr))
 
 class Test_CQueue : public ::testing::TestWithParam<Uint8_T>
 {};
@@ -19,32 +20,32 @@ const Uint8_T Queue_Data[] =
 };
 
 static std::deque<Uint8_T> QueueCpp;
-static CQueue_Uint8_T CQueueC = {NULL};
+static union CQueue_Uint8 CQueueC = {NULL};
 static Uint8_T CQueue_Buff[10];
 
 TEST(CQueue,functionalities)
 {
-	Populate_CQueue_Uint8(&CQueueC, CQueue_Buff, Num_Elems(CQueue_Buff));
+	CQueue_Uint8_populate(&CQueueC, 0, 0, Num_Elems(CQueue_Buff), CQueue_Buff);
 }
 
 TEST_P(Test_CQueue, insert_n_find)
 {
-	EXPECT_EQ(QueueCpp.size(), CQueueC.vtbl->size(&CQueueC));
+	EXPECT_EQ(QueueCpp.size(), CQueue_Uint8_size(&CQueueC));
 
 	QueueCpp.push_front(GetParam());
-	CQueueC.vtbl->push_front(&CQueueC, GetParam());
+	CQueue_Uint8_push_front(&CQueueC, GetParam());
 
-	EXPECT_EQ(QueueCpp.front(), CQueueC.vtbl->front(&CQueueC));
+	EXPECT_EQ(QueueCpp.front(), CQueue_Uint8_front(&CQueueC));
 }
 
 TEST_P(Test_CQueue, destroy)
 {
 	QueueCpp.pop_back();
-	CQueueC.vtbl->pop_back(&CQueueC);
+	CQueue_Uint8_pop_back(&CQueueC);
 
-	EXPECT_EQ(QueueCpp.size(), CQueueC.vtbl->size(&CQueueC));
+	EXPECT_EQ(QueueCpp.size(), CQueue_Uint8_size(&CQueueC));
 
-	if(0 == CQueueC.vtbl->size(&CQueueC))
+	if(0 == CQueue_Uint8_size(&CQueueC))
 	{
 		_delete(&CQueueC);
 	}
