@@ -1,23 +1,31 @@
  ACLOCAL_AMFLAGS = -I m4 --install
 # Libraries
 nobase_include_HEADERS =  \
-ctemplate-lib/cqueue.c               \
-ctemplate-lib/cqueue.h               \
-ctemplate-lib/cqueue-internal.h      \
-ctemplate-lib/cqueue-int-template.h  \
-ctemplate-lib/cqueue-template.h      \
-ctemplate-lib/cvector.c              \
-ctemplate-lib/cvector.h              \
-ctemplate-lib/cvector-internal.h     \
-ctemplate-lib/cvector-int-template.h \
-ctemplate-lib/cvector-template.h
+ctemplate-lib/queue/cqueue.c                \
+ctemplate-lib/queue/cqueue.h                \
+ctemplate-lib/queue/cqueue-internal.h       \
+ctemplate-lib/queue/cqueue-int-template.h   \
+ctemplate-lib/queue/cqueue-template.h       \
+ctemplate-lib/set/cset.c                    \
+ctemplate-lib/set/cset.h                    \
+ctemplate-lib/set/cset-internal.h           \
+ctemplate-lib/set/cset-int-template.h       \
+ctemplate-lib/set/cset-template.h           \
+ctemplate-lib/set/treenode.c                \
+ctemplate-lib/set/treenode.h                \
+ctemplate-lib/vector/cvector.c              \
+ctemplate-lib/vector/cvector.h              \
+ctemplate-lib/vector/cvector-internal.h     \
+ctemplate-lib/vector/cvector-int-template.h \
+ctemplate-lib/vector/cvector-template.h   
 
 # Unit Tests
 check_PROGRAMS = unittest
 unittest_SOURCES = \
 tst/gtest-template.c \
-tst/vector-test.cc   \
-tst/queue-test.cc
+tst/set-test.cc      \
+tst/queue-test.cc    \
+tst/vector-test.cc   
 
 unittest_CPPFLAGS = $(libgmock_main_CFLAGS)
 unittest_LDADD = $(lib_LTLIBRARIES) $(libgmock_main_LIBS) $(libdir)/libcobject-1.0.a

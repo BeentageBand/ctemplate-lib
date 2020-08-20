@@ -1,3 +1,4 @@
+#include "cobject/ctemplate.h"
 #ifndef CVector_Params
 #error "CVector_Params is not defined"
 #endif

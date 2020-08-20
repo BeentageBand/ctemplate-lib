@@ -1,0 +1,19 @@
+<class name="CSet" template="true">
+    <typename name="T"/>
+    <member name="head" type_t="struct TreeNode_T *"/>
+    <member name="size" type_t="size_t"/>
+    <member name="cmp" type_t="Comparator_T"/>
+    <method name="size" return_t="size_t"/>
+    <method name="clear"/>
+    <method name="begin" return_t="T *"/>
+    <method name="end" return_t="T *"/>
+    <method name="find" return_t="T *">
+        <param name="index" type_t="T"/>
+    </method>
+    <method name="insert">
+        <param name="value" type_t="T"/>
+    </method>
+    <method name="erase">
+        <param name="value" type_t="T"/>
+    </method> 
+</class>

@@ -11,12 +11,28 @@ typedef uint8_t Uint8_T;
 
 #define CVector_Params Uint8 
 #define CQueue_Params Uint8 
+#define CSet_Params Uint8 
 
 #include "ctemplate-lib/vector/cvector-template.h"
 #include "ctemplate-lib/queue/cqueue-template.h"
+#include "ctemplate-lib/set/cset-template.h"
 
 #undef CVector_Params
 #undef CQueue_Params
+#undef CSet_Params
+
+typedef struct {
+  int id;
+  char const * obj;
+}Tuple_T;
+
+typedef Tuple_T * Tuple_Ptr_T;
+
+/*
+#define CSet_Params Tuple_Ptr
+#include "ctemplate-lib/set/cset-template.h"
+#undef CSet_Params
+*/
 
 #ifdef __cplusplus
 }

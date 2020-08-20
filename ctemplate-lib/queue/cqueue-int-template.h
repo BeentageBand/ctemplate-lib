@@ -1,3 +1,4 @@
+#include "cobject/ctemplate.h"
 #ifndef CQueue_Params
 #error "CQueue_Params is not defined"
 #endif
