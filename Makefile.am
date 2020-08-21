@@ -1,28 +1,36 @@
  ACLOCAL_AMFLAGS = -I m4 --install
 # Libraries
 nobase_include_HEADERS =  \
-ctemplate-lib/queue/cqueue.c                \
-ctemplate-lib/queue/cqueue.h                \
-ctemplate-lib/queue/cqueue-internal.h       \
-ctemplate-lib/queue/cqueue-int-template.h   \
-ctemplate-lib/queue/cqueue-template.h       \
-ctemplate-lib/set/cset.c                    \
-ctemplate-lib/set/cset.h                    \
-ctemplate-lib/set/cset-internal.h           \
-ctemplate-lib/set/cset-int-template.h       \
-ctemplate-lib/set/cset-template.h           \
-ctemplate-lib/set/treenode.c                \
-ctemplate-lib/set/treenode.h                \
-ctemplate-lib/vector/cvector.c              \
-ctemplate-lib/vector/cvector.h              \
-ctemplate-lib/vector/cvector-internal.h     \
-ctemplate-lib/vector/cvector-int-template.h \
+ctemplate-lib/queue/cqueue.c                  \
+ctemplate-lib/queue/cqueue.h                  \
+ctemplate-lib/queue/cqueue-internal.h         \
+ctemplate-lib/queue/cqueue-int-template.h     \
+ctemplate-lib/queue/cqueue-template.h         \
+ctemplate-lib/set/cset.c                      \
+ctemplate-lib/set/cset.h                      \
+ctemplate-lib/set/cset-internal.h             \
+ctemplate-lib/set/cset-int-template.h         \
+ctemplate-lib/set/cset-template.h             \
+ctemplate-lib/set/treenode.c                  \
+ctemplate-lib/set/treenode.h                  \
+ctemplate-lib/hashset/chashset.c              \
+ctemplate-lib/hashset/chashset.h              \
+ctemplate-lib/hashset/chashset-internal.h     \
+ctemplate-lib/hashset/chashset-int-template.h \
+ctemplate-lib/hashset/chashset-template.h     \
+ctemplate-lib/hashset/bucket.c                \
+ctemplate-lib/hashset/bucket.h                \
+ctemplate-lib/vector/cvector.c                \
+ctemplate-lib/vector/cvector.h                \
+ctemplate-lib/vector/cvector-internal.h       \
+ctemplate-lib/vector/cvector-int-template.h   \
 ctemplate-lib/vector/cvector-template.h   
 
 # Unit Tests
 check_PROGRAMS = unittest
 unittest_SOURCES = \
 tst/gtest-template.c \
+tst/hashset-test.cc  \
 tst/set-test.cc      \
 tst/queue-test.cc    \
 tst/vector-test.cc   

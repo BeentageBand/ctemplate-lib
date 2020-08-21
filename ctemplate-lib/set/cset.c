@@ -49,14 +49,14 @@ T * cset_t_begin(union CSet_T * const cset_t)
 {
     if (NULL == cset_t->head) return NULL;
     struct TreeNode_T * right = TreeNode_T_rightmost(cset_t->head);
-    return (right) ? right->value : NULL;
+    return (right) ? &right->value : NULL;
 }
 
 T * cset_t_end(union CSet_T * const cset_t)
 {
     if (NULL == cset_t->head) return NULL;
     struct TreeNode_T * left = TreeNode_T_leftmost(cset_t->head);
-    return (left) ? left->value : NULL;
+    return (left) ? &left->value : NULL;
 }
 
 T * cset_t_find(union CSet_T * const cset_t, T const index)

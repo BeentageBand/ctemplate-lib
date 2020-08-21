@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include "gtest-template.h"
-#include <iostream>
  
 #include <set>
  
