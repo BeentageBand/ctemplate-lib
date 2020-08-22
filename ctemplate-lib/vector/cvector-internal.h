@@ -1,9 +1,3 @@
-#ifndef CVECTOR_T_INT_H
-#define CVECTOR_T_INT_H
-#define CVECTOR_T_IMPLEMENTATION
-
-#include "cvector.h"
-
 static void cvector_t_override(union CVector_T_Class * const cvector_t);
 
 union CVector_T_Class * Get_CVector_T_Class(void)
@@ -59,5 +53,3 @@ void CVector_T_pop_back(union CVector_T * const cvector_t)
   return cvector_t->vtbl->pop_back(cvector_t);
 }
 
-
-#endif /*CVECTOR_T_INT_H*/

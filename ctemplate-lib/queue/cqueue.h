@@ -1,5 +1,3 @@
-#ifndef CQUEUE_T_H
-#define CQUEUE_T_H
 #include "cobject/cobject.h"
 
 #ifdef CQUEUE_T_IMPLEMENTATION 
@@ -80,4 +78,3 @@ extern void CQueue_T_pop_front(union CQueue_T * const cqueue_t);
 #ifdef __cplusplus
 }
 #endif
-#endif /*CQUEUE_TNone_H*/

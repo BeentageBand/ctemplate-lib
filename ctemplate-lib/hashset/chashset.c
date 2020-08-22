@@ -1,16 +1,5 @@
 #include "chashset-internal.h"
 
-#define Bucket_Params CHashSet_Params
-#include "bucket.c"
-
-#define Bucket_T TEMPLATE(Bucket, Bucket_Params)
-#define Hash_T TEMPLATE(Hash, Bucket_Params)
-#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
-#define Bucket_T_access TEMPLATE(Bucket, Bucket_Params, access)
-#define Bucket_T_available TEMPLATE(Bucket, Bucket_Params, available)
-#define Bucket_T_is_empty TEMPLATE(Bucket, Bucket_Params, is_empty)
-#define Bucket_T_hash TEMPLATE(Bucket, Bucket_Params, hash)
-
 static size_t chashset_t_size(union CHashSet_T * const chashset_t);
 static void chashset_t_clear(union CHashSet_T * const chashset_t);
 static T * chashset_t_begin(union CHashSet_T * const chashset_t);
@@ -18,7 +7,6 @@ static T * chashset_t_end(union CHashSet_T * const chashset_t);
 static T * chashset_t_find(union CHashSet_T * const chashset_t, T const index);
 static void chashset_t_insert(union CHashSet_T * const chashset_t, T const value);
 static void chashset_t_erase(union CHashSet_T * const chashset_t, T const value);
-
 
 void chashset_t_override(union CHashSet_T_Class * const clazz)
 {

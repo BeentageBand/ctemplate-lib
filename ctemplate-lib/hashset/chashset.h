@@ -1,12 +1,4 @@
-#ifndef CHASHSET_T_H
-#define CHASHSET_T_H
 #include "cobject/cobject.h"
-
-#define Bucket_Params CHashSet_Params
-#include "bucket.h"
-#define Bucket_T TEMPLATE(Bucket, Bucket_Params)
-#define Hash_T TEMPLATE(Hash, Bucket_Params)
-#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
 
 #ifdef CHASHSET_T_IMPLEMENTATION 
 #define chashset_private
@@ -73,8 +65,3 @@ extern void CHashSet_T_erase(union CHashSet_T * const chashset_t, T const value)
 #ifdef __cplusplus
 }
 #endif
-#undef Bucket_T
-#undef Hash_T
-#undef HashCompare_T
-#undef Bucket_Params
-#endif /*CHASHSET_TNone_H*/

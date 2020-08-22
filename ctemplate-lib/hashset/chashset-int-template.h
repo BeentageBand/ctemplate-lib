@@ -23,7 +23,26 @@
 
 #define T T_Param(1, CHashSet_Params)
 
+#define Bucket_Params CHashSet_Params
+#include "bucket.c"
+
+#define Bucket_T TEMPLATE(Bucket, Bucket_Params)
+#define Hash_T TEMPLATE(Hash, Bucket_Params)
+#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
+#define Bucket_T_access TEMPLATE(Bucket, Bucket_Params, access)
+#define Bucket_T_available TEMPLATE(Bucket, Bucket_Params, available)
+#define Bucket_T_is_empty TEMPLATE(Bucket, Bucket_Params, is_empty)
+#define Bucket_T_hash TEMPLATE(Bucket, Bucket_Params, hash)
+
 #include "chashset.c"
+
+#undef Bucket_T
+#undef Hash_T
+#undef HashCompare_T
+#undef Bucket_T_access
+#undef Bucket_T_available
+#undef Bucket_T_is_empty
+#undef Bucket_T_hash 
 
 #undef CHashSet_T
 #undef CHashSet_T_Class

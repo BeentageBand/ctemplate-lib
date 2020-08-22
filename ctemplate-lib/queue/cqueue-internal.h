@@ -1,9 +1,3 @@
-#ifndef CQUEUE_T_INT_H
-#define CQUEUE_T_INT_H
-#define CQUEUE_T_IMPLEMENTATION
-
-#include "cqueue.h"
-
 static void cqueue_t_override(union CQueue_T_Class * const cqueue_t);
 
 union CQueue_T_Class * Get_CQueue_T_Class(void)
@@ -74,5 +68,3 @@ void CQueue_T_pop_front(union CQueue_T * const cqueue_t)
   return cqueue_t->vtbl->pop_front(cqueue_t);
 }
 
-
-#endif /*CQUEUE_T_INT_H*/

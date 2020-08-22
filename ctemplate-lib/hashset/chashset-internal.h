@@ -1,9 +1,3 @@
-#ifndef CHASHSET_T_INT_H
-#define CHASHSET_T_INT_H
-#define CHASHSET_T_IMPLEMENTATION
-
-#include "chashset.h"
-
 static void chashset_t_override(union CHashSet_T_Class * const chashset_t);
 
 union CHashSet_T_Class * Get_CHashSet_T_Class(void)
@@ -48,6 +42,3 @@ void CHashSet_T_erase(union CHashSet_T * const chashset_t, T const value)
 {
   return chashset_t->vtbl->erase(chashset_t, value);
 }
-
-
-#endif /*CHASHSET_T_INT_H*/

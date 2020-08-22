@@ -19,7 +19,19 @@
 
 #define T T_Param(1, CHashSet_Params)
 
+#define Bucket_Params CHashSet_Params
+#include "bucket.h"
+
+#define Bucket_T TEMPLATE(Bucket, Bucket_Params)
+#define Hash_T TEMPLATE(Hash, Bucket_Params)
+#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
+
 #include "chashset.h"
+
+#undef Bucket_T
+#undef Hash_T
+#undef HashCompare_T
+#undef Bucket_Params
 
 #undef CHashSet_T
 #undef CHashSet_T_Class

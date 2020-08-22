@@ -60,10 +60,3 @@ size_t Bucket_T_hash(T const value, size_t const capacity, size_t seed)
   return (hash + seed) % capacity;
 }
 
-#undef Bucket_T
-#undef Hash_T
-#undef HashCompare_T
-#undef Bucket_T_access
-#undef Bucket_T_available
-#undef Bucket_T_is_empty
-#undef Bucket_T_hash 
