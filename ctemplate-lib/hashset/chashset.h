@@ -38,7 +38,7 @@ union CHashSet_T
 size_t chashset_private size;
 size_t chashset_private count;
 Hash_T chashset_private hash;
-HashCompare_T chashset_private cmp;
+HashComparator_T chashset_private cmp;
 
     };
 };
@@ -46,7 +46,7 @@ HashCompare_T chashset_private cmp;
 extern union CHashSet_T_Class * Get_CHashSet_T_Class(void);
 
 extern void CHashSet_T_populate(union CHashSet_T * const chashset_t, struct Bucket_T* const buckets, size_t const size, 
-    size_t const count, Hash_T const hash, HashCompare_T const cmp);
+    size_t const count, Hash_T const hash, HashComparator_T const cmp);
 
 extern size_t CHashSet_T_size(union CHashSet_T * const chashset_t);
 

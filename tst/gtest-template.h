@@ -29,6 +29,10 @@ typedef uint8_t Uint8;
 #include "ctemplate-lib/map/cmap-template.h"
 #undef CMap_Params
 
+#define CHashMap_Params Uint8, Uint8
+#include "ctemplate-lib/hashmap/chashmap-template.h"
+#undef CHashMap_Params
+
 typedef struct {
   int id;
   char const * obj;

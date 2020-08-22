@@ -32,6 +32,11 @@ typedef uint8_t Uint8;
 #include "ctemplate-lib/map/cmap-int-template.h"
 #undef CMap_Params
 
+#define CHashMap_Params Uint8, Uint8
+#define CHASHMAP_T_IMPLEMENTATION
+#include "ctemplate-lib/hashmap/chashmap-template.h"
+#include "ctemplate-lib/hashmap/chashmap-int-template.h"
+#undef CHashMap_Params
 /*
 #define CSet_Params Tuple_Ptr
 #include "ctemplate-lib/set/cset-int-template.h"

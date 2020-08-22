@@ -24,13 +24,13 @@
 
 #define Bucket_T TEMPLATE(Bucket, Bucket_Params)
 #define Hash_T TEMPLATE(Hash, Bucket_Params)
-#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
+#define HashComparator_T TEMPLATE(HashComparator, Bucket_Params)
 
 #include "chashset.h"
 
 #undef Bucket_T
 #undef Hash_T
-#undef HashCompare_T
+#undef HashComparator_T
 #undef Bucket_Params
 
 #undef CHashSet_T

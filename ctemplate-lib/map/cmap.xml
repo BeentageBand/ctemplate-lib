@@ -1,7 +1,7 @@
 <class name="CMap" template="true">
-    <typename name="Key_T"/>
-    <typename name="Value_T"/>
-    <member name="set" type_t="union CSet_T *"/>
+    <typename name="HashKey_T"/>
+    <typename name="HashValue_T"/>
+    <member name="set" type_t="union CHashSet_T *"/>
     <member name="cmp" type_t="PairComparator_T"/>
     <method name="size" return_t="size_t"/>
     <method name="clear"/>

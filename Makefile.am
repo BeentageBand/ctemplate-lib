@@ -1,6 +1,18 @@
  ACLOCAL_AMFLAGS = -I m4 --install
 # Libraries
 nobase_include_HEADERS =  \
+ctemplate-lib/hashmap/chashmap.c              \
+ctemplate-lib/hashmap/chashmap.h              \
+ctemplate-lib/hashmap/chashmap-internal.h     \
+ctemplate-lib/hashmap/chashmap-int-template.h \
+ctemplate-lib/hashmap/chashmap-template.h     \
+ctemplate-lib/hashset/chashset.c              \
+ctemplate-lib/hashset/chashset.h              \
+ctemplate-lib/hashset/chashset-internal.h     \
+ctemplate-lib/hashset/chashset-int-template.h \
+ctemplate-lib/hashset/chashset-template.h     \
+ctemplate-lib/hashset/bucket.c                \
+ctemplate-lib/hashset/bucket.h                \
 ctemplate-lib/map/cmap.c                      \
 ctemplate-lib/map/cmap.h                      \
 ctemplate-lib/map/cmap-internal.h             \
@@ -20,13 +32,6 @@ ctemplate-lib/set/cset-int-template.h         \
 ctemplate-lib/set/cset-template.h             \
 ctemplate-lib/set/treenode.c                  \
 ctemplate-lib/set/treenode.h                  \
-ctemplate-lib/hashset/chashset.c              \
-ctemplate-lib/hashset/chashset.h              \
-ctemplate-lib/hashset/chashset-internal.h     \
-ctemplate-lib/hashset/chashset-int-template.h \
-ctemplate-lib/hashset/chashset-template.h     \
-ctemplate-lib/hashset/bucket.c                \
-ctemplate-lib/hashset/bucket.h                \
 ctemplate-lib/vector/cvector.c                \
 ctemplate-lib/vector/cvector.h                \
 ctemplate-lib/vector/cvector-internal.h       \
@@ -38,6 +43,7 @@ check_PROGRAMS = unittest
 unittest_SOURCES = \
 tst/gtest-template.c \
 tst/hashset-test.cc  \
+tst/hashmap-test.cc  \
 tst/map-test.cc      \
 tst/set-test.cc      \
 tst/queue-test.cc    \

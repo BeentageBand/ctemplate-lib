@@ -1,0 +1,21 @@
+<class name="CHashMap" template="true">
+    <typename name="HashKey_T"/>
+    <typename name="HashValue_T"/>
+    <member name="set" type_t="union CHashSet_T *"/>
+    <member name="cmp" type_t="HashPairComparator_T"/>
+    <member name="hash" type_t="HashPairHash_T"/>
+    <method name="size" return_t="size_t"/>
+    <method name="clear"/>
+    <method name="begin" return_t="HashPair_T *"/>
+    <method name="end" return_t="HashPair_T *"/>
+    <method name="find" return_t="HashPair_T *">
+        <param name="index" type_t="HashKey_T"/>
+    </method>
+    <method name="insert">
+        <param name="key" type_t="HashKey_T"/>
+        <param name="value" type_t="HashValue_T"/>
+    </method>
+    <method name="erase">
+        <param name="key" type_t="HashKey_T"/>
+    </method> 
+  </class>

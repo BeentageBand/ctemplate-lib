@@ -83,17 +83,17 @@ void chashset_t_erase(union CHashSet_T * const chashset_t, T const value)
 }
 
 void CHashSet_T_populate(union CHashSet_T * const chashset_t, struct Bucket_T* const buckets, size_t const size,
-    size_t const count, Hash_T const hash, HashCompare_T const cmp)
+    size_t const count, Hash_T const hash, HashComparator_T const cmp)
 {
   Object_populate(&chashset_t->Object, &Get_CHashSet_T_Class()->Class);
   chashset_t->buckets= buckets;
   chashset_t->size = size;
   chashset_t->hash = (NULL == hash) ? (Hash_T) Bucket_T_hash : hash;
-  chashset_t->cmp = (NULL == cmp) ? (HashCompare_T) memcmp : cmp;
+  chashset_t->cmp = (NULL == cmp) ? (HashComparator_T) memcmp : cmp;
 }
 #undef Bucket_T
 #undef Hash_T
-#undef HashCompare_T
+#undef HashComparator_T
 #undef Bucket_T_access
 #undef Bucket_T_available
 #undef Bucket_T_is_empty

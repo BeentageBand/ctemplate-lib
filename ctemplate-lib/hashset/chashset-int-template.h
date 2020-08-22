@@ -19,6 +19,7 @@
 #define chashset_t_find TEMPLATE(chashset, CHashSet_Params, find)
 #define chashset_t_insert TEMPLATE(chashset, CHashSet_Params, insert)
 #define chashset_t_erase TEMPLATE(chashset, CHashSet_Params, erase)
+#define chashset_t_override TEMPLATE(chashset, CHashSet_Params, override)
 #define CHashSet_T_populate TEMPLATE(CHashSet, CHashSet_Params, populate)
 
 #define T T_Param(1, CHashSet_Params)
@@ -28,7 +29,7 @@
 
 #define Bucket_T TEMPLATE(Bucket, Bucket_Params)
 #define Hash_T TEMPLATE(Hash, Bucket_Params)
-#define HashCompare_T TEMPLATE(HashCompare, Bucket_Params)
+#define HashComparator_T TEMPLATE(HashComparator, Bucket_Params)
 #define Bucket_T_access TEMPLATE(Bucket, Bucket_Params, access)
 #define Bucket_T_available TEMPLATE(Bucket, Bucket_Params, available)
 #define Bucket_T_is_empty TEMPLATE(Bucket, Bucket_Params, is_empty)
@@ -38,7 +39,7 @@
 
 #undef Bucket_T
 #undef Hash_T
-#undef HashCompare_T
+#undef HashComparator_T
 #undef Bucket_T_access
 #undef Bucket_T_available
 #undef Bucket_T_is_empty
@@ -61,6 +62,7 @@
 #undef chashset_t_find
 #undef chashset_t_insert
 #undef chashset_t_erase
+#undef chashset_t_override
 #undef CHashSet_T_populate
 
 #undef T
