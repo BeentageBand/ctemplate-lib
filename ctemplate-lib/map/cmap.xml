@@ -1,0 +1,20 @@
+<class name="CMap" template="true">
+    <typename name="K"/>
+    <typename name="T"/>
+    <member name="set" type_t="union CSet_T *"/>
+    <member name="cmp" type_t="MapComparator_T"/>
+    <method name="size" return_t="size_t"/>
+    <method name="clear"/>
+    <method name="begin" return_t="Pair_T *"/>
+    <method name="end" return_t="Pair_T *"/>
+    <method name="find" return_t="Pair_T *">
+        <param name="index" type_t="K"/>
+    </method>
+    <method name="insert">
+        <param name="key" type_t="K"/>
+        <param name="value" type_t="T"/>
+    </method>
+    <method name="erase">
+        <param name="key" type_t="K"/>
+    </method> 
+</class>

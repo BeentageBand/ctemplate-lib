@@ -7,9 +7,9 @@
 #define Comparator_T TEMPLATE(Comparator, TreeNode_Params)
 
 #ifdef CSET_T_IMPLEMENTATION 
-#define _cset_private
+#define _private
 #else
-#define _cset_private const
+#define _private const
 #endif 
 
 #ifdef __cplusplus
@@ -23,13 +23,13 @@ union CSet_T_Class
     struct
     {
     struct Class Class;
-    size_t (* _cset_private size)(union CSet_T * const cset_t);
-    void (* _cset_private clear)(union CSet_T * const cset_t);
-    T * (* _cset_private begin)(union CSet_T * const cset_t);
-    T * (* _cset_private end)(union CSet_T * const cset_t);
-    T * (* _cset_private find)(union CSet_T * const cset_t, T const index);
-    void (* _cset_private insert)(union CSet_T * const cset_t, T const value);
-    void (* _cset_private erase)(union CSet_T * const cset_t, T const value);
+    size_t (* _private size)(union CSet_T * const cset_t);
+    void (* _private clear)(union CSet_T * const cset_t);
+    T * (* _private begin)(union CSet_T * const cset_t);
+    T * (* _private end)(union CSet_T * const cset_t);
+    T * (* _private find)(union CSet_T * const cset_t, T const index);
+    void (* _private insert)(union CSet_T * const cset_t, T const value);
+    void (* _private erase)(union CSet_T * const cset_t, T const value);
 
     };
 };
@@ -40,9 +40,9 @@ union CSet_T
     struct
     {
       union Object Object;
-      struct TreeNode_T * _cset_private head;
-      size_t _cset_private size;
-      Comparator_T _cset_private cmp;
+      struct TreeNode_T * _private head;
+      size_t _private size;
+      Comparator_T _private cmp;
 
     };
 };

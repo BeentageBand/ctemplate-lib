@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdio.h>
 
 #ifndef TreeNode_Params
 # error "TreeNode_Params should be defined"

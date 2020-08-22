@@ -1,6 +1,13 @@
  ACLOCAL_AMFLAGS = -I m4 --install
 # Libraries
 nobase_include_HEADERS =  \
+ctemplate-lib/map/cmap.c                      \
+ctemplate-lib/map/cmap.h                      \
+ctemplate-lib/map/cmap-internal.h             \
+ctemplate-lib/map/cmap-int-template.h         \
+ctemplate-lib/map/cmap-template.h             \
+ctemplate-lib/map/pair.c                      \
+ctemplate-lib/map/pair.h                      \
 ctemplate-lib/queue/cqueue.c                  \
 ctemplate-lib/queue/cqueue.h                  \
 ctemplate-lib/queue/cqueue-internal.h         \
@@ -31,6 +38,7 @@ check_PROGRAMS = unittest
 unittest_SOURCES = \
 tst/gtest-template.c \
 tst/hashset-test.cc  \
+tst/map-test.cc      \
 tst/set-test.cc      \
 tst/queue-test.cc    \
 tst/vector-test.cc   

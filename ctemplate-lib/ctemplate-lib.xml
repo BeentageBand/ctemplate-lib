@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <domain xmlns:xi="http://www.w3.org/2001/XInclude">
-    <xi:include href="vector/cvector.xml"/> 
+    <xi:include href="hashset/chashset.xml"/>
+    <xi:include href="map/cmap.xml"/>
     <xi:include href="queue/cqueue.xml"/>
     <xi:include href="set/cset.xml"/>
-    <xi:include href="hashset/chashset.xml"/>
+    <xi:include href="vector/cvector.xml"/> 
 </domain>
