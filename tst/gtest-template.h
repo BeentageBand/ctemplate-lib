@@ -7,7 +7,7 @@
 extern "C" {
 #endif
  
-typedef uint8_t Uint8_T;
+typedef uint8_t Uint8;
 
 #define CVector_Params Uint8 
 #define CQueue_Params Uint8 

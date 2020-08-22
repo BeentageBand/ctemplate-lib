@@ -5,10 +5,10 @@
 
 #define Num_Elems(arr) (size_t)(sizeof(arr)/sizeof(*arr))
 
-class Test_CQueue : public ::testing::TestWithParam<Uint8_T>
+class Test_CQueue : public ::testing::TestWithParam<Uint8>
 {};
 
-const Uint8_T Queue_Data[] =
+const Uint8 Queue_Data[] =
 {
 	25,
 	173,
@@ -19,9 +19,9 @@ const Uint8_T Queue_Data[] =
 	255
 };
 
-static std::deque<Uint8_T> QueueCpp;
+static std::deque<Uint8> QueueCpp;
 static union CQueue_Uint8 CQueueC = {NULL};
-static Uint8_T CQueue_Buff[10];
+static Uint8 CQueue_Buff[10];
 
 TEST(CQueue,functionalities)
 {

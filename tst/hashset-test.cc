@@ -29,7 +29,7 @@ static Tuple_T Set_Data[] =
 
 static int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b);
 
-static std::unordered_set<Uint8_T> SetCpp;
+static std::unordered_set<Uint8> SetCpp;
 static union CHashSet_Uint8 CHashSetC = {NULL};
 static struct Bucket_Uint8 Buckets[20] = {0};
 static std::unordered_set<Tuple_Ptr_T> SetTupleCpp;
@@ -57,7 +57,7 @@ TEST_P(Test_CHashSetC, insert_n_find)
 	CHashSet_Uint8_insert(&CHashSetC, GetParam().id);
 
   std::cout << "Finding " << GetParam().id << std::endl;
-  Uint8_T * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
+  Uint8 * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
   ASSERT_FALSE(NULL == found);
 	EXPECT_EQ(*SetCpp.find(GetParam().id), *found);
 
@@ -70,7 +70,7 @@ TEST_P(Test_CHashSetC, destroy)
 {
 	SetCpp.erase(SetCpp.begin(), SetCpp.end());
 
-  Uint8_T * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
+  Uint8 * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
   EXPECT_TRUE(NULL != found);
 
 	CHashSet_Uint8_erase(&CHashSetC, GetParam().id); 

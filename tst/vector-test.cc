@@ -6,10 +6,10 @@
 
 #include <vector>
 
-class Test_CVector : public ::testing::TestWithParam<Uint8_T>
+class Test_CVector : public ::testing::TestWithParam<Uint8>
 {};
  
-const Uint8_T Vector_Data[] =
+const Uint8 Vector_Data[] =
 {
 	25,
 	173,
@@ -19,9 +19,9 @@ const Uint8_T Vector_Data[] =
 	240,
 	255
 };
-static std::vector<Uint8_T> VectorCpp;
+static std::vector<Uint8> VectorCpp;
 static union CVector_Uint8 CVectorC = {NULL};
-static Uint8_T CVectorC_Buff[10];
+static Uint8 CVectorC_Buff[10];
  
 int main(int argc, char ** argv)
 {
