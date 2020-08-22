@@ -1,9 +1,3 @@
-#ifndef CSET_T_INT_H
-#define CSET_T_INT_H
-#define CSET_T_IMPLEMENTATION
-
-#include "cset.h"
-
 static void cset_t_override(union CSet_T_Class * const cset_t);
 
 union CSet_T_Class * Get_CSet_T_Class(void)
@@ -49,5 +43,3 @@ void CSet_T_erase(union CSet_T * const cset_t, T const value)
   return cset_t->vtbl->erase(cset_t, value);
 }
 
-
-#endif /*CSET_T_INT_H*/

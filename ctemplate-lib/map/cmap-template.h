@@ -17,13 +17,13 @@
 #define CMap_T_erase TEMPLATE(CMap, CMap_Params, erase)
 #define CMap_T_populate TEMPLATE(CMap, CMap_Params, populate)
 
-#define K T_Param(1, CMap_Params)
-#define T T_Param(2, CMap_Params)
+#define Key_T T_Param(1, CMap_Params)
+#define Value_T T_Param(2, CMap_Params)
 
 #include "cmap.h"
 
-#undef K
-#undef T
+#undef Key_T
+#undef Value_T
 
 #undef CMap_T
 #undef CMap_T_Class
@@ -36,7 +36,5 @@
 #undef CMap_T_insert
 #undef CMap_T_erase
 #undef CMap_T_populate
-
-#undef K#undef T
 
 #endif /* CMAP_TEMPLATE_H */

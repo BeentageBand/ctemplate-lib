@@ -1,6 +1,3 @@
-#ifndef TREE_NODE_H 
-#define TREE_NODE_H
-
 #include "cobject/ctemplate.h"
 #ifndef TreeNode_Params
 # error "TreeNode_Params should be defined"
@@ -39,5 +36,3 @@ extern size_t TreeNode_T_size(struct TreeNode_T * treenode_t);
 #undef TreeNode_T_insert 
 #undef TreeNode_T_erase 
 #undef TreeNode_T_size 
-
-#endif /*TREE_NODE_H*/

@@ -4,15 +4,15 @@
 #include "pair.c"
 
 #define Pair_T TEMPLATE(Pair, Pair_Params)
-#define Pair_T_Compare TEMPLATE(Pair, Pair_Params, compare)
-#define MapCompare_T TEMPLATE(MapCompare, Pair_Params)
+#define Pair_T_compare TEMPLATE(Pair, Pair_Params, compare)
+#define PairComparator_T TEMPLATE(PairComparator, Pair_Params)
 
 
 #define CSet_Params Pair_T
-#include "ctemplate-lib/set/cset-template.h"
+#include "ctemplate-lib/set/cset-int-template.h"
 
 #define CSet_T TEMPLATE(CSet, CSet_Params)
-#define Compare_T TEMPLATE(TreeNode, CSet_Params)
+#define Comparator_T TEMPLATE(Comparator, CSet_Params)
 #define CSet_T_size TEMPLATE(CSet, CSet_Params, size)
 #define CSet_T_clear TEMPLATE(CSet, CSet_Params, clear)
 #define CSet_T_begin TEMPLATE(CSet, CSet_Params, begin)
@@ -24,11 +24,11 @@
 
 size_t cmap_t_size(union CMap_T * const cmap_t);
 void cmap_t_clear(union CMap_T * const cmap_t);
-struct Pair_T * cmap_t_begin(union CMap_T * const cmap_t);
-struct Pair_T * cmap_t_end(union CMap_T * const cmap_t);
-struct Pair_T * cmap_t_find(union CMap_T * const cmap_t, K const index);
-void cmap_t_insert(union CMap_T * const cmap_t, K const key, T const value);
-void cmap_t_erase(union CMap_T * const cmap_t, K const key);
+Pair_T * cmap_t_begin(union CMap_T * const cmap_t);
+Pair_T * cmap_t_end(union CMap_T * const cmap_t);
+Pair_T * cmap_t_find(union CMap_T * const cmap_t, Key_T const index);
+void cmap_t_insert(union CMap_T * const cmap_t, Key_T const key, Value_T const value);
+void cmap_t_erase(union CMap_T * const cmap_t, Key_T const key);
 
 void cmap_t_override(union CMap_T_Class * const clazz)
 {
@@ -51,46 +51,50 @@ void cmap_t_clear(union CMap_T * const cmap_t)
   return CSet_T_clear(&cmap_t->set);
 }
 
-struct Pair_T * cmap_t_begin(union CMap_T * const cmap_t)
+Pair_T * cmap_t_begin(union CMap_T * const cmap_t)
 {
   return CSet_T_begin(&cmap_t->set);
 }
 
-struct Pair_T * cmap_t_end(union CMap_T * const cmap_t)
+Pair_T * cmap_t_end(union CMap_T * const cmap_t)
 {
   return CSet_T_end(&cmap_t->set);
 }
 
-struct Pair_T * cmap_t_find(union CMap_T * const cmap_t, K const index)
+Pair_T * cmap_t_find(union CMap_T * const cmap_t, Key_T const index)
 {
-  struct Pair_T pair = {index, {0}};
+  Pair_T pair = {0}; 
+  pair.key = index;
   return CSet_T_find(&cmap_t->set, pair);
 }
 
-void cmap_t_insert(union CMap_T * const cmap_t, K const key, T const value)
+void cmap_t_insert(union CMap_T * const cmap_t, Key_T const key, Value_T const value)
 {
-  struct Pair_T pair = {key, value};
+  Pair_T pair = {0};
+  pair.key = key;
+  pair.value = value;
   CSet_T_insert(&cmap_t->set, pair);
 }
-void cmap_t_erase(union CMap_T * const cmap_t, K const key)
+void cmap_t_erase(union CMap_T * const cmap_t, Key_T const key)
 {
-  struct Pair_T pair = {key, {0}};
+  Pair_T pair = {0};
+  pair.key = key;
   CSet_T_erase(&cmap_t->set, pair);
 }
 
-void CMap_T_populate(union CMap_T * const cmap_t, MapCompare_T const cmp)
+void CMap_T_populate(union CMap_T * const cmap_t, PairComparator_T const cmp)
 {
   Object_populate(&cmap_t->Object, &Get_CMap_T_Class()->Class);
-  cmap_t->cmp = (NULL == cmp) ? (MapCompare_T) Pair_T_compare : cmp;
-  CSet_T_populate(&cmap_t->set, NULL, 0, (Compare_T) cmap_t->cmp);
+  cmap_t->cmp = (NULL == cmp) ? (PairComparator_T) Pair_T_compare : cmp;
+  CSet_T_populate(&cmap_t->set, NULL, 0, (Comparator_T) cmap_t->cmp);
 }
 
 #undef Pair_T
-#undef Pair_T_Compare
-#undef MapCompare_T 
+#undef Pair_T_compare
+#undef PairComparator_T 
 #undef Pair_Params
 #undef CSet_T
-#undef Compare_T
+#undef Comparator_T
 #undef CSet_T_size
 #undef CSet_T_clear
 #undef CSet_T_begin

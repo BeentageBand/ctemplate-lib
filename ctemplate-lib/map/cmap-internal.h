@@ -1,8 +1,5 @@
-#ifndef CMAP_T_INT_H
-#define CMAP_T_INT_H
-#define CMAP_T_IMPLEMENTATION
-
-#include "cmap.h"
+#define Pair_Params CMap_Params
+#define Pair_T TEMPLATE(Pair, Pair_Params)
 
 static void cmap_t_override(union CMap_T_Class * const cmap_t);
 
@@ -24,30 +21,31 @@ void CMap_T_clear(union CMap_T * const cmap_t)
   return cmap_t->vtbl->clear(cmap_t);
 }
 
-struct Pair_T * CMap_T_begin(union CMap_T * const cmap_t)
+Pair_T * CMap_T_begin(union CMap_T * const cmap_t)
 {
   return cmap_t->vtbl->begin(cmap_t);
 }
 
-struct Pair_T * CMap_T_end(union CMap_T * const cmap_t)
+Pair_T * CMap_T_end(union CMap_T * const cmap_t)
 {
   return cmap_t->vtbl->end(cmap_t);
 }
 
-struct Pair_T * CMap_T_find(union CMap_T * const cmap_t, K const index)
+Pair_T * CMap_T_find(union CMap_T * const cmap_t, Key_T const index)
 {
   return cmap_t->vtbl->find(cmap_t, index);
 }
 
-void CMap_T_insert(union CMap_T * const cmap_t, K const key, T const value)
+void CMap_T_insert(union CMap_T * const cmap_t, Key_T const key, Value_T const value)
 {
   return cmap_t->vtbl->insert(cmap_t, key, value);
 }
 
-void CMap_T_erase(union CMap_T * const cmap_t, K const key)
+void CMap_T_erase(union CMap_T * const cmap_t, Key_T const key)
 {
   return cmap_t->vtbl->erase(cmap_t, key);
 }
 
 
-#endif /*CMAP_T_INT_H*/
+#undef Pair_Params 
+#undef Pair_T 

@@ -1,15 +1,9 @@
 #include "cobject/cobject.h"
 
-#define TreeNode_Params CSet_Params
-#include "treenode.h"
-
-#define TreeNode_T TEMPLATE(TreeNode, TreeNode_Params)
-#define Comparator_T TEMPLATE(Comparator, TreeNode_Params)
-
 #ifdef CSET_T_IMPLEMENTATION 
-#define _private
+#define cset_private
 #else
-#define _private const
+#define cset_private const
 #endif 
 
 #ifdef __cplusplus
@@ -23,13 +17,13 @@ union CSet_T_Class
     struct
     {
     struct Class Class;
-    size_t (* _private size)(union CSet_T * const cset_t);
-    void (* _private clear)(union CSet_T * const cset_t);
-    T * (* _private begin)(union CSet_T * const cset_t);
-    T * (* _private end)(union CSet_T * const cset_t);
-    T * (* _private find)(union CSet_T * const cset_t, T const index);
-    void (* _private insert)(union CSet_T * const cset_t, T const value);
-    void (* _private erase)(union CSet_T * const cset_t, T const value);
+    size_t (* cset_private size)(union CSet_T * const cset_t);
+    void (* cset_private clear)(union CSet_T * const cset_t);
+    T * (* cset_private begin)(union CSet_T * const cset_t);
+    T * (* cset_private end)(union CSet_T * const cset_t);
+    T * (* cset_private find)(union CSet_T * const cset_t, T const index);
+    void (* cset_private insert)(union CSet_T * const cset_t, T const value);
+    void (* cset_private erase)(union CSet_T * const cset_t, T const value);
 
     };
 };
@@ -40,9 +34,9 @@ union CSet_T
     struct
     {
       union Object Object;
-      struct TreeNode_T * _private head;
-      size_t _private size;
-      Comparator_T _private cmp;
+      struct TreeNode_T * cset_private head;
+      size_t cset_private size;
+      Comparator_T cset_private cmp;
 
     };
 };
@@ -69,6 +63,3 @@ extern void CSet_T_erase(union CSet_T * const cset_t, T const value);
 }
 #endif
 
-#undef TreeNode_T 
-#undef Comparator_T 
-#undef TreeNode_Params

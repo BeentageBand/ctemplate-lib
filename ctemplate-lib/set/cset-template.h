@@ -19,7 +19,17 @@
 
 #define T T_Param(1, CSet_Params)
 
+#define TreeNode_Params CSet_Params
+#include "treenode.h"
+
+#define TreeNode_T TEMPLATE(TreeNode, TreeNode_Params)
+#define Comparator_T TEMPLATE(Comparator, TreeNode_Params)
+
 #include "cset.h"
+
+#undef TreeNode_T 
+#undef Comparator_T 
+#undef TreeNode_Params
 
 #undef CSet_T
 #undef CSet_T_Class

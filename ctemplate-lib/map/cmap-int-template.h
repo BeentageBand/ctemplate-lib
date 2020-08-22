@@ -19,10 +19,11 @@
 #define cmap_t_find TEMPLATE(cmap, CMap_Params, find)
 #define cmap_t_insert TEMPLATE(cmap, CMap_Params, insert)
 #define cmap_t_erase TEMPLATE(cmap, CMap_Params, erase)
+#define cmap_t_override TEMPLATE(cmap, CMap_Params, override)
 #define CMap_T_populate TEMPLATE(CMap, CMap_Params, populate)
 
-#define K T_Param(1, CMap_Params)
-#define T T_Param(2, CMap_Params)
+#define Key_T T_Param(1, CMap_Params)
+#define Value_T T_Param(2, CMap_Params)
 
 #include "cmap.c"
 
@@ -43,7 +44,8 @@
 #undef cmap_t_find
 #undef cmap_t_insert
 #undef cmap_t_erase
+#undef cmap_t_override
 #undef CMap_T_populate
 
-#undef K
-#undef T
+#undef Key_T
+#undef Value_T
