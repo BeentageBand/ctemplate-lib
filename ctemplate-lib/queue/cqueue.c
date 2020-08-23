@@ -1,6 +1,7 @@
 #include "cqueue-internal.h"
 #include <string.h>
 
+static void cqueue_t_delete(union CQueue_T * const);
 static size_t cqueue_t_size(union CQueue_T * const);
 static void cqueue_t_clear(union CQueue_T * const);
 static T * cqueue_t_begin(union CQueue_T * const);
@@ -16,24 +17,28 @@ static void cqueue_t_pop_front(union CQueue_T * const);
 
 void cqueue_t_override(union CQueue_T_Class * const clazz)
 {
-    clazz->size = cqueue_t_size;
-    clazz->clear = cqueue_t_clear;
-    clazz->begin = cqueue_t_begin;
-    clazz->end = cqueue_t_end;
-    clazz->at = cqueue_t_at;
-    clazz->access = cqueue_t_access;
-    clazz->back = cqueue_t_back;
-    clazz->front = cqueue_t_front;
-    clazz->push_back = cqueue_t_push_back;
-    clazz->pop_back = cqueue_t_pop_back;
-    clazz->push_front = cqueue_t_push_front;
-    clazz->pop_front = cqueue_t_pop_front;
+  clazz->Class.destroy = (Class_Delete_T) cqueue_t_delete;
+  clazz->size = cqueue_t_size;
+  clazz->clear = cqueue_t_clear;
+  clazz->begin = cqueue_t_begin;
+  clazz->end = cqueue_t_end;
+  clazz->at = cqueue_t_at;
+  clazz->access = cqueue_t_access;
+  clazz->back = cqueue_t_back;
+  clazz->front = cqueue_t_front;
+  clazz->push_back = cqueue_t_push_back;
+  clazz->pop_back = cqueue_t_pop_back;
+  clazz->push_front = cqueue_t_push_front;
+  clazz->pop_front = cqueue_t_pop_front;
 }
 
 void cqueue_t_delete(union CQueue_T * const cqueue_t)
 {
-    CQueue_T_clear(cqueue_t);
+  CQueue_T_clear(cqueue_t);
+  cqueue_t->buffer = NULL;
+  cqueue_t->capacity = 0;
 }
+
  
 void CQueue_T_populate(union CQueue_T * const cqueue_t, size_t const hd, size_t const tl, 
     size_t const capacity, T * const buffer)

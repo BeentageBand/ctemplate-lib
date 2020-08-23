@@ -22,16 +22,24 @@
 #define CSet_T_erase TEMPLATE(CSet, CSet_Params, erase)
 #define CSet_T_populate TEMPLATE(CSet, CSet_Params, populate)
 
-size_t cmap_t_size(union CMap_T * const cmap_t);
-void cmap_t_clear(union CMap_T * const cmap_t);
-Pair_T * cmap_t_begin(union CMap_T * const cmap_t);
-Pair_T * cmap_t_end(union CMap_T * const cmap_t);
-Pair_T * cmap_t_find(union CMap_T * const cmap_t, Key_T const index);
-void cmap_t_insert(union CMap_T * const cmap_t, Key_T const key, Value_T const value);
-void cmap_t_erase(union CMap_T * const cmap_t, Key_T const key);
+static void cmap_t_delete(union CMap_T * const cmap_t);
+static size_t cmap_t_size(union CMap_T * const cmap_t);
+static void cmap_t_clear(union CMap_T * const cmap_t);
+static Pair_T * cmap_t_begin(union CMap_T * const cmap_t);
+static Pair_T * cmap_t_end(union CMap_T * const cmap_t);
+static Pair_T * cmap_t_find(union CMap_T * const cmap_t, Key_T const index);
+static void cmap_t_insert(union CMap_T * const cmap_t, Key_T const key, Value_T const value);
+static void cmap_t_erase(union CMap_T * const cmap_t, Key_T const key);
+
+void cmap_t_delete(union CMap_T * const cmap_t)
+{
+  _delete(&cmap_t->set);
+  cmap_t->cmp = NULL;
+}
 
 void cmap_t_override(union CMap_T_Class * const clazz)
 {
+  clazz->Class.destroy = (Class_Delete_T) cmap_t_delete;
   clazz->size = cmap_t_size;
   clazz->clear = cmap_t_clear;
   clazz->begin = cmap_t_begin;

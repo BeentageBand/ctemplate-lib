@@ -1,5 +1,6 @@
 #include "chashset-internal.h"
 
+static void chashset_t_delete(union CHashSet_T * const chashset_t);
 static size_t chashset_t_size(union CHashSet_T * const chashset_t);
 static void chashset_t_clear(union CHashSet_T * const chashset_t);
 static T * chashset_t_begin(union CHashSet_T * const chashset_t);
@@ -8,8 +9,18 @@ static T * chashset_t_find(union CHashSet_T * const chashset_t, T const index);
 static void chashset_t_insert(union CHashSet_T * const chashset_t, T const value);
 static void chashset_t_erase(union CHashSet_T * const chashset_t, T const value);
 
+void chashset_t_delete(union CHashSet_T * const chashset_t)
+{
+  CHashSet_T_clear(chashset_t);
+  chashset_t->buckets = NULL;
+  chashset_t->size = 0;
+  chashset_t->hash = NULL;
+  chashset_t->cmp = NULL;
+}
+
 void chashset_t_override(union CHashSet_T_Class * const clazz)
 {
+  clazz->Class.destroy = (Class_Delete_T) chashset_t_delete;
   clazz->size = chashset_t_size;
   clazz->clear = chashset_t_clear;
   clazz->begin = chashset_t_begin;

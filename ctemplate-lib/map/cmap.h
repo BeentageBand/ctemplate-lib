@@ -74,4 +74,5 @@ extern void CMap_T_erase(union CMap_T * const cmap_t, Key_T const key);
 #undef PairComparator_T
 #undef Pair_Params
 #undef CSet_T
+#undef Comparator_T
 #undef CSet_Params

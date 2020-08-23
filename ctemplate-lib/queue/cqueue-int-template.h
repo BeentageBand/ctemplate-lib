@@ -30,6 +30,7 @@
 #define cqueue_t_pop_back TEMPLATE(cqueue, CQueue_Params, pop_back)
 #define cqueue_t_push_front TEMPLATE(cqueue, CQueue_Params, push_front)
 #define cqueue_t_pop_front TEMPLATE(cqueue, CQueue_Params, pop_front)
+#define cqueue_t_delete TEMPLATE(cqueue, CQueue_Params, delete)
 #define CQueue_T_populate TEMPLATE(CQueue, CQueue_Params, populate)
 
 #define T T_Param(1, CQueue_Params)
@@ -63,6 +64,7 @@
 #undef cqueue_t_pop_back
 #undef cqueue_t_push_front
 #undef cqueue_t_pop_front
+#undef cqueue_t_delete
 #undef CQueue_T_populate
 
 #undef T

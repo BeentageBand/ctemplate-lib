@@ -24,6 +24,7 @@
 #define cvector_t_back TEMPLATE(cvector, CVector_Params, back)
 #define cvector_t_push_back TEMPLATE(cvector, CVector_Params, push_back)
 #define cvector_t_pop_back TEMPLATE(cvector, CVector_Params, pop_back)
+#define cvector_t_delete TEMPLATE(cvector, CVector_Params, delete)
 #define CVector_T_populate TEMPLATE(CVector, CVector_Params, populate)
 
 #define T T_Param(1, CVector_Params)
@@ -50,7 +51,7 @@
 #undef cvector_t_access
 #undef cvector_t_back
 #undef cvector_t_push_back
-#undef cvector_t_pop_back
+#undef cvector_t_delete
 #undef CVector_T_populate
 
 #undef T

@@ -1,15 +1,24 @@
 #include "chashmap-internal.h"
 
-size_t chashmap_t_size(union CHashMap_T * const chashmap_t);
-void chashmap_t_clear(union CHashMap_T * const chashmap_t);
-HashPair_T * chashmap_t_begin(union CHashMap_T * const chashmap_t);
-HashPair_T * chashmap_t_end(union CHashMap_T * const chashmap_t);
-HashPair_T * chashmap_t_find(union CHashMap_T * const chashmap_t, HashKey_T const index);
-void chashmap_t_insert(union CHashMap_T * const chashmap_t, HashKey_T const key, HashValue_T const value);
-void chashmap_t_erase(union CHashMap_T * const chashmap_t, HashKey_T const key);
+static void chashmap_t_delete(union CHashMap_T * const chashmap_t);
+static size_t chashmap_t_size(union CHashMap_T * const chashmap_t);
+static void chashmap_t_clear(union CHashMap_T * const chashmap_t);
+static HashPair_T * chashmap_t_begin(union CHashMap_T * const chashmap_t);
+static HashPair_T * chashmap_t_end(union CHashMap_T * const chashmap_t);
+static HashPair_T * chashmap_t_find(union CHashMap_T * const chashmap_t, HashKey_T const index);
+static void chashmap_t_insert(union CHashMap_T * const chashmap_t, HashKey_T const key, HashValue_T const value);
+static void chashmap_t_erase(union CHashMap_T * const chashmap_t, HashKey_T const key);
+
+void chashmap_t_delete(union CHashMap_T * const chashmap_t)
+{
+  _delete(&chashmap_t->set);
+  chashmap_t->cmp = NULL;
+  chashmap_t->hash = NULL;
+}
 
 void chashmap_t_override(union CHashMap_T_Class * const clazz)
 {
+  clazz->Class.destroy = (Class_Delete_T) chashmap_t_delete;
   clazz->size = chashmap_t_size;
   clazz->clear = chashmap_t_clear;
   clazz->begin = chashmap_t_begin;

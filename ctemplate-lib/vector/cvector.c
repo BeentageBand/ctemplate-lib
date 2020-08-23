@@ -1,6 +1,7 @@
 #include "cvector-internal.h"
 #include <string.h>
 
+static void cvector_t_delete(union CVector_T * const cvector_t);
 static size_t cvector_t_size(union CVector_T * const);
 static void cvector_t_clear(union CVector_T * const);
 static T * cvector_t_begin(union CVector_T * const);
@@ -11,21 +12,26 @@ static void cvector_t_push_back(union CVector_T * const, T const);
 static T cvector_t_back(union CVector_T * const);
 static void cvector_t_pop_back(union CVector_T * const);
 
+
 void cvector_t_override(union CVector_T_Class * const clazz)
 {
-    clazz->size = cvector_t_size;
-    clazz->clear = cvector_t_clear;
-    clazz->begin = cvector_t_begin;
-    clazz->end = cvector_t_end;
-    clazz->at = cvector_t_at;
-    clazz->access = cvector_t_access;
-    clazz->back = cvector_t_back;
-    clazz->push_back = cvector_t_push_back;
-    clazz->pop_back = cvector_t_pop_back;
+  clazz->Class.destroy = (Class_Delete_T) cvector_t_delete;
+  clazz->size = cvector_t_size;
+  clazz->clear = cvector_t_clear;
+  clazz->begin = cvector_t_begin;
+  clazz->end = cvector_t_end;
+  clazz->at = cvector_t_at;
+  clazz->access = cvector_t_access;
+  clazz->back = cvector_t_back;
+  clazz->push_back = cvector_t_push_back;
+  clazz->pop_back = cvector_t_pop_back;
 }
+
 void cvector_t_delete(union CVector_T * const cvector_t)
 {
-   CVector_T_clear(cvector_t);
+  CVector_T_clear(cvector_t);
+  cvector_t->buffer = NULL;
+  cvector_t->capacity = 0;
 }
  
 void CVector_T_populate(union CVector_T * const cvector_t, size_t const i, 

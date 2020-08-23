@@ -20,6 +20,7 @@
 #define chashset_t_insert TEMPLATE(chashset, CHashSet_Params, insert)
 #define chashset_t_erase TEMPLATE(chashset, CHashSet_Params, erase)
 #define chashset_t_override TEMPLATE(chashset, CHashSet_Params, override)
+#define chashset_t_delete TEMPLATE(chashset, CHashSet_Params, delete)
 #define CHashSet_T_populate TEMPLATE(CHashSet, CHashSet_Params, populate)
 
 #define T T_Param(1, CHashSet_Params)
@@ -63,6 +64,7 @@
 #undef chashset_t_insert
 #undef chashset_t_erase
 #undef chashset_t_override
+#undef chashset_t_delete
 #undef CHashSet_T_populate
 
 #undef T
