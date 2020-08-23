@@ -12,7 +12,7 @@
 #define TreeNode_T_erase TEMPLATE(TreeNode, TreeNode_Params, erase)
 #define TreeNode_T_size TEMPLATE(TreeNode, TreeNode_Params, size)
 
-typedef int (*Comparator_T)(T * const, T * const, size_t);
+typedef int (*Comparator_T)(T const * const, T const * const, size_t);
 
 struct TreeNode_T
 {

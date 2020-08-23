@@ -19,7 +19,7 @@ typedef struct
   V value;
 }Pair_T;
 
-typedef int (*PairComparator_T)(Pair_T *, Pair_T *, size_t);
+typedef int (*PairComparator_T)(Pair_T const * const, Pair_T const * const, size_t);
 
 extern int Pair_T_compare(Pair_T * a, Pair_T * b, size_t size);
 

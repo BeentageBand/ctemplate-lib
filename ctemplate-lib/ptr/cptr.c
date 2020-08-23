@@ -10,7 +10,7 @@ static void cptr_t_share(union CPtr_T * const cptr_t, union CPtr_T * const new_c
 
 void cptr_t_override(union CPtr_T_Class * const clazz)
 {
-  clazz->Class.destroy = cptr_t_delete;
+  clazz->Class.destroy = (Class_Delete_T) cptr_t_delete;
   clazz->empty = cptr_t_empty;
   clazz->set = cptr_t_set;
   clazz->get = cptr_t_get;
@@ -52,7 +52,7 @@ P * cptr_t_get(union CPtr_T * const cptr_t)
 
 void cptr_t_share(union CPtr_T * const cptr_t, union CPtr_T * const new_cptr)
 {
-  memcpy(&new_cptr, cptr_t, sizeof(new_cptr));
+  memcpy(new_cptr, cptr_t, sizeof(*new_cptr));
   (*cptr_t->count)++;
 }
 
