@@ -18,6 +18,11 @@ void CQueue_T_clear(union CQueue_T * const cqueue_t)
   return cqueue_t->vtbl->clear(cqueue_t);
 }
 
+void CQueue_T_reserve(union CQueue_T * const cqueue_t, size_t const capacity)
+{
+  return cqueue_t->vtbl->reserve(cqueue_t, capacity);
+}
+
 T * CQueue_T_begin(union CQueue_T * const cqueue_t)
 {
   return cqueue_t->vtbl->begin(cqueue_t);
@@ -67,4 +72,3 @@ void CQueue_T_pop_front(union CQueue_T * const cqueue_t)
 {
   return cqueue_t->vtbl->pop_front(cqueue_t);
 }
-

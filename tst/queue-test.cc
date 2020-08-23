@@ -21,11 +21,10 @@ const int Queue_Data[] =
 
 static std::deque<int> QueueCpp;
 static union CQueue_int CQueueC = {NULL};
-static int CQueue_Buff[10];
 
 TEST(CQueue,functionalities)
 {
-	CQueue_int_populate(&CQueueC, 0, 0, Num_Elems(CQueue_Buff), CQueue_Buff);
+	CQueue_int_populate(&CQueueC);
 }
 
 TEST_P(Test_CQueue, insert_n_find)

@@ -19,6 +19,7 @@ union CQueue_T_Class
     struct Class Class;
     size_t (* _private size)(union CQueue_T * const cqueue_t);
 void (* _private clear)(union CQueue_T * const cqueue_t);
+void (* _private reserve)(union CQueue_T * const cqueue_t, size_t const capacity);
 T * (* _private begin)(union CQueue_T * const cqueue_t);
 T * (* _private end)(union CQueue_T * const cqueue_t);
 T * (* _private at)(union CQueue_T * const cqueue_t, size_t const index);
@@ -49,11 +50,13 @@ T * _private buffer;
 
 extern union CQueue_T_Class * Get_CQueue_T_Class(void);
 
-extern void CQueue_T_populate(union CQueue_T * const cqueue_t, size_t const hd, size_t const tl, size_t const capacity, T * const buffer);
+extern void CQueue_T_populate(union CQueue_T * const cqueue_t);
 
 extern size_t CQueue_T_size(union CQueue_T * const cqueue_t);
 
 extern void CQueue_T_clear(union CQueue_T * const cqueue_t);
+
+extern void CQueue_T_reserve(union CQueue_T * const cqueue_t, size_t const capacity);
 
 extern T * CQueue_T_begin(union CQueue_T * const cqueue_t);
 
