@@ -70,18 +70,22 @@ TEST_P(Test_CHashSetC, destroy)
 {
 	SetCpp.erase(SetCpp.begin(), SetCpp.end());
 
+  std::cout << "erasing " << GetParam().id << std::endl;
   int * found = CHashSet_int_find(&CHashSetC, GetParam().id);
   EXPECT_TRUE(NULL != found);
 
 	CHashSet_int_erase(&CHashSetC, GetParam().id); 
+
+  std::cout << "finding erased " << GetParam().id << std::endl;
   found = CHashSet_int_find(&CHashSetC, GetParam().id);
   EXPECT_TRUE(NULL == found);
 
-	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
+//	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
 //		CHashSet_Tuple_Ptr_erase(&CHashSet_Tuple, (Tuple_Ptr_T)Set_Data + GetParam().id);
 
 	if(0 == CHashSet_int_size(&CHashSetC))
 	{
+    std::cout << "Delete" << std::endl;
 		_delete(&CHashSetC);
 	}
 /*

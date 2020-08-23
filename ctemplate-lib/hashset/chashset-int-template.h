@@ -33,6 +33,7 @@
 #define HashComparator_T TEMPLATE(HashComparator, Bucket_Params)
 #define Bucket_T_access TEMPLATE(Bucket, Bucket_Params, access)
 #define Bucket_T_available TEMPLATE(Bucket, Bucket_Params, available)
+#define Bucket_T_clear TEMPLATE(Bucket, Bucket_Params, clear)
 #define Bucket_T_is_empty TEMPLATE(Bucket, Bucket_Params, is_empty)
 #define Bucket_T_hash TEMPLATE(Bucket, Bucket_Params, hash)
 
@@ -44,6 +45,7 @@
 #undef Bucket_T_access
 #undef Bucket_T_available
 #undef Bucket_T_is_empty
+#undef Bucket_T_clear
 #undef Bucket_T_hash 
 
 #undef CHashSet_T

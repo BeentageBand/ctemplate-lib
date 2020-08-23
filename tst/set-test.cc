@@ -76,7 +76,7 @@ TEST_P(Test_CSetC, destroy)
   found = CSet_int_find(&CSetC, GetParam().id);
   EXPECT_TRUE(NULL == found);
 
-	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
+//	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
 //		CSet_Tuple_Ptr_erase(&CSet_Tuple, (Tuple_Ptr_T)Set_Data + GetParam().id);
 
 	if(0 == CSet_int_size(&CSetC))

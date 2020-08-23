@@ -43,7 +43,7 @@ void cptr_t_set(union CPtr_T * const cptr_t, P * const ptr)
 
 int cptr_t_count(union CPtr_T * const cptr_t)
 {
-  return *(cptr_t->count);
+  return *cptr_t->count;
 }
 
 P * cptr_t_get(union CPtr_T * const cptr_t)

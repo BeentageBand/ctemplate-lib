@@ -9,6 +9,7 @@
 #define Bucket_T_access TEMPLATE(Bucket, Bucket_Params, access)
 #define Bucket_T_available TEMPLATE(Bucket, Bucket_Params, available)
 #define Bucket_T_is_empty TEMPLATE(Bucket, Bucket_Params, is_empty)
+#define Bucket_T_clear TEMPLATE(Bucket, Bucket_Params, clear)
 #define Bucket_T_hash TEMPLATE(Bucket, Bucket_Params, hash)
 
 typedef size_t (*Hash_T) (T * const t, size_t const, size_t const);
@@ -26,6 +27,8 @@ extern size_t Bucket_T_access(struct Bucket_T * buckets, size_t const size, Hash
 extern size_t Bucket_T_available(struct Bucket_T * buckets, size_t const size, Hash_T const hash, 
     HashComparator_T const cmp, T value);
 
+extern void Bucket_T_clear(struct Bucket_T * bucket_t);
+
 extern bool Bucket_T_is_empty(struct Bucket_T * bucket_t);
 
 extern size_t Bucket_T_hash(T * const value, size_t const capacity, size_t const seed);
@@ -36,4 +39,5 @@ extern size_t Bucket_T_hash(T * const value, size_t const capacity, size_t const
 #undef Bucket_T_access
 #undef Bucket_T_available
 #undef Bucket_T_is_empty
+#undef Bucket_T_clear
 #undef Bucket_T_hash 
