@@ -6,10 +6,10 @@
 
 #include <vector>
 
-class Test_CVector : public ::testing::TestWithParam<Uint8>
+class Test_CVector : public ::testing::TestWithParam<int>
 {};
  
-const Uint8 Vector_Data[] =
+const int Vector_Data[] =
 {
 	25,
 	173,
@@ -19,9 +19,9 @@ const Uint8 Vector_Data[] =
 	240,
 	255
 };
-static std::vector<Uint8> VectorCpp;
-static union CVector_Uint8 CVectorC = {NULL};
-static Uint8 CVectorC_Buff[10];
+static std::vector<int> VectorCpp;
+static union CVector_int CVectorC = {NULL};
+static int CVectorC_Buff[10];
  
 int main(int argc, char ** argv)
 {
@@ -32,30 +32,30 @@ int main(int argc, char ** argv)
 
 TEST(Vector,functionalities)
 {
-	CVector_Uint8_populate(&CVectorC, 0, Num_Elems(CVectorC_Buff), CVectorC_Buff);
+	CVector_int_populate(&CVectorC, 0, Num_Elems(CVectorC_Buff), CVectorC_Buff);
 }
 
 TEST_P(Test_CVector, insert_n_find)
 {
-	EXPECT_EQ(VectorCpp.size(), CVector_Uint8_size(&CVectorC));
+	EXPECT_EQ(VectorCpp.size(), CVector_int_size(&CVectorC));
 
 	VectorCpp.push_back(GetParam());
-	CVector_Uint8_push_back(&CVectorC, GetParam());
+	CVector_int_push_back(&CVectorC, GetParam());
 
-	EXPECT_EQ(VectorCpp.back(), CVector_Uint8_back(&CVectorC));
+	EXPECT_EQ(VectorCpp.back(), CVector_int_back(&CVectorC));
 
-	std::cout << "CVectorC size = " << CVector_Uint8_size(&CVectorC) << ", VectorCpp size = " << 
+	std::cout << "CVectorC size = " << CVector_int_size(&CVectorC) << ", VectorCpp size = " << 
 		VectorCpp.size() << std::endl;
 }
 
 TEST_P(Test_CVector, destroy)
 {
 	VectorCpp.pop_back();
-	CVector_Uint8_pop_back(&CVectorC);
+	CVector_int_pop_back(&CVectorC);
 
-	EXPECT_EQ(VectorCpp.size(), CVector_Uint8_size(&CVectorC));
+	EXPECT_EQ(VectorCpp.size(), CVector_int_size(&CVectorC));
 
-	if(0 == CVector_Uint8_size(&CVectorC))
+	if(0 == CVector_int_size(&CVectorC))
 	{
 		_delete(&CVectorC);
 	}

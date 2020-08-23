@@ -29,9 +29,9 @@ static Tuple_T Set_Data[] =
 
 static int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b);
 
-static std::unordered_set<Uint8> SetCpp;
-static union CHashSet_Uint8 CHashSetC = {NULL};
-static struct Bucket_Uint8 Buckets[20] = {0};
+static std::unordered_set<int> SetCpp;
+static union CHashSet_int CHashSetC = {NULL};
+static struct Bucket_int Buckets[20] = {0};
 static std::unordered_set<Tuple_Ptr_T> SetTupleCpp;
 //static union CHashSet_Tuple_Ptr CHashSet_Tuple = {NULL};
 
@@ -44,20 +44,20 @@ int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b)
 
 TEST(HashSet,functionalities)
 {
-	CHashSet_Uint8_populate(&CHashSetC, Buckets, Num_Elems(Buckets), 0, NULL, NULL);
+	CHashSet_int_populate(&CHashSetC, Buckets, Num_Elems(Buckets), 0, NULL, NULL);
   //CHashSet_Tuple_Ptr_populate(&CHashSet_Tuple, NULL, 0, (Comparator_Tuple_Ptr)cset_tuple_cmp);
 }
 
 TEST_P(Test_CHashSetC, insert_n_find)
 {
-	EXPECT_EQ(SetCpp.size(), CHashSet_Uint8_size(&CHashSetC));
+	EXPECT_EQ(SetCpp.size(), CHashSet_int_size(&CHashSetC));
 
   std::cout << "Inserting " << GetParam().id << std::endl;
 	SetCpp.insert(GetParam().id);
-	CHashSet_Uint8_insert(&CHashSetC, GetParam().id);
+	CHashSet_int_insert(&CHashSetC, GetParam().id);
 
   std::cout << "Finding " << GetParam().id << std::endl;
-  Uint8 * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
+  int * found = CHashSet_int_find(&CHashSetC, GetParam().id);
   ASSERT_FALSE(NULL == found);
 	EXPECT_EQ(*SetCpp.find(GetParam().id), *found);
 
@@ -70,17 +70,17 @@ TEST_P(Test_CHashSetC, destroy)
 {
 	SetCpp.erase(SetCpp.begin(), SetCpp.end());
 
-  Uint8 * found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
+  int * found = CHashSet_int_find(&CHashSetC, GetParam().id);
   EXPECT_TRUE(NULL != found);
 
-	CHashSet_Uint8_erase(&CHashSetC, GetParam().id); 
-  found = CHashSet_Uint8_find(&CHashSetC, GetParam().id);
+	CHashSet_int_erase(&CHashSetC, GetParam().id); 
+  found = CHashSet_int_find(&CHashSetC, GetParam().id);
   EXPECT_TRUE(NULL == found);
 
 	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
 //		CHashSet_Tuple_Ptr_erase(&CHashSet_Tuple, (Tuple_Ptr_T)Set_Data + GetParam().id);
 
-	if(0 == CHashSet_Uint8_size(&CHashSetC))
+	if(0 == CHashSet_int_size(&CHashSetC))
 	{
 		_delete(&CHashSetC);
 	}

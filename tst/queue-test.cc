@@ -5,10 +5,10 @@
 
 #define Num_Elems(arr) (size_t)(sizeof(arr)/sizeof(*arr))
 
-class Test_CQueue : public ::testing::TestWithParam<Uint8>
+class Test_CQueue : public ::testing::TestWithParam<int>
 {};
 
-const Uint8 Queue_Data[] =
+const int Queue_Data[] =
 {
 	25,
 	173,
@@ -19,33 +19,33 @@ const Uint8 Queue_Data[] =
 	255
 };
 
-static std::deque<Uint8> QueueCpp;
-static union CQueue_Uint8 CQueueC = {NULL};
-static Uint8 CQueue_Buff[10];
+static std::deque<int> QueueCpp;
+static union CQueue_int CQueueC = {NULL};
+static int CQueue_Buff[10];
 
 TEST(CQueue,functionalities)
 {
-	CQueue_Uint8_populate(&CQueueC, 0, 0, Num_Elems(CQueue_Buff), CQueue_Buff);
+	CQueue_int_populate(&CQueueC, 0, 0, Num_Elems(CQueue_Buff), CQueue_Buff);
 }
 
 TEST_P(Test_CQueue, insert_n_find)
 {
-	EXPECT_EQ(QueueCpp.size(), CQueue_Uint8_size(&CQueueC));
+	EXPECT_EQ(QueueCpp.size(), CQueue_int_size(&CQueueC));
 
 	QueueCpp.push_front(GetParam());
-	CQueue_Uint8_push_front(&CQueueC, GetParam());
+	CQueue_int_push_front(&CQueueC, GetParam());
 
-	EXPECT_EQ(QueueCpp.front(), CQueue_Uint8_front(&CQueueC));
+	EXPECT_EQ(QueueCpp.front(), CQueue_int_front(&CQueueC));
 }
 
 TEST_P(Test_CQueue, destroy)
 {
 	QueueCpp.pop_back();
-	CQueue_Uint8_pop_back(&CQueueC);
+	CQueue_int_pop_back(&CQueueC);
 
-	EXPECT_EQ(QueueCpp.size(), CQueue_Uint8_size(&CQueueC));
+	EXPECT_EQ(QueueCpp.size(), CQueue_int_size(&CQueueC));
 
-	if(0 == CQueue_Uint8_size(&CQueueC))
+	if(0 == CQueue_int_size(&CQueueC))
 	{
 		_delete(&CQueueC);
 	}

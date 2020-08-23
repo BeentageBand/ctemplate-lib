@@ -45,6 +45,7 @@ tst/gtest-template.c \
 tst/hashset-test.cc  \
 tst/hashmap-test.cc  \
 tst/map-test.cc      \
+tst/ptr-test.cc      \
 tst/set-test.cc      \
 tst/queue-test.cc    \
 tst/vector-test.cc   

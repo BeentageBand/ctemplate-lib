@@ -27,8 +27,8 @@ static Tuple_T Set_Data[] =
 
 static int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b);
 
-static std::set<Uint8> SetCpp;
-static union CSet_Uint8 CSetC = {NULL};
+static std::set<int> SetCpp;
+static union CSet_int CSetC = {NULL};
 static std::set<Tuple_Ptr_T> SetTupleCpp;
 //static union CSet_Tuple_Ptr CSet_Tuple = {NULL};
 
@@ -41,22 +41,22 @@ int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b)
 
 TEST(Set,functionalities)
 {
-	CSet_Uint8_populate(&CSetC, NULL, 0, NULL);
+	CSet_int_populate(&CSetC, NULL, 0, NULL);
   //CSet_Tuple_Ptr_populate(&CSet_Tuple, NULL, 0, (Comparator_Tuple_Ptr)cset_tuple_cmp);
 }
 
 TEST_P(Test_CSetC, insert_n_find)
 {
-	EXPECT_EQ(SetCpp.size(), CSet_Uint8_size(&CSetC));
+	EXPECT_EQ(SetCpp.size(), CSet_int_size(&CSetC));
 
   std::cout << "Inserting " << GetParam().id << std::endl;
 	SetCpp.insert(GetParam().id);
-	CSet_Uint8_insert(&CSetC, GetParam().id);
+	CSet_int_insert(&CSetC, GetParam().id);
 
   EXPECT_FALSE(NULL == CSetC.head);
 
   std::cout << "Finding " << GetParam().id << std::endl;
-  Uint8 * found = CSet_Uint8_find(&CSetC, GetParam().id);
+  int * found = CSet_int_find(&CSetC, GetParam().id);
   ASSERT_FALSE(NULL == found);
 	EXPECT_EQ(*SetCpp.find(GetParam().id), *found);
 
@@ -69,17 +69,17 @@ TEST_P(Test_CSetC, destroy)
 {
 	SetCpp.erase(SetCpp.begin(), SetCpp.end());
 
-  Uint8 * found = CSet_Uint8_find(&CSetC, GetParam().id);
+  int * found = CSet_int_find(&CSetC, GetParam().id);
   EXPECT_TRUE(NULL != found);
 
-	CSet_Uint8_erase(&CSetC, GetParam().id); 
-  found = CSet_Uint8_find(&CSetC, GetParam().id);
+	CSet_int_erase(&CSetC, GetParam().id); 
+  found = CSet_int_find(&CSetC, GetParam().id);
   EXPECT_TRUE(NULL == found);
 
 	SetTupleCpp.erase(SetTupleCpp.begin(), SetTupleCpp.end());
 //		CSet_Tuple_Ptr_erase(&CSet_Tuple, (Tuple_Ptr_T)Set_Data + GetParam().id);
 
-	if(0 == CSet_Uint8_size(&CSetC))
+	if(0 == CSet_int_size(&CSetC))
 	{
 		_delete(&CSetC);
 	}

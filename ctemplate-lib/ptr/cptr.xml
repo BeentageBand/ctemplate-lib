@@ -1,0 +1,14 @@
+<class name="CPtr" template="true">
+    <typename name="P"/>
+    <member name="ptr" type_t="P *"/>
+    <member name="count" type_t="int *"/>
+    <method name="empty" return_t="bool"/>
+    <method name="count" return_t="int"/>
+    <method name="set">
+      <param name="ptr" type_t="P *"/>
+    </method>
+    <method name="get" return_t="P *"/>
+    <method name="share">
+      <param name="new_cptr" type_t="union CPtr_T *"/>
+    </method>
+</class>

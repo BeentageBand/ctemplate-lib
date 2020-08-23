@@ -2,10 +2,10 @@
 #include "gtest-template.h"
 #include <map>
 
-class Test_CMap : public ::testing::TestWithParam<Uint8>
+class Test_CMap : public ::testing::TestWithParam<int>
 {};
 
-const Uint8 Map_Data[] =
+const int Map_Data[] =
 {
 	25,
 	173,
@@ -16,22 +16,22 @@ const Uint8 Map_Data[] =
 	255
 };
 
-static std::map<Uint8, Uint8> CMapCpp;
-static union CMap_Uint8_Uint8 CMap = {NULL};
+static std::map<int, int> CMapCpp;
+static union CMap_int_int CMap = {NULL};
 TEST(Map,functionalities)
 {
-  CMap_Uint8_Uint8_populate(&CMap, NULL);
+  CMap_int_int_populate(&CMap, NULL);
 }
 
 TEST_P(Test_CMap, insert_n_find)
 {
-	EXPECT_EQ(CMapCpp.size(), CMap_Uint8_Uint8_size(&CMap));
+	EXPECT_EQ(CMapCpp.size(), CMap_int_int_size(&CMap));
 
 	CMapCpp.insert(std::make_pair(GetParam(), GetParam()));
-	CMap_Uint8_Uint8_insert(&CMap, GetParam(), GetParam());
+	CMap_int_int_insert(&CMap, GetParam(), GetParam());
 
   auto found = CMapCpp.find(GetParam());
-  Pair_Uint8_Uint8 * pair = CMap_Uint8_Uint8_find(&CMap, GetParam());
+  Pair_int_int * pair = CMap_int_int_find(&CMap, GetParam());
 	EXPECT_EQ(found->first, pair->key);
 	EXPECT_EQ(found->second, pair->value);
 }
@@ -42,7 +42,7 @@ TEST_P(Test_CMap, destroy)
 	if(once)
 	{
 		CMapCpp.clear();
-		CMap_Uint8_Uint8_clear(&CMap);
+		CMap_int_int_clear(&CMap);
 		once = false;
 
 		_delete(&CMap);

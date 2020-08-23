@@ -4,6 +4,7 @@
     <xi:include href="hashset/chashset.xml"/>
     <xi:include href="map/cmap.xml"/>
     <xi:include href="queue/cqueue.xml"/>
+    <xi:include href="ptr/cptr.xml"/>
     <xi:include href="set/cset.xml"/>
     <xi:include href="vector/cvector.xml"/> 
 </domain>
