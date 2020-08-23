@@ -5,6 +5,9 @@
     <member name="buffer" type_t="T *"/>
     <method name="size" return_t="size_t"/>
     <method name="clear"/>
+    <method name="reserve">
+      <param name="n" type_t="size_t"/>
+    </method>
     <method name="begin" return_t="T *"/>
     <method name="end" return_t="T *"/>
     <method name="at" return_t="T *">

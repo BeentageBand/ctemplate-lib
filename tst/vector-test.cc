@@ -21,7 +21,6 @@ const int Vector_Data[] =
 };
 static std::vector<int> VectorCpp;
 static union CVector_int CVectorC = {NULL};
-static int CVectorC_Buff[10];
  
 int main(int argc, char ** argv)
 {
@@ -32,7 +31,8 @@ int main(int argc, char ** argv)
 
 TEST(Vector,functionalities)
 {
-	CVector_int_populate(&CVectorC, 0, Num_Elems(CVectorC_Buff), CVectorC_Buff);
+	CVector_int_populate(&CVectorC);
+  EXPECT_EQ(5, CVectorC.capacity);
 }
 
 TEST_P(Test_CVector, insert_n_find)
@@ -50,6 +50,8 @@ TEST_P(Test_CVector, insert_n_find)
 
 TEST_P(Test_CVector, destroy)
 {
+  EXPECT_EQ(10, CVectorC.capacity);
+
 	VectorCpp.pop_back();
 	CVector_int_pop_back(&CVectorC);
 

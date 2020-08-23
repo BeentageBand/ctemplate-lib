@@ -18,6 +18,11 @@ void CVector_T_clear(union CVector_T * const cvector_t)
   return cvector_t->vtbl->clear(cvector_t);
 }
 
+void CVector_T_reserve(union CVector_T * const cvector_t, size_t const n)
+{
+  return cvector_t->vtbl->reserve(cvector_t, n);
+}
+
 T * CVector_T_begin(union CVector_T * const cvector_t)
 {
   return cvector_t->vtbl->begin(cvector_t);
@@ -52,4 +57,3 @@ void CVector_T_pop_back(union CVector_T * const cvector_t)
 {
   return cvector_t->vtbl->pop_back(cvector_t);
 }
-

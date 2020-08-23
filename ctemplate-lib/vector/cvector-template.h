@@ -10,6 +10,7 @@
 #define Get_CVector_T_Class TEMPLATE(Get, CVector, CVector_Params, Class)
 #define CVector_T_size TEMPLATE(CVector, CVector_Params, size)
 #define CVector_T_clear TEMPLATE(CVector, CVector_Params, clear)
+#define CVector_T_reserve TEMPLATE(CVector, CVector_Params, reserve)
 #define CVector_T_begin TEMPLATE(CVector, CVector_Params, begin)
 #define CVector_T_end TEMPLATE(CVector, CVector_Params, end)
 #define CVector_T_at TEMPLATE(CVector, CVector_Params, at)
@@ -28,6 +29,7 @@
 #undef Get_CVector_T_Class
 #undef CVector_T_size
 #undef CVector_T_clear
+#undef CVector_T_reserve
 #undef CVector_T_begin
 #undef CVector_T_end
 #undef CVector_T_at
