@@ -12,6 +12,7 @@ TEST(CPtr, populate)
   CPtrCpp = std::make_shared<int>(i);
 
   int * i_ptr = (int *)malloc(sizeof(int));
+  *i_ptr = i;
   CPtr_int_populate(&CPtrC, i_ptr);
 
   ASSERT_TRUE(i_ptr == CPtrC.ptr);
@@ -27,6 +28,9 @@ TEST(CPtr, share)
     union CPtr_int shared_c = {NULL};
 
     CPtr_int_share(&CPtrC, &shared_c);
+
+    ASSERT_TRUE(shared_c.count == CPtrC.count);
+    ASSERT_FALSE(shared_c.count == NULL);
 
     ASSERT_EQ(shared.use_count(), CPtr_int_count(&CPtrC));
 

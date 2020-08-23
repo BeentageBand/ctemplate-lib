@@ -14,6 +14,7 @@ void cptr_t_override(union CPtr_T_Class * const clazz)
   clazz->empty = cptr_t_empty;
   clazz->set = cptr_t_set;
   clazz->get = cptr_t_get;
+  clazz->count = cptr_t_count;
   clazz->share = cptr_t_share;
 }
 
@@ -42,7 +43,7 @@ void cptr_t_set(union CPtr_T * const cptr_t, P * const ptr)
 
 int cptr_t_count(union CPtr_T * const cptr_t)
 {
-  return (*cptr_t->count);
+  return *(cptr_t->count);
 }
 
 P * cptr_t_get(union CPtr_T * const cptr_t)
@@ -60,6 +61,6 @@ void CPtr_T_populate(union CPtr_T * const cptr_t, P * const ptr)
 {
   Object_populate(&cptr_t->Object, &Get_CPtr_T_Class()->Class);
   cptr_t->count = (int *) malloc(sizeof(int));
-  *cptr_t->ptr = 1;
+  *(cptr_t->count) = 1;
   cptr_t->ptr = ptr;
 }

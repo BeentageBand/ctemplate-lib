@@ -32,6 +32,8 @@ TEST_P(Test_CHashMap, insert_n_find)
 
   auto found = CHashMapCpp.find(GetParam());
   HashPair_int_int * pair = CHashMap_int_int_find(&CHashMap, GetParam());
+
+  ASSERT_FALSE(NULL == pair);
 	EXPECT_EQ(found->first, pair->key);
 	EXPECT_EQ(found->second, pair->value);
 }
