@@ -74,6 +74,6 @@ void CHashMap_T_populate(union CHashMap_T * const chashmap_t, HashPairHash_T con
   Object_populate(&chashmap_t->Object, &Get_CHashMap_T_Class()->Class);
   chashmap_t->cmp = (NULL == cmp) ? (HashPairComparator_T) HashPair_T_compare : cmp;
   chashmap_t->hash = (NULL == hash) ? (HashPairHash_T) HashPair_T_hash : hash;
-  CHashSet_T_populate(&chashmap_t->set, NULL, 0, 0, (Hash_T) chashmap_t->hash, (HashComparator_T) chashmap_t->cmp);
+  CHashSet_T_populate(&chashmap_t->set, (Hash_T) chashmap_t->hash, (HashComparator_T) chashmap_t->cmp);
 }
 

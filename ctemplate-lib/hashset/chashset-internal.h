@@ -18,6 +18,11 @@ void CHashSet_T_clear(union CHashSet_T * const chashset_t)
   return chashset_t->vtbl->clear(chashset_t);
 }
 
+void CHashSet_T_reserve(union CHashSet_T * const chashset_t, size_t const capacity)
+{
+  return chashset_t->vtbl->reserve(chashset_t, capacity);
+}
+
 T * CHashSet_T_begin(union CHashSet_T * const chashset_t)
 {
   return chashset_t->vtbl->begin(chashset_t);

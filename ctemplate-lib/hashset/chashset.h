@@ -19,6 +19,7 @@ union CHashSet_T_Class
     struct Class Class;
     size_t (* chashset_private size)(union CHashSet_T * const chashset_t);
 void (* chashset_private clear)(union CHashSet_T * const chashset_t);
+void (* chashset_private reserve)(union CHashSet_T * const chashset_t, size_t const capacity);
 T * (* chashset_private begin)(union CHashSet_T * const chashset_t);
 T * (* chashset_private end)(union CHashSet_T * const chashset_t);
 T * (* chashset_private find)(union CHashSet_T * const chashset_t, T const index);
@@ -45,12 +46,13 @@ HashComparator_T chashset_private cmp;
 
 extern union CHashSet_T_Class * Get_CHashSet_T_Class(void);
 
-extern void CHashSet_T_populate(union CHashSet_T * const chashset_t, struct Bucket_T* const buckets, size_t const size, 
-    size_t const count, Hash_T const hash, HashComparator_T const cmp);
+extern void CHashSet_T_populate(union CHashSet_T * const chashset_t, Hash_T const hash, HashComparator_T const cmp);
 
 extern size_t CHashSet_T_size(union CHashSet_T * const chashset_t);
 
 extern void CHashSet_T_clear(union CHashSet_T * const chashset_t);
+
+extern void CHashSet_T_reserve(union CHashSet_T * const chashset_t, size_t const capacity);
 
 extern T * CHashSet_T_begin(union CHashSet_T * const chashset_t);
 

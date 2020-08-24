@@ -10,6 +10,7 @@
 #define Get_CHashSet_T_Class TEMPLATE(Get, CHashSet, CHashSet_Params, Class)
 #define CHashSet_T_size TEMPLATE(CHashSet, CHashSet_Params, size)
 #define CHashSet_T_clear TEMPLATE(CHashSet, CHashSet_Params, clear)
+#define CHashSet_T_reserve TEMPLATE(CHashSet, CHashSet_Params, reserve)
 #define CHashSet_T_begin TEMPLATE(CHashSet, CHashSet_Params, begin)
 #define CHashSet_T_end TEMPLATE(CHashSet, CHashSet_Params, end)
 #define CHashSet_T_find TEMPLATE(CHashSet, CHashSet_Params, find)
@@ -38,6 +39,7 @@
 #undef Get_CHashSet_T_Class
 #undef CHashSet_T_size
 #undef CHashSet_T_clear
+#undef CHashSet_T_reserve
 #undef CHashSet_T_begin
 #undef CHashSet_T_end
 #undef CHashSet_T_find
