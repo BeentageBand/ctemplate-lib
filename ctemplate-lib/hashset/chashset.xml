@@ -1,5 +1,10 @@
 <class name="CHashSet" template="true">
     <typename name="T"/>
+    <constructor name="reserved">
+      <param name="elems" type_t="size_t"/>
+      <param name="hash" type_t="Hash_T"/>
+      <param name="cmp" type_t="HashComparator_T"/>
+    </constructor>
     <member name="buckets" type_t="struct Bucket_T*"/>
     <member name="size" type_t="size_t"/>
     <member name="count" type_t="size_t"/>

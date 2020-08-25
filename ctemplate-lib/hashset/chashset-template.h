@@ -20,6 +20,8 @@
 
 #define T T_Param(1, CHashSet_Params)
 
+#define CHashSet_T_populate_reserved         TEMPLATE(CHashSet, CHashSet_Params, populate, reserved)
+
 #define Bucket_Params CHashSet_Params
 #include "bucket.h"
 
@@ -49,4 +51,5 @@
 
 #undef T
 
+#undef CHashSet_T_populate_reserved
 #endif /* CHASHSET_TEMPLATE_H */

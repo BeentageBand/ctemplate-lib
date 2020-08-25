@@ -172,5 +172,17 @@ void CHashSet_T_populate(union CHashSet_T * const chashset_t, Hash_T const hash,
   CHashSet_T_reserve(chashset_t, chashset_t_next_prime(chashset_t->size));
 }
 
+void CHashSet_T_populate_reserved(union CHashSet_T * const chashset_t, size_t const elems, Hash_T const hash, HashComparator_T const cmp)
+{
+  Object_populate(&chashset_t->Object, &Get_CHashSet_T_Class()->Class);
+  chashset_t->buckets= NULL;
+  chashset_t->size = 0;
+
+  chashset_t->hash = (NULL == hash) ? (Hash_T) Bucket_T_hash : hash;
+  chashset_t->cmp = (NULL == cmp) ? (HashComparator_T) memcmp : cmp;
+
+  CHashSet_T_reserve(chashset_t, elems);
+}
+
 #undef chashset_t_next_prime
 #undef chashset_t_is_prime
