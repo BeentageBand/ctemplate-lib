@@ -10,6 +10,7 @@
 #define Get_CQueue_T_Class TEMPLATE(Get, CQueue, CQueue_Params, Class)
 #define CQueue_T_size TEMPLATE(CQueue, CQueue_Params, size)
 #define CQueue_T_clear TEMPLATE(CQueue, CQueue_Params, clear)
+#define CQueue_T_reserve TEMPLATE(CQueue, CQueue_Params, reserve)
 #define CQueue_T_begin TEMPLATE(CQueue, CQueue_Params, begin)
 #define CQueue_T_end TEMPLATE(CQueue, CQueue_Params, end)
 #define CQueue_T_at TEMPLATE(CQueue, CQueue_Params, at)
@@ -31,6 +32,7 @@
 #undef Get_CQueue_T_Class
 #undef CQueue_T_size
 #undef CQueue_T_clear
+#undef CQueue_T_reserve
 #undef CQueue_T_begin
 #undef CQueue_T_end
 #undef CQueue_T_at

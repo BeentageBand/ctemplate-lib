@@ -1,6 +1,5 @@
-#ifndef CPTR_T_H
-#define CPTR_T_H
 #include "cobject/cobject.h"
+#include <stdbool.h>
 
 #ifdef CPTR_T_IMPLEMENTATION 
 #define _private
@@ -57,4 +56,3 @@ extern void CPtr_T_share(union CPtr_T * const cptr_t, union CPtr_T * const new_c
 #ifdef __cplusplus
 }
 #endif
-#endif /*CPTR_TNone_H*/

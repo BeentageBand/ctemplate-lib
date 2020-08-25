@@ -21,6 +21,7 @@ union CVector_T_Class
     struct Class Class;
     size_t (* _private size)(union CVector_T * const cvector_t);
 void (* _private clear)(union CVector_T * const cvector_t);
+void (* _private reserve)(union CVector_T * const cvector_t, size_t const n);
 T * (* _private begin)(union CVector_T * const cvector_t);
 T * (* _private end)(union CVector_T * const cvector_t);
 T * (* _private at)(union CVector_T * const cvector_t, size_t const index);
@@ -47,11 +48,13 @@ T * _private buffer;
 
 extern union CVector_T_Class * Get_CVector_T_Class(void);
 
-extern void CVector_T_populate(union CVector_T * const cvector_t, size_t const i, size_t const capacity, T * const buffer);
+extern void CVector_T_populate(union CVector_T * const cvector_t);
 
 extern size_t CVector_T_size(union CVector_T * const cvector_t);
 
 extern void CVector_T_clear(union CVector_T * const cvector_t);
+
+extern void CVector_T_reserve(union CVector_T * const cvector_t, size_t const n);
 
 extern T * CVector_T_begin(union CVector_T * const cvector_t);
 

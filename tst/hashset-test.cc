@@ -44,7 +44,7 @@ int cset_tuple_cmp(Tuple_Ptr_T * const a, Tuple_Ptr_T * const b)
 
 TEST(HashSet,functionalities)
 {
-	CHashSet_int_populate(&CHashSetC, Buckets, Num_Elems(Buckets), 0, NULL, NULL);
+	CHashSet_int_populate(&CHashSetC, NULL, NULL);
   //CHashSet_Tuple_Ptr_populate(&CHashSet_Tuple, NULL, 0, (Comparator_Tuple_Ptr)cset_tuple_cmp);
 }
 

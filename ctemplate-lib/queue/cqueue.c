@@ -4,6 +4,7 @@
 static void cqueue_t_delete(union CQueue_T * const);
 static size_t cqueue_t_size(union CQueue_T * const);
 static void cqueue_t_clear(union CQueue_T * const);
+static void cqueue_t_reserve(union CQueue_T * const, size_t const);
 static T * cqueue_t_begin(union CQueue_T * const);
 static T * cqueue_t_end(union CQueue_T * const);
 static T * cqueue_t_at(union CQueue_T * const, size_t const);
@@ -20,6 +21,7 @@ void cqueue_t_override(union CQueue_T_Class * const clazz)
   clazz->Class.destroy = (Class_Delete_T) cqueue_t_delete;
   clazz->size = cqueue_t_size;
   clazz->clear = cqueue_t_clear;
+  clazz->reserve = cqueue_t_reserve;
   clazz->begin = cqueue_t_begin;
   clazz->end = cqueue_t_end;
   clazz->at = cqueue_t_at;
@@ -38,16 +40,15 @@ void cqueue_t_delete(union CQueue_T * const cqueue_t)
   cqueue_t->buffer = NULL;
   cqueue_t->capacity = 0;
 }
-
  
-void CQueue_T_populate(union CQueue_T * const cqueue_t, size_t const hd, size_t const tl, 
-    size_t const capacity, T * const buffer)
+void CQueue_T_populate(union CQueue_T * const cqueue_t)
 {
     Object_populate(&cqueue_t->Object, &Get_CQueue_T_Class()->Class);
-    cqueue_t->hd = hd;
-    cqueue_t->tl = tl;
-    cqueue_t->capacity = capacity;
-    cqueue_t->buffer = buffer;
+    cqueue_t->hd = 0;
+    cqueue_t->tl = 0;
+    cqueue_t->capacity = 0;
+    cqueue_t->buffer = NULL;
+    CQueue_T_reserve(cqueue_t, 5);
 }
 
 T * cqueue_t_begin(union CQueue_T * const cqueue_t)
@@ -73,7 +74,11 @@ T cqueue_t_back(union CQueue_T * const cqueue_t)
 void cqueue_t_push_back(union CQueue_T * const cqueue_t, T const value)
 {
     size_t new_index = (cqueue_t->tl + 1)  % cqueue_t->capacity;
-    if (new_index == cqueue_t->hd) return;
+    if (new_index == cqueue_t->hd) 
+    {
+      CQueue_T_reserve(cqueue_t, cqueue_t->capacity * 2);
+      new_index = (cqueue_t->tl + 1)  % cqueue_t->capacity;
+    }
     cqueue_t->buffer[cqueue_t->tl] = value;
     cqueue_t->tl = new_index; 
 }
@@ -89,7 +94,11 @@ void cqueue_t_pop_back(union CQueue_T * const cqueue_t)
 void cqueue_t_push_front(union CQueue_T * const cqueue_t, T const value)
 {
     size_t new_index = (cqueue_t->hd) ? cqueue_t->hd - 1 : cqueue_t->capacity - 1;
-    if (new_index == cqueue_t->tl) return;
+    if (new_index == cqueue_t->tl)
+    {
+      CQueue_T_reserve(cqueue_t, cqueue_t->capacity * 2);
+      new_index = (cqueue_t->hd) ? cqueue_t->hd - 1 : cqueue_t->capacity - 1;
+    }
     cqueue_t->hd = new_index;
     cqueue_t->buffer[cqueue_t->hd] = value;
 }
@@ -132,7 +141,26 @@ void cqueue_t_clear(union CQueue_T * const cqueue_t)
    }
 }
 
-#undef CQueue
-#undef CQueue_T 
-#undef CQueue_Class_T 
-#undef T 
+void cqueue_t_reserve(union CQueue_T * const cqueue_t, size_t const capacity)
+{
+  if (cqueue_t->capacity >= capacity) return;
+  T * old_ringbuff = cqueue_t->buffer;
+  size_t old_capacity = cqueue_t->capacity;
+  cqueue_t->capacity = capacity;
+  cqueue_t->buffer = (T*) malloc(cqueue_t->capacity * sizeof(T));
+
+  if (cqueue_t->hd > cqueue_t->tl)
+  {
+    size_t hd_chunk = old_capacity - cqueue_t->hd;
+    memcpy(cqueue_t->buffer, old_ringbuff + cqueue_t->hd,  hd_chunk * sizeof(T));
+    memcpy(cqueue_t->buffer + hd_chunk, old_ringbuff, cqueue_t->tl * sizeof(T));
+    cqueue_t->tl = hd_chunk + cqueue_t->tl;
+    cqueue_t->hd = 0;
+  }
+  else 
+  {
+    memcpy(cqueue_t->buffer, old_ringbuff, sizeof(T) * old_capacity);
+  }
+
+  if (old_ringbuff) free(old_ringbuff);
+}
