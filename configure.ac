@@ -1,5 +1,5 @@
 # Initialize
-AC_INIT([cobject], [1.0], [beentageband@gmail.com])
+AC_INIT([ctemplate-lib], [1.0], [beentageband@gmail.com])
 
 # Autotools aux files
 AC_CONFIG_AUX_DIR([build-aux])
