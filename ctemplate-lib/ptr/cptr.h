@@ -56,3 +56,4 @@ extern void CPtr_T_share(union CPtr_T * const cptr_t, union CPtr_T * const new_c
 #ifdef __cplusplus
 }
 #endif
+#undef _private

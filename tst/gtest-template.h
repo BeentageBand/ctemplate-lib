@@ -5,10 +5,6 @@
 extern "C" {
 #endif
  
-#define CVector_Params int 
-#include "ctemplate-lib/vector/cvector-template.h"
-#undef CVector_Params
-
 #define CQueue_Params int 
 #include "ctemplate-lib/queue/cqueue-template.h"
 #undef CQueue_Params
@@ -29,9 +25,14 @@ extern "C" {
 #include "ctemplate-lib/hashmap/chashmap-template.h"
 #undef CHashMap_Params
 
+#define CPriorityQueue_Params int
+#include "ctemplate-lib/priorityqueue/cpriorityqueue-template.h"
+#undef CPriorityQueue_Params
+
 #define CPtr_Params int
 #include "ctemplate-lib/ptr/cptr-template.h"
 #undef CPtr_Params
+
 
 typedef struct {
   int id;

@@ -1,9 +1,3 @@
-#define CVector_Params int 
-#define CVECTOR_T_IMPLEMENTATION
-#include "ctemplate-lib/vector/cvector-template.h"
-#include "ctemplate-lib/vector/cvector-int-template.h"
-#undef CVector_Params 
-
 #define CQueue_Params int 
 #define CQUEUE_T_IMPLEMENTATION
 #include "ctemplate-lib/queue/cqueue-template.h"
@@ -39,6 +33,14 @@
 #include "ctemplate-lib/ptr/cptr-template.h"
 #include "ctemplate-lib/ptr/cptr-int-template.h"
 #undef CPtr_Params
+
+#define CPriorityQueue_Params int
+#define CPRIORITYQUEUE_T_IMPLEMENTATION
+#define CVECTOR_T_IMPLEMENTATION
+#include "ctemplate-lib/priorityqueue/cpriorityqueue-template.h"
+#include "ctemplate-lib/priorityqueue/cpriorityqueue-int-template.h"
+#undef CPriorityQueue_Params
+
 /*
 #define CSet_Params Tuple_Ptr
 #include "ctemplate-lib/set/cset-int-template.h"

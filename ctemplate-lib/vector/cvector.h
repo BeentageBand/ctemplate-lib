@@ -1,5 +1,3 @@
-#ifndef CVECTOR_T_H
-#define CVECTOR_T_H
 #include "cobject/cobject.h"
 
 #ifdef CVECTOR_T_IMPLEMENTATION 
@@ -73,4 +71,4 @@ extern void CVector_T_pop_back(union CVector_T * const cvector_t);
 #ifdef __cplusplus
 }
 #endif
-#endif /*CVECTOR_TNone_H*/
+#undef _private

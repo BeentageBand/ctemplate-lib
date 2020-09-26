@@ -1,0 +1,19 @@
+<class name="CPriorityQueue" template="true">
+    <typename name="Q"/>
+    <constructor name="reserved">
+      <param name="elems" type_t="size_t"/>
+      <param name="cmp" type_t="PriorityComparator_T"/>
+    </constructor>
+    <member name="vector" type_t="union CVector_T"/>
+    <member name="cmp" type_t="PriorityComparator_T"/>
+    <method name="clear"/>
+    <method name="size" return_t="size_t"/>
+    <method name="reserve">
+        <param name="capacity" type_t="size_t"/>
+    </method>
+    <method name="poll" return_t="Q"/>
+    <method name="peek" return_t="Q"/>
+    <method name="push">
+        <param name="value" type_t="Q"/>
+    </method>
+</class>
