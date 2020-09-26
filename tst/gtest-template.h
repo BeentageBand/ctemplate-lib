@@ -49,6 +49,15 @@ typedef Tuple_T * Tuple_Ptr_T;
 
 #ifdef __cplusplus
 }
+
+#include <iostream>
+template<typename Container>
+inline void printToCout(Container & container, char const * delimiter = ",") {
+    std::copy(container.begin(), container.end(),
+        std::ostream_iterator<typename Container::value_type>(std::cout, delimiter));
+    std::cout << std::endl;
+}
 #endif
+
 
 #endif /*GTEST_TEMPLATE_UTILS_H_*/

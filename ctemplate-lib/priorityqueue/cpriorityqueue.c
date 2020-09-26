@@ -19,7 +19,8 @@ static bool cpriorityqueue_t_min(Q * const a, Q * const b);
 
 void cpriorityqueue_t_delete(union CPriorityQueue_T * const cpriorityqueue_t) 
 {
-
+  _delete(&cpriorityqueue_t->vector);
+  cpriorityqueue_t->cmp = NULL;
 }
 
 void cpriorityqueue_t_override(union CPriorityQueue_T_Class * const clazz)
