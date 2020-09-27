@@ -67,7 +67,7 @@ void cvector_t_push_back(union CVector_T * const cvector_t, T const value)
     CVector_T_reserve(cvector_t, cvector_t->i * 2);
   }
 
-  cvector_t->buffer[cvector_t->i] = value;
+  memcpy(cvector_t->buffer +cvector_t->i, &value, sizeof(value));
   ++cvector_t->i;
 }
 
