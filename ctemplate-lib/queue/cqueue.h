@@ -1,9 +1,9 @@
 #include "cobject/cobject.h"
 
 #ifdef CQUEUE_T_IMPLEMENTATION 
-#define _private
+#define cqueue_t_private
 #else
-#define _private const
+#define cqueue_t_private const
 #endif 
 
 #ifdef __cplusplus
@@ -17,19 +17,19 @@ union CQueue_T_Class
     struct
     {
     struct Class Class;
-    size_t (* _private size)(union CQueue_T * const cqueue_t);
-void (* _private clear)(union CQueue_T * const cqueue_t);
-void (* _private reserve)(union CQueue_T * const cqueue_t, size_t const capacity);
-T * (* _private begin)(union CQueue_T * const cqueue_t);
-T * (* _private end)(union CQueue_T * const cqueue_t);
-T * (* _private at)(union CQueue_T * const cqueue_t, size_t const index);
-T (* _private access)(union CQueue_T * const cqueue_t, size_t const index);
-T (* _private back)(union CQueue_T * const cqueue_t);
-T (* _private front)(union CQueue_T * const cqueue_t);
-void (* _private push_back)(union CQueue_T * const cqueue_t, T const value);
-void (* _private pop_back)(union CQueue_T * const cqueue_t);
-void (* _private push_front)(union CQueue_T * const cqueue_t, T const value);
-void (* _private pop_front)(union CQueue_T * const cqueue_t);
+    size_t (* cqueue_t_private size)(union CQueue_T * const cqueue_t);
+void (* cqueue_t_private clear)(union CQueue_T * const cqueue_t);
+void (* cqueue_t_private reserve)(union CQueue_T * const cqueue_t, size_t const capacity);
+T * (* cqueue_t_private begin)(union CQueue_T * const cqueue_t);
+T * (* cqueue_t_private end)(union CQueue_T * const cqueue_t);
+T * (* cqueue_t_private at)(union CQueue_T * const cqueue_t, size_t const index);
+T (* cqueue_t_private access)(union CQueue_T * const cqueue_t, size_t const index);
+T (* cqueue_t_private back)(union CQueue_T * const cqueue_t);
+T (* cqueue_t_private front)(union CQueue_T * const cqueue_t);
+void (* cqueue_t_private push_back)(union CQueue_T * const cqueue_t, T const value);
+void (* cqueue_t_private pop_back)(union CQueue_T * const cqueue_t);
+void (* cqueue_t_private push_front)(union CQueue_T * const cqueue_t, T const value);
+void (* cqueue_t_private pop_front)(union CQueue_T * const cqueue_t);
 
     };
 };
@@ -40,10 +40,10 @@ union CQueue_T
         struct
     {
       union Object Object;
-      size_t _private hd;
-size_t _private tl;
-size_t _private capacity;
-T * _private buffer;
+      size_t cqueue_t_private hd;
+size_t cqueue_t_private tl;
+size_t cqueue_t_private capacity;
+T * cqueue_t_private buffer;
 
     };
 };

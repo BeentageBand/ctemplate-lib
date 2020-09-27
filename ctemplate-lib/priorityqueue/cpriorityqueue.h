@@ -1,8 +1,8 @@
 #include "cobject/cobject.h"
 #ifdef CPRIORITYQUEUE_T_IMPLEMENTATION 
-#define _private
+#define cpriorityqueue_private
 #else
-#define _private const
+#define cpriorityqueue_private const
 #endif 
 
 #ifdef __cplusplus
@@ -15,12 +15,12 @@ union CPriorityQueue_T_Class
     struct
     {
         struct Class Class;
-        void (* _private clear)(union CPriorityQueue_T * const cpriorityqueue_t);
-        size_t (* _private size)(union CPriorityQueue_T * const cpriorityqueue_t);
-        void (* _private reserve)(union CPriorityQueue_T * const cpriorityqueue_t, size_t const capacity);
-        Q (* _private poll)(union CPriorityQueue_T * const cpriorityqueue_t);
-        Q (* _private peek)(union CPriorityQueue_T * const cpriorityqueue_t);
-        void (* _private push)(union CPriorityQueue_T * const cpriorityqueue_t, Q const value);
+        void (* cpriorityqueue_private clear)(union CPriorityQueue_T * const cpriorityqueue_t);
+        size_t (* cpriorityqueue_private size)(union CPriorityQueue_T * const cpriorityqueue_t);
+        void (* cpriorityqueue_private reserve)(union CPriorityQueue_T * const cpriorityqueue_t, size_t const capacity);
+        Q (* cpriorityqueue_private poll)(union CPriorityQueue_T * const cpriorityqueue_t);
+        Q (* cpriorityqueue_private peek)(union CPriorityQueue_T * const cpriorityqueue_t);
+        void (* cpriorityqueue_private push)(union CPriorityQueue_T * const cpriorityqueue_t, Q const value);
     };
 };
 
@@ -30,8 +30,8 @@ union CPriorityQueue_T
         struct
     {
       union Object Object;
-      union CVector_T _private vector;
-      PriorityComparator_T _private cmp;
+      union CVector_T cpriorityqueue_private vector;
+      PriorityComparator_T cpriorityqueue_private cmp;
     };
 };
 
@@ -56,4 +56,4 @@ extern void CPriorityQueue_T_push(union CPriorityQueue_T * const cpriorityqueue_
 #ifdef __cplusplus
 }
 #endif
-#undef _private
+#undef cpriorityqueue_private
