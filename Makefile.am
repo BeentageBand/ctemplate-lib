@@ -6,6 +6,8 @@ ctemplate-lib/hashmap/chashmap.h                          \
 ctemplate-lib/hashmap/chashmap-internal.h                 \
 ctemplate-lib/hashmap/chashmap-int-template.h             \
 ctemplate-lib/hashmap/chashmap-template.h                 \
+ctemplate-lib/hashmap/hashpair.c                          \
+ctemplate-lib/hashmap/hashpair.h                          \
 ctemplate-lib/hashset/chashset.c                          \
 ctemplate-lib/hashset/chashset.h                          \
 ctemplate-lib/hashset/chashset-internal.h                 \

@@ -79,7 +79,7 @@ void cqueue_t_push_back(union CQueue_T * const cqueue_t, T const value)
       CQueue_T_reserve(cqueue_t, cqueue_t->capacity * 2);
       new_index = (cqueue_t->tl + 1)  % cqueue_t->capacity;
     }
-    cqueue_t->buffer[cqueue_t->tl] = value;
+    memcpy(cqueue_t->buffer + cqueue_t->tl, &value, sizeof(value));
     cqueue_t->tl = new_index; 
 }
 
@@ -100,7 +100,7 @@ void cqueue_t_push_front(union CQueue_T * const cqueue_t, T const value)
       new_index = (cqueue_t->hd) ? cqueue_t->hd - 1 : cqueue_t->capacity - 1;
     }
     cqueue_t->hd = new_index;
-    cqueue_t->buffer[cqueue_t->hd] = value;
+    memcpy(cqueue_t->buffer + cqueue_t->hd,  &value, sizeof(value));
 }
 
 void cqueue_t_pop_front(union CQueue_T * const cqueue_t)
@@ -137,7 +137,7 @@ void cqueue_t_clear(union CQueue_T * const cqueue_t)
 {
    while(cqueue_t->hd != cqueue_t->tl) 
    {
-      cqueue_t->vtbl->pop_back(cqueue_t);
+      CQueue_T_pop_back(cqueue_t);
    }
 }
 
