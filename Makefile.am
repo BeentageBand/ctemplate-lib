@@ -45,6 +45,8 @@ ctemplate-lib/vector/cvector-internal.h                   \
 ctemplate-lib/vector/cvector-int-template.h               \
 ctemplate-lib/vector/cvector-template.h   
 
+pkgconfig_DATA = ctemplate-lib.pc
+
 # Unit Tests
 check_PROGRAMS = unittest
 unittest_SOURCES = \
@@ -59,7 +61,7 @@ tst/priority-queue-test.cc \
 tst/vector-test.cc   
 
 unittest_CPPFLAGS = $(libgmock_main_CFLAGS)
-unittest_LDADD = $(lib_LTLIBRARIES) $(libgmock_main_LIBS) $(libdir)/libcobject-1.0.a
+unittest_LDADD = $(lib_LTLIBRARIES) $(COBJECT_LIBS) $(GMOCK_LIBS)
 unittest_LDFLAGS = -no-install
 
 EXTRA_DIST = m4/NOTES

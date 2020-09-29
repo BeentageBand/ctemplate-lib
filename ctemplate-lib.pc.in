@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE_NAME@
+Description: ctemplate library using cobject
+URL: https://github.com/BeentageBand/ctemplate-lib.git
+Version: @PACKAGE_VERSION@
+Requires: @COBJECT_PKG_REQ@
+
+Cflags: -I${includedir}
