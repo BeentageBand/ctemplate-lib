@@ -60,7 +60,7 @@ tst/queue-test.cc          \
 tst/priority-queue-test.cc \
 tst/vector-test.cc   
 
-unittest_CPPFLAGS = $(libgmock_main_CFLAGS)
+unittest_CPPFLAGS = $(GMOCK_CFLAGS) $(COBJECT_CFLAGS)
 unittest_LDADD = $(lib_LTLIBRARIES) $(COBJECT_LIBS) $(GMOCK_LIBS)
 unittest_LDFLAGS = -no-install
 

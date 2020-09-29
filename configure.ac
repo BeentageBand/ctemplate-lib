@@ -1,13 +1,13 @@
 # Release version
 m4_define([package_version_major],[1])
-m4_define([package_version_minor],[2])
-m4_define([package_version_micro],[3])
+m4_define([package_version_minor],[0])
+m4_define([package_version_micro],[0])
 
 # API version
 m4_define([api_version],[1])
 
 # Initialize
-AC_INIT([ctemplate-lib], [1.0], [beentageband@gmail.com])
+AC_INIT([ctemplate-lib], [package_version_major.package_version_minor.package_version_micro], [beentageband@gmail.com])
 
 # Dependencies
 PKG_PROG_PKG_CONFIG
@@ -22,7 +22,7 @@ AC_SUBST([API_VERSION],api_version)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
-COBJECT_PKG_REQ="cobject >= 1.0"
+COBJECT_PKG_REQ="cobject >= 1.0.0"
 PKG_CHECK_MODULES([COBJECT], [cobject])
 AC_SUBST(COBJECT_PKG_REQ)
 
