@@ -20,6 +20,7 @@
 #define chashmap_t_insert TEMPLATE(chashmap, CHashMap_Params, insert)
 #define chashmap_t_erase TEMPLATE(chashmap, CHashMap_Params, erase)
 #define chashmap_t_delete TEMPLATE(chashmap, CHashMap_Params, delete)
+#define chashmap_t_override TEMPLATE(chashmap, CHashMap_Params, override)
 #define CHashMap_T_populate TEMPLATE(CHashMap, CHashMap_Params, populate)
 
 #define HashKey_T T_Param(1, CHashMap_Params)
@@ -88,6 +89,7 @@
 #undef chashmap_t_insert
 #undef chashmap_t_erase
 #undef chashmap_t_delete
+#undef chashmap_t_override
 #undef CHashMap_T_populate
 
 #undef HashKey_T

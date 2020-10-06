@@ -59,6 +59,7 @@ dkms.conf
 .dirstamp
 .deps
 .libs
+*.pc
 *.m4
 autom4te.cache
 build-aux
